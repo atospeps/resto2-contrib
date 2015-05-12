@@ -19,11 +19,9 @@
 
     </div>
     <div class="small-12 large-10 columns">
-
-        <div ng-show='busy'>Loading data...</div>
+        <a href="#userCreation" class="button expand">{{'user_creation'| translate}}</a>
 
         <div class="users tableContainer" 
-             ng-controller="UsersController" 
              ng-show="showUsers" 
              infinite-scroll="loadMore()" 
              infinite-scroll-disabled='busy'

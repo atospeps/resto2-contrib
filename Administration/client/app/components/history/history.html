@@ -23,7 +23,6 @@
         
 
         <div class="history tableContainer" 
-             ng-controller="HistoryController"
              infinite-scroll="loadMore()" 
              infinite-scroll-disabled='busy'
              infinite-scroll-distance="1">
@@ -74,10 +73,6 @@
             <div>
                 <a href="" class="button" ng-click="resetFilters()" style="margin-top: 15px;">{{'reset filters' | translate }}</a>
             </div>
-                
-            
-            
-            <div ng-show='busy'>{{'loading_data'| translate}}</div>
 
             <table>
                 <thead>
