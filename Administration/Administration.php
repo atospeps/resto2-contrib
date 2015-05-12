@@ -503,6 +503,16 @@ class Administration extends RestoModule {
                     'username' => isset($data['username']) ? $data['username'] : null,
                     'givenname' => isset($data['givenname']) ? $data['givenname'] : null,
                     'lastname' => isset($data['lastname']) ? $data['lastname'] : null,
+                	'organization' => isset($data['organization']) ? $data['organization'] : null,
+	                'nationality' => isset($data['nationality']) ? $data['nationality'] : null,
+	                'domain' => isset($data['domain']) ? $data['domain'] : null,
+	                'use' => isset($data['use']) ? $data['use'] : null,
+	                'country' => isset($data['country']) ? $data['country'] : null,
+	                'adress' => isset($data['adress']) ? $data['adress'] : null,
+	                'numtel' => isset($data['numtel']) ? $data['numtel'] : null,
+	                'numfax' => isset($data['numfax']) ? $data['numfax'] : null,
+	                'instantdownloadvolume' => isset($data['instantdownloadvolume']) ? $data['instantdownloadvolume'] : null,
+	                'weeklydownloadvolume' => isset($data['weeklydownloadvolume']) ? $data['weeklydownloadvolume'] : null,
                     'activated' => 0
                 ))
             );
@@ -604,9 +614,6 @@ class Administration extends RestoModule {
      * @throws Exception
      */
     private function addRights() {
-
-
-
         try {
             /*
              * Get posted data
@@ -830,9 +837,6 @@ class Administration extends RestoModule {
      * @throws Exception
      */
     private function to($data) {
-
-
-
         return $data;
     }
 
@@ -847,10 +851,8 @@ class Administration extends RestoModule {
      */
     public function getUsersProfiles($keyword = null, $min = 0, $number = 50) {
 
-
-
         try {
-            $results = pg_query($this->context->dbDriver->dbh, 'SELECT userid, email, groupname, username, givenname, lastname, registrationdate, activated FROM usermanagement.users ' . (isset($keyword) ? 'WHERE email LIKE \'%' . $keyword . '%\' OR username LIKE \'%' . $keyword . '%\' OR groupname LIKE \'%' . $keyword . '%\' OR givenname LIKE \'%' . $keyword . '%\' OR lastname LIKE \'%' . $keyword . '%\'' : '') . ' LIMIT ' . $number . ' OFFSET ' . $min);
+            $results = pg_query($this->context->dbDriver->dbh, 'SELECT userid, email, groupname, username, givenname, lastname, organization, nationality, domain, use, country, adress, numtel, numfax, instantdownloadvolume, weeklydownloadvolume, registrationdate, activated FROM usermanagement.users ' . (isset($keyword) ? 'WHERE email LIKE \'%' . $keyword . '%\' OR username LIKE \'%' . $keyword . '%\' OR groupname LIKE \'%' . $keyword . '%\' OR givenname LIKE \'%' . $keyword . '%\' OR lastname LIKE \'%' . $keyword . '%\'' : '') . ' LIMIT ' . $number . ' OFFSET ' . $min);
             if (!$results) {
                 throw new Exception();
             }

@@ -25,7 +25,7 @@
     angular.module('administration')
             .constant('CONFIG', {
                 //'restoServerUrl': 'http://resto.mapshup.com/2.0/',
-                'restoServerUrl': 'http://localhost/resto-take5',
+                'restoServerUrl': 'http://localhost/resto',
                 'administrationEndpoint': '/administration',
                 'offset': 55,
                 'version': 0.1,
