@@ -148,6 +148,40 @@ div.history {
     margin-top: 25px;
 }
 
+.profileWrapper {
+	text-align: center;
+}
+
+.profileProperty {
+	margin-top: 30px;
+}
+
+.profileProperty span {
+	font-weight: bold;
+}
+
+.profileProperty input {
+	width: 200px;
+	margin: auto;
+}
+
+.profileWrapper button {
+	color: white;
+	margin-top: 30px
+}
+
+.profileWrapper .logMessage {
+	margin-top: 30px
+}
+
+.logMessage .successLog {
+	color: green;
+}
+
+.logMessage .errorLog {
+	color: red;
+}
+
 /*------------------------------------*\
     $SPINNER
 \*------------------------------------*/

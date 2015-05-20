@@ -88,6 +88,7 @@
                     {
                         'history': 'app/components/user/templates/history.html',
                         'profile': 'app/components/user/templates/profile.html',
+                        'rights': 'app/components/user/templates/rights.html',
                         'rightCreation': 'app/components/user/templates/rightCreation.html',
                         'signatures': 'app/components/user/templates/signatures.html'
                     };
@@ -97,6 +98,7 @@
              */
             $scope.init = function() {
                 $scope.showProfile = false;
+                $scope.showRights = false;
                 $scope.showHistory = false;
                 $scope.showCreation = false;
                 $scope.showAdvancedRights = false;
@@ -118,6 +120,8 @@
                 $scope.startIndex = 0;
                 $scope.offset = CONFIG.offset;
 
+                $scope.successMessage = "";
+                $scope.errorMessage = "";
                 $scope.template = null;
             };
 
@@ -221,9 +225,19 @@
             $scope.displayProfile = function() {
                 $scope.init();
                 $scope.getUser();
-                $scope.getRights();
                 $scope.template = $scope.templates.profile;
                 $scope.showProfile = true;
+            };
+
+            /*
+             * Display rights
+             */
+            $scope.displayRights = function() {
+                $scope.init();
+                $scope.getUser();
+                $scope.getRights();
+                $scope.template = $scope.templates.rights;
+                $scope.showRights = true;
             };
 
             /*
@@ -256,9 +270,18 @@
              * go to profile
              */
             $scope.goToProfile = function() {
-                var path = '/users/' + $scope.selectedUser.userid;
+                var path = '/users/' + $scope.selectedUser.userid + '/profile';
                 $location.path(path, false);
                 $scope.displayProfile();
+            };
+
+            /*
+             * go to rights
+             */
+            $scope.goToRights = function() {
+                var path = '/users/' + $scope.selectedUser.userid;
+                $location.path(path, false);
+                $scope.displayRights();
             };
 
             /*
@@ -322,7 +345,7 @@
                 options['filters'] = $scope.feature.filters;
 
                 administrationAPI.setAdvancedRight(options, function() {
-                    $scope.displayProfile();
+                    $scope.displayRights();
                     $scope.showAdvancedRights = true;
                 }, function(data) {
                     $scope.alert('error - ' + data.ErrorMessage);
@@ -425,6 +448,23 @@
                     $scope.signatures = data;
                 });
             };
+            
+            /**
+             * Save User profile
+             */
+            $scope.saveProfile = function() {
+            	var userData = { 
+            			"instantdownloadvolume" : $scope.selectedUser.instantdownloadvolume,
+            			"weeklydownloadvolume" : $scope.selectedUser.weeklydownloadvolume
+    			};
+        		administrationAPI.setUserProfile($routeParams.userid, userData, function(data) {
+        			$scope.errorMessage = "";
+        			$scope.successMessage = "Profile successfully saved !";
+        		}, function(data) {
+        			$scope.successMessage = "";
+        			$scope.errorMessage = "Error, profile has not be saved !"
+        		});
+            }
 
             /*
              * Set history 
@@ -511,7 +551,7 @@
 
             $scope.$emit('showUser');
             $scope.init();
-            $scope.displayProfile();
+            $scope.displayRights();
 
             if ($routeParams.section === 'history') {
                 $scope.displayHistory();
@@ -519,6 +559,8 @@
                 $scope.displaySignatures();
             } else if ($routeParams.section === 'rights') {
                 $scope.displayCreateAdvancedRights();
+            } else if ($routeParams.section === 'profile') {
+                $scope.displayProfile();
             }
 
         }

@@ -42,7 +42,8 @@
             setAdvancedRight: setAdvancedRight,
             setCollectionRight: setCollectionRight,
             setRight: setRight,
-            setUserGroup: setUserGroup
+            setUserGroup: setUserGroup,
+            setUserProfile: setUserProfile
         };
         return api;
         /////////
@@ -423,6 +424,26 @@
                 }
             }).error(function() {
                 alert('error - set group');
+            });
+        }
+        ;
+
+        /**
+         * Set user profile
+         * 
+         * @param {string} userid
+         * @param {array} data
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function setUserProfile(userid, data, callback, error) {
+
+            $http.put(config.restoServerUrl + '/users/' + userid, data)
+            .success(function(data, status, headers, config) {
+            		callback();
+                }).error(function(data) {
+            		error(data);
             });
         }
         ;
