@@ -199,7 +199,7 @@ loading-spiner-holder {
 }
 
 #spinner {  
-    position:absolute;
+    position:fixed;
     top:0;
     left:0;
     width:100%;
@@ -210,7 +210,7 @@ loading-spiner-holder {
 }
 
 .spinner--img {
-    position: absolute;
+    position: fixed;
     display: block;    
     width: 35px;
     left: 45%;
