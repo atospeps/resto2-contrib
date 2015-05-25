@@ -49,7 +49,7 @@
 
 
             $scope.methods = ['POST', 'GET', 'PUT', 'DELETE'];
-            $scope.services = ['search', 'visualize', 'create', 'insert'];
+            $scope.services = ['search', 'visualize', 'create', 'insert', 'download', 'remove'];
             $scope.collections = [];
 
             /**
