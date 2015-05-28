@@ -78,9 +78,9 @@
      *  
      */
 
-    angular.module('administration').controller('UserController', ['$scope', 'administrationServices', '$location', '$routeParams', 'administrationAPI', 'CONFIG', userController]);
+    angular.module('administration').controller('UserController', ['$scope', 'administrationServices', '$location', '$routeParams', 'administrationAPI', 'CONFIG', '$q', userController]);
 
-    function userController($scope, administrationServices, $location, $routeParams, administrationAPI, CONFIG) {
+    function userController($scope, administrationServices, $location, $routeParams, administrationAPI, CONFIG, $q) {
 
         if (administrationServices.isUserAnAdministrator()) {
 
@@ -167,7 +167,7 @@
              * @param {boolean} value
              * 
              */
-            $scope.setRight = function(collection, right, value) {
+            $scope.setRight = function(collection, feature, right, value) {
 
                 if (value === 1) {
                     value = 0;
@@ -182,6 +182,7 @@
                 options['emailorgroup'] = $scope.selectedUser.email;
                 options['userid'] = $scope.selectedUser.userid;
                 options['collection'] = collection;
+                options['feature'] = feature;
                 options['field'] = right;
                 options['value'] = value;
 
@@ -224,7 +225,14 @@
              */
             $scope.displayProfile = function() {
                 $scope.init();
-                $scope.getUser();
+                $q.all([$scope.getUser(),$scope.getGroups()]).then(function() {
+                	for(var i = 0; i < $scope.groups.length; i++) {
+                		if($scope.groups[i].groupname === $scope.selectedUser.groupname) {
+                            $scope.selectedUser.group = $scope.groups[i];
+                            break;
+                		}
+                	}
+                });
                 $scope.template = $scope.templates.profile;
                 $scope.showProfile = true;
             };
@@ -426,9 +434,12 @@
              * Get user
              */
             $scope.getUser = function() {
+            	var d = $q.defer();
                 administrationAPI.getUser($routeParams.userid, function(data) {
                     $scope.selectedUser = data;
+                    d.resolve();
                 });
+                return d.promise;
             };
 
             /*
@@ -454,6 +465,7 @@
              */
             $scope.saveProfile = function() {
             	var userData = { 
+            			"groupname" : $scope.selectedUser.group.groupname,
             			"instantdownloadvolume" : $scope.selectedUser.instantdownloadvolume,
             			"weeklydownloadvolume" : $scope.selectedUser.weeklydownloadvolume
     			};
@@ -543,6 +555,18 @@
                     $scope.collections = data;
                     $scope.busy = false;
                 });
+            };
+
+            /*
+             * Get collections
+             */
+            $scope.getGroups = function() {
+            	var d = $q.defer();
+                administrationAPI.getGroups(function(data) {
+                    $scope.groups = data;
+                    d.resolve();
+                });
+                return d.promise;
             };
 
             $scope.alert = function(message) {

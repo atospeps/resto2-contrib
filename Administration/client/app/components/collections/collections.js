@@ -56,6 +56,7 @@
             $scope.getRights = function() {
                 administrationAPI.getCollections(function(data) {
                     $scope.rights = data;
+                    console.log(JSON.stringify($scope.rights));
                     $scope.busy = false;
                 });
             };
@@ -67,19 +68,16 @@
              * @param {String} right
              * @param {boolean} value
              */
-            $scope.setRight = function(collection, right, value) {
+            $scope.setRight = function(collection, group, right, value) {
 
                 if (value === 1) {
                     value = 0;
-                } else if (value === 0) {
-                    value = 1;
                 } else {
-                    alert($filter('translate')('error.setRight'));
-                    return;
+                    value = 1;
                 }
 
                 var options = [];
-                options['emailorgroup'] = 'default';
+                options['emailorgroup'] = group;
                 options['collection'] = collection;
                 options['field'] = right;
                 options['value'] = Number(value);

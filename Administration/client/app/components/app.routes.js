@@ -34,6 +34,10 @@
                         templateUrl: "app/components/users/users.html",
                         controller: "UsersController"
                     })
+                    .when('/groups', {
+                        templateUrl: "app/components/groups/groups.html",
+                        controller: "GroupsController"
+                    })
                     .when('/collections', {
                         templateUrl: "app/components/collections/collections.html",
                         controller: "CollectionsController"
@@ -57,6 +61,14 @@
                     .when('/userCreation', {
                         templateUrl: 'app/components/userCreation/userCreation.html',
                         controller: 'UserCreationController'
+                    })
+                    .when('/groups/:groupid', {
+                        templateUrl: 'app/components/group/group.html',
+                        controller: 'GroupController'
+                    })
+                    .when('/groupCreation', {
+                        templateUrl: "app/components/groupCreation/groupCreation.html",
+                        controller: "GroupCreationController"
                     })
                     .otherwise({
                         redirectTo: '/home'

@@ -109,6 +109,14 @@
             $scope.init();
             $scope.showUsers = true;
         });
+        $scope.$on('showGroup', function() {
+            $scope.init();
+            $scope.showGroup = true;
+        });
+        $scope.$on('showGroups', function() {
+            $scope.init();
+            $scope.showGroups = true;
+        });
         $scope.$on('showHome', function() {
             $scope.init();
             $scope.showHome = true;
@@ -129,6 +137,8 @@
             $scope.showUsers = false;
             $scope.showHistory = false;
             $scope.showUser = false;
+            $scope.showGroups = false;
+            $scope.showGroup = false;
             $scope.showHome = false;
             $scope.showCollections = false;
             $scope.showStats = false;

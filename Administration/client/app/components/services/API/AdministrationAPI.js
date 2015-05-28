@@ -43,7 +43,12 @@
             setCollectionRight: setCollectionRight,
             setRight: setRight,
             setUserGroup: setUserGroup,
-            setUserProfile: setUserProfile
+            setUserProfile: setUserProfile,
+            getGroups: getGroups,
+            addGroup: addGroup,
+            getGroup: getGroup,
+            updateGroup: updateGroup,
+            deleteGroup: deleteGroup
         };
         return api;
         /////////
@@ -438,16 +443,99 @@
          * @returns {undefined}
          */
         function setUserProfile(userid, data, callback, error) {
-
             $http.put(config.restoServerUrl + '/users/' + userid, data)
             .success(function(data, status, headers, config) {
             		callback();
                 }).error(function(data) {
             		error(data);
             });
-        }
-        ;
+        };
 
+        /**
+         * Get groups
+         * 
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function getGroups(callback, error) {
+            $http.get(config.restoServerUrl + '/groups')
+            .success(function(data, status, headers, config) {
+            		callback(data);
+                }).error(function(data) {
+            		error(data);
+            });
+        };
+
+        /**
+         * Add group
+         * 
+         * @param {array} data
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function addGroup(data, callback, error) {
+            $http.post(config.restoServerUrl + '/groups', data)
+            .success(function(data, status, headers, config) {
+            		callback(data);
+                }).error(function(data) {
+            		error(data);
+            });
+        };
+
+        /**
+         * Get group
+         * 
+         * @param {string} groupId
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function getGroup(groupId, callback, error) {
+            $http.get(config.restoServerUrl + '/groups/' + groupId)
+            .success(function(data, status, headers, config) {
+            		callback(data);
+                }).error(function(data) {
+            		error(data);
+            });
+        };
+
+        /**
+         * Update group
+         * 
+         * @param {string} groupId
+         * @param {array} data
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function updateGroup(groupId, data, callback, error) {
+            $http.put(config.restoServerUrl + '/groups/' + groupId, data)
+            .success(function(data, status, headers, config) {
+            		callback(data);
+                }).error(function(data) {
+            		error(data);
+            });
+        };
+
+        /**
+         * Delete group
+         * 
+         * @param {string} groupId
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function deleteGroup(groupId, callback, error) {
+            $http.delete(config.restoServerUrl + '/groups/' + groupId)
+            .success(function(data, status, headers, config) {
+            		callback(data);
+                }).error(function(data) {
+            		error(data);
+            });
+        };
+        
         /**
          * Get signatures
          * 
@@ -529,6 +617,7 @@
             var userid = options['userid'];
             var email = options['emailorgroup'];
             var collection = options['collection'];
+            var feature = options['feature'];
             var field = options['field'];
             var value = options['value'];
 
@@ -545,6 +634,7 @@
                 data: {
                     emailorgroup: email,
                     collection: collection,
+                    feature: feature,
                     field: field,
                     value: value
                 }

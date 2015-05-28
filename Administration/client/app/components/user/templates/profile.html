@@ -16,13 +16,20 @@
 
 <div ng-show="showProfile" class="profileWrapper">
 	<div class="profileProperty">
+		<span>{{'group'| translate}}</span>
+	    <select ng-model="selectedUser.group"
+	          ng-options="group.groupname for group in groups">
+	    </select>
+	</div>
+	
+	<div class="profileProperty">
 		<span>{{'instant download limit size'| translate}}</span>
-		<input class="profileInput" type="number" name="instantLimitDownloadSize" ng-model="selectedUser.instantdownloadvolume" required>
+		<input type="number" name="instantLimitDownloadSize" ng-model="selectedUser.instantdownloadvolume" required>
 	</div>
 	
 	<div class="profileProperty">
 		<span>{{'weekly download limit size'| translate}}</span>
-		<input class="profileInput" type="number" name="weeklyLimitDownloadSize" ng-model="selectedUser.weeklydownloadvolume" required>
+		<input type="number" name="weeklyLimitDownloadSize" ng-model="selectedUser.weeklydownloadvolume" required>
 	</div>
 	
 	<button ng-click="saveProfile()">

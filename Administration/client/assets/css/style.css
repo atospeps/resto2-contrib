@@ -160,18 +160,25 @@ div.history {
 	font-weight: bold;
 }
 
-.profileProperty input {
+.profileProperty input, select {
+	display: block;
 	width: 200px;
 	margin: auto;
 }
 
 .profileWrapper button {
 	color: white;
-	margin-top: 30px
+	margin-top: 40px;
+	margin-right: 20px;
+	margin-left: 20px;
 }
 
 .profileWrapper .logMessage {
 	margin-top: 30px
+}
+
+.logMessage {
+	text-align: center;
 }
 
 .logMessage .successLog {
