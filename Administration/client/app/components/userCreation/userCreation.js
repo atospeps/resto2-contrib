@@ -35,7 +35,7 @@
                 options['email'] = $scope.profile.email;
                 options['password'] = $scope.profile.password;
                 options['username'] = $scope.profile.username;
-                options['givename'] = $scope.profile.givename;
+                options['givenname'] = $scope.profile.givenname;
                 options['lastname'] = $scope.profile.lastname;
                 administrationAPI.addUser(options, function() {
                     alert($filter('translate')('user.user created'));

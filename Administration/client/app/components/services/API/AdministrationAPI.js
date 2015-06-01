@@ -294,18 +294,12 @@
             $http({
                 method: 'POST',
                 url: config.restoServerUrl + config.administrationEndpoint + '/users',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                transformRequest: function(obj) {
-                    var str = [];
-                    for (var p in obj)
-                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                    return str.join("&");
-                },
+                headers: {'Content-Type': 'application/json'},
                 data: {
                     email: options['email'],
                     password: options['password'],
                     username: options['username'],
-                    givename: options['givename'],
+                    givenname: options['givenname'],
                     lastname: options['lastname']
                 }
             }).success(function(data) {
@@ -410,13 +404,7 @@
             $http({
                 method: 'POST',
                 url: config.restoServerUrl + config.administrationEndpoint + '/users/' + userid,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                transformRequest: function(obj) {
-                    var str = [];
-                    for (var p in obj)
-                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                    return str.join("&");
-                },
+                headers: {'Content-Type': 'application/json'},
                 data: {
                     email: email,
                     groupname: groupname
