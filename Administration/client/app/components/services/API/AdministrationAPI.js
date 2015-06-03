@@ -431,7 +431,7 @@
          * @returns {undefined}
          */
         function setUserProfile(userid, data, callback, error) {
-            $http.put(config.restoServerUrl + '/users/' + userid, data)
+            $http.put(config.restoServerUrl + config.administrationEndpoint + '/users/' + userid, data)
             .success(function(data, status, headers, config) {
             		callback();
                 }).error(function(data) {

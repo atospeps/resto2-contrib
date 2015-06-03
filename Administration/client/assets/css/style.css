@@ -148,6 +148,14 @@ div.history {
     margin-top: 25px;
 }
 
+.custom-th {
+	width: 100px;
+}
+
+.custom-large {
+	width: 88%;
+}
+
 .profileWrapper {
 	text-align: center;
 }
