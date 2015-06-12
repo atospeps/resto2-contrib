@@ -82,5 +82,8 @@
     "user.groupname": "group",
     "user.country": "country",
     "user.topics": "topics",
-    "user.organization": "organization"
+    "user.organization": "organization",
+    "user.stats.volume": "Total downloaded volume",
+    "product.stats.volume": "Total downloaded volume",
+    "product.stats.quantity": "Total downloaded quantity"
 }

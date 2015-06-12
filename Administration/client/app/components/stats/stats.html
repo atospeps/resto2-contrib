@@ -16,10 +16,28 @@
 
 <div class="main">
     <div class="show-for-large-up large-2 columns">
-
     </div>
     <div class="small-12 large-10 columns">
-
+	    <div class="row">
+	        <div class="small-4 columns">
+	            <label for="right-label" class="right">Year</label>
+	        </div>
+		    <div class="small-4 columns">
+		        <select class="form-control" ng-model="statsDate" ng-options="year for year in statsYears" ng-change="setYear(statsDate)">
+		        	<option value="">All years</option>     
+	            </select>
+		    </div>
+		    <div class="small-5 columns">
+		    </div>
+		</div>
+		
+		<div class="center" style="margin-top:50px">
+			<span style="font-weight:bold;">{{'product.stats.volume' | translate}} </span>:<span> {{totalVolume}} Mo</span>
+		</div>
+		<div class="center" style="margin-top:20px">
+			<span style="font-weight:bold;">{{'product.stats.quantity' | translate}} </span>:<span> {{totalQuantity}} products</span>
+		</div>
+		
         <div ng-show='busy'>{{'loading_data'| translate}}</div>
 
         <div class="row" >

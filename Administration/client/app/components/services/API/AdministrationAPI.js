@@ -44,6 +44,7 @@
             setRight: setRight,
             setUserGroup: setUserGroup,
             setUserProfile: setUserProfile,
+            getUserStats: getUserStats,
             getGroups: getGroups,
             addGroup: addGroup,
             getGroup: getGroup,
@@ -195,14 +196,14 @@
          * @param {function} error
          * @returns {undefined}
          */
-        function getCollectionsStats(callback, error) {
+        function getCollectionsStats(startDate, endDate, callback, error) {
             // /administration/stats/collections.json
             var url = config.restoServerUrl + config.administrationEndpoint + '/stats/collections.json';
 
-
             $http({
                 method: 'GET',
-                url: url
+                url: url,
+                params: {startDate : startDate, endDate : endDate}
             }).success(function(data) {
                 if (data.ErrorMessage) {
                     error(data);
@@ -439,6 +440,32 @@
             });
         };
 
+        /**
+         * Get user stats
+         * 
+         * @param {string} userid
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function getUserStats(userid, callback, error) {
+            // /administration/stats/users/userid
+            var url = config.restoServerUrl + config.administrationEndpoint + '/stats/users/' + userid;
+
+            $http({
+                method: 'GET',
+                url: url
+            }).success(function(data) {
+                if (data.ErrorMessage) {
+                    error(data);
+                } else {
+                    callback(data);
+                }
+            }).error(function(data) {
+                error(data);
+            });
+        };
+        
         /**
          * Get groups
          * 

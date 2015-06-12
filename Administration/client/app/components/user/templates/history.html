@@ -34,12 +34,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="x in history">
-                <td style="max-width:100px;" class="show-for-medium-up">{{ x.userid}}</td>
-                <td class="show-for-medium-up">{{ x.method}}</td>
-                <td style="max-width:200px; overflow:hidden;">{{ x.service}}</td>
-                <td style="max-width:200px; overflow:hidden;" >{{ x.collection}}</td>
-                <td style="max-width:200px; overflow:hidden;" class="show-for-medium-up">{{ x.resourceid}}</td>
-                <td style="max-width:700px; overflow:hidden;" class="show-for-medium-up">{{ x.query}}</td>
+                <td style="width:100px;" class="show-for-medium-up">{{ x.userid}}</td>
+                <td style="width:100px;" class="show-for-medium-up">{{ x.method}}</td>
+                <td style="max-width:200px;">{{ x.service}}</td>
+                <td style="max-width:200px;" >{{ x.collection}}</td>
+                <td style="width:200px;" class="show-for-medium-up">{{ x.resourceid}}</td>
+                <td style="max-width:400px; overflow:hidden;" class="show-for-medium-up">{{ x.query}}</td>
                 <td style="width:210px" class="show-for-medium-up">{{ x.querytime}}</td>
                 <td style="width:100px" class="show-for-medium-up">{{ x.ip}}</td>
             </tr>

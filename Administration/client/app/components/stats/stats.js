@@ -27,15 +27,46 @@
         if (administrationServices.isUserAnAdministrator()) {
 
             $scope.stats = [];
+            $scope.statsYears = [];
+            $scope.statsDate;
+            $scope.totalVolume;
+            $scope.totalQuantity;
 
             /*
              * Get stats for each collection
              */
-            $scope.getStats = function() {
-                administrationAPI.getCollectionsStats(function(data) {
-                    $scope.stats = data;
+            $scope.getStats = function(startDate, endDate) {
+                administrationAPI.getCollectionsStats(startDate, endDate, function(data) {
+                    $scope.stats = data["collectionStats"];
+                    $scope.totalVolume = data["productVolume"];
+                    $scope.totalQuantity = data["productQuantity"];
                     $scope.busy = false;
                 });
+            };
+            
+            /*
+             * Get available years
+             */
+            $scope.getYears = function() {
+            	var currentYear = new Date().getFullYear();
+            	while(currentYear >= 2015) {
+            		$scope.statsYears.push(currentYear);
+            		currentYear--;
+            	}
+            	$scope.statsYears.reverse();
+            };
+            
+            /*
+             * Set year to compute stats
+             */
+            $scope.setYear = function(year) {
+            	var startDate = null;
+            	var endDate = null;
+            	if(year) {
+            		startDate = new Date(year, 0, 1);
+            		endDate = new Date(year, 11, 31);
+            	}
+            	$scope.getStats(startDate, endDate);
             };
 
             /*
@@ -44,12 +75,12 @@
             $scope.init = function() {
                 $scope.busy = true;
                 $scope.getStats();
+                $scope.getYears();
                 $scope.$emit('showStats');
             };
 
             $scope.init();
 
         }
-    }
-    ;
+    };
 })();
