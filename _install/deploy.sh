@@ -46,6 +46,6 @@ else
 fi
 
 echo ' ==> Copy files to $TARGETDIR directory'
-cp -Rf $SRCDIR/index.html $SRCDIR/app $SRCDIR/assets $TARGETDIR
+cp -Rf $SRCDIR/index.html $SRCDIR/favicon.ico $SRCDIR/app $SRCDIR/assets $TARGETDIR
 echo ' ==> Successfully install resto administration to $TARGETDIR directory'
 echo ' ==> Now, do not forget to check $TARGETDIR/app/components/app.constant.js configuration !'
