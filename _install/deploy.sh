@@ -1,9 +1,15 @@
 #!/bin/bash
 
-usage="## RESTo administration deployment\n\n  Usage $0 -s <ADMIN_SOURCE> -t <ADMIN_TARGET> -b <BACKUPDIR>\n"
-while getopts "s:t:b:h" options; do
+# recuperation du repertoire du script, n'utiliser que la variable PRG_DIR qui represente le chemin absolu
+PRG="$0"
+EXEC_DIR=`dirname ${PRG}`
+export PRG_DIR=`(cd ${EXEC_DIR} ; echo $PWD)`
+#PRG_DIR correspond au chemin complet vers _install
+SRCDIR="${PRG_DIR}/.."
+
+usage="## RESTo administration deployment\n\n  Usage $0 -t <ADMIN_TARGET> -b <BACKUPDIR>\n"
+while getopts "t:b:h" options; do
     case $options in
-        s ) SRCDIR=`echo $OPTARG`;;
         t ) TARGETDIR=`echo $OPTARG`;;
         b ) BACKUPDIR=`echo $OPTARG`;;
         h ) echo -e $usage;;
@@ -13,11 +19,6 @@ while getopts "s:t:b:h" options; do
             exit 1;;
     esac
 done
-if [ "$SRCDIR" = "" ]
-then
-    echo -e $usage
-    exit 1
-fi
 if [ "$TARGETDIR" = "" ]
 then
     echo -e $usage
