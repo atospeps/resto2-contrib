@@ -34,17 +34,15 @@ if [ -d "$TARGETDIR" ]; then
 			fi	
 		fi
 		
-		cp -r $TARGETDIR ${BACKUPDIR%%/}/Administration_$(date +"%Y-%m-%d")
+		tar czf ${BACKUPDIR%%/}/Administration_$(date +"%Y-%m-%d").tgz $TARGETDIR 
 		rc=$?
 		if [[ $? != 0 ]]; then
 			exit $rc
 		fi			
 		rm -r $TARGETDIR
-		mkdir $TARGETDIR
     fi
-else
-	mkdir $TARGETDIR
 fi
+mkdir $TARGETDIR
 
 echo ' ==> Copy files to $TARGETDIR directory'
 cp -Rf $SRCDIR/index.html $SRCDIR/favicon.ico $SRCDIR/app $SRCDIR/assets $TARGETDIR
