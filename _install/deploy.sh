@@ -56,6 +56,11 @@ echo ' ==> Copy files to $TARGETDIR directory'
 cp -Rf $SRCDIR/index.html $SRCDIR/favicon.ico $SRCDIR/app $SRCDIR/assets $TARGETDIR
 
 
+# deploiement du fichier version s'il existe
+if [ -f $SRCDIR/version.txt ]; then
+    cp $SRCDIR/version.txt $TARGETDIR
+fi
+
 
 echo " ==> Applying unix user's rights."
 chown -R $USER:$GROUP $TARGETDIR
