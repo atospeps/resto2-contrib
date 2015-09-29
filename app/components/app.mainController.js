@@ -129,6 +129,10 @@
             $scope.init();
             $scope.showStats = true;
         });
+        $scope.$on('showAcquisition', function() {
+            $scope.init();
+            $scope.showAcquisition = true;
+        });
 
         /*
          * Initialize the context
@@ -136,6 +140,7 @@
         $scope.init = function() {
             $scope.showUsers = false;
             $scope.showHistory = false;
+            $scope.showAcquisition = false;
             $scope.showUser = false;
             $scope.showGroups = false;
             $scope.showGroup = false;

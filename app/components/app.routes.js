@@ -46,6 +46,10 @@
                         templateUrl: "app/components/history/history.html",
                         controller: "HistoryController"
                     })
+                    .when('/acquisition', {
+                        templateUrl: "app/components/acquisition/acquisition.html",
+                        controller: "AcquisitionController"
+                    })
                     .when('/stats', {
                         templateUrl: "app/components/stats/stats.html",
                         controller: "StatsController"
