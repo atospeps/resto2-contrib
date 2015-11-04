@@ -61,6 +61,10 @@
                         templateUrl: "app/components/acquisition/acquisitionHistory.html",
                         controller: "AcquisitionHistoryController"
                     })
+                    .when('/acquisitionDashboard', {
+                        templateUrl: "app/components/acquisition/acquisitionDashboard.html",
+                        controller: "AcquisitionDashboardController"
+                    })
                     // DEM : Acquisition demo <<<<<<<<<<<<<<<<<<<
                     
                     

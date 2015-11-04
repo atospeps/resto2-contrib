@@ -1,0 +1,183 @@
+<!--
+ Copyright 2014 Jérôme Gasperi
+
+ Licensed under the Apache License, version 2.0 (the "License");
+ You may not use this file except in compliance with the License.
+ You may obtain a copy of the License at:
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ License for the specific language governing permissions and limitations
+ under the License.
+-->
+<style>
+
+    .custom.button.history span {
+        //background: #a50c1d; 
+    }
+
+
+    .custom.button.history span:after {
+        border: none;
+        font-family: "foundation-icons";
+        content: "\f12b";
+        font-size: 2rem;
+        line-height: 0.25rem;
+        margin-left: -0.7rem; }
+
+    .padding-10 {
+        padding: 10px;
+    }
+
+    .btnactive {
+        background-color: #F60;
+    }
+
+    .alert {
+        background-color: #FFA4A4 !important;
+    }
+
+
+    table {
+        clear: both;
+        margin-bottom: 0.5em !important;
+        max-width: none !important;
+        width: 100%;
+    }
+
+    table {
+        background: white;
+        margin-bottom: 1.25rem;
+        border: solid 1px #dddddd;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    table.dataTable {
+        clear: both;
+        margin-bottom: 0.5em !important;
+        max-width: none !important;
+        width: 100%;
+    }
+
+    .noactive {
+        background-color: #8C8C8C;
+    }
+</style>
+
+
+<div class="main">
+    <div class="show-for-large-up large-2 columns"></div>
+
+
+    <div class="row">
+        <div class="small-2 large-12 columns">
+
+            <ul class="button-group right">
+                <li><a class="button btnactive" href="#acquisition"><i class="fi-download padding-10"></i>Acquisition queue</a></li>
+                <li><a class="button noactive" href="#acquisitionHistory"><i class="fi-clock padding-10"></i>History</a></li>
+            </ul>
+        </div>        
+    </div>
+
+    <!--div class="show-for-large-up large-2 columns"-->
+
+
+    <div class="row">
+        <div class="large-12 columns">
+
+            <div class="history tableContainer" >
+                <div>
+                    <!--div class="small-12 large-4 columns">
+                        <h1>Acquisition</h1><br>
+
+                    </div-->
+                    <form>
+                        <div class="row">
+                            <div class="large-6 columns">
+                                <div class="row collapse prefix-radius">
+                                    <div class="small-4 columns">
+                                        <span class="prefix">New Priority value</span>
+                                    </div>
+                                    <div class="small-4 columns end">
+                                        <input type="number" placeholder="Value" class="" value="99">
+                                    </div>
+                                </div>
+                            </div>
+
+                    </form>
+
+                    <table class="display responsive no-wrap dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th class="show-for-medium-up clickable custom-th"><input type="checkbox" checked></th>
+                                <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('userid')" >Product identifier  <i class="fi-arrow-up" ng-show="orderBy === 'userid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></i></th>
+                                <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('resourceid')" >Priority  <i class="fi-arrow-up" ng-show="orderBy === 'resourceid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
+                                <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('resourceid')" >Status  <i class="fi-arrow-up" ng-show="orderBy === 'resourceid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
+                                <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('method')" >Ingest date  <i class="fi-arrow-up" ng-show="orderBy === 'method'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
+                                <!--th class="clickable custom-th" ng-click="setHistory('service')" >Re-ingest date  <i class="fi-arrow-up" ng-show="orderBy === 'service'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
+                                <th class="clickable custom-th" ng-click="setHistory('collection')" >Removed date  <i class="fi-arrow-up" ng-show="orderBy === 'collection'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
+                                <!--th class="show-for-medium-up clickable custom-th" ng-click="setHistory('query')" >{{'query'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'query'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
+                                <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('querytime')" >{{'querytime'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'querytime'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
+                                <th class="show-for-medium-up" >ip</th-->
+                            </tr>
+                        </thead>
+                        <tbody ng-show="showAcquisition">
+                            <tr ng-repeat="x in history| limitTo : 4" ng-class="{'alert':(x.status === 'ERROR')}">
+                                <td style="max-width:10px;"><input type="checkbox" checked></td>
+                                <td style="max-width:150px;" class="show-for-medium-up" title="">NQWB3_1HDGXL_HVO8</td>
+                                <td class="show-for-medium-up" style="max-width:200px; overflow:hidden;text-align: center;"><span>{{ x.priority}}</span></td>
+                                <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.status}}</td>
+                                <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.querytime}}</td>
+                                <!--td style="max-width:200px; overflow:hidden;text-align: center;" >-</td>
+                                <td style="max-width:200px; overflow:hidden;text-align: center;" class="show-for-medium-up">-</td>
+                                <!--td style="max-width:700px; overflow:hidden;" class="show-for-medium-up">{{ x.query}}</td>
+                                <td style="width:210px" class="show-for-medium-up">{{ x.querytime}}</td>
+                                <td style="width:100px" class="show-for-medium-up">{{ x.ip}}</td-->
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!--a class="button expand tiny" ng-click="loadMore()">{{'load_more'| translate}}</a-->
+                    <!--ul class="pagination">
+                        <li class="arrow unavailable"><a href="">&laquo;</a></li>
+                        <li class="current"><a href="">1</a></li>
+                        <li><a href="">2</a></li>
+                        <li><a href="">3</a></li>
+                        <li><a href="">4</a></li>
+                        <li class="unavailable"><a href="">&hellip;</a></li>
+                        <li><a href="">12</a></li>
+                        <li><a href="">13</a></li>
+                        <li class="arrow"><a href="">&raquo;</a></li>
+                    </ul-->
+                </div>
+
+                <form>
+                    <div class="row ">
+                        <div class="large-12 columns ">
+                            <ul class="button-group right">
+                                <li><a class="button tiny" href="#acquisition">Cancel</a></li>
+                                <li><a class="button tiny success" href="#acquisition">Submit</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+
+
+
+
+
+            </div>
+            <!--div class="large-2 columns"></div--> 
+        </div>
+    </div>
+
+
+
+
+
+
+
