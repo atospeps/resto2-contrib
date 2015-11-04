@@ -34,6 +34,9 @@
         'infinite-scroll',
         'satellizer',
         'pascalprecht.translate'
+        
+        // DEM : demo
+        ,'ngDialog'
     ]);
 
     

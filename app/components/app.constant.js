@@ -25,9 +25,9 @@
     angular.module('administration')
             .constant('CONFIG', {
                 //'restoServerUrl': 'http://resto.mapshup.com/2.0/',
-                'restoServerUrl': 'http://localhost/resto',
+                'restoServerUrl': 'http://192.168.56.103//resto',
                 'administrationEndpoint': '/administration',
-                'offset': 55,
+                'offset': 10, //55,
                 'version': 0.1,
                 'theia': {
                     'name': 'theia',
