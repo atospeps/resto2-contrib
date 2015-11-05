@@ -21,6 +21,12 @@
 
     function acquisitionDashboardController($scope, administrationServices, administrationAPI, CONFIG) {
 
+    	$scope.productData = [
+			                { label: 'Cataloged', count: 470, color: '#91F07E', total: 560 },
+			                { label: 'Error', count: 36, color: '#F07575', total: 560 },
+			                { label: 'Other', count: 54, color: '#D2D2D2', total: 560 }
+			              ];
+
         if (administrationServices.isUserAnAdministrator()) {
 
 

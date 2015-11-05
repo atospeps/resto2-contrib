@@ -43,6 +43,29 @@
     .noactive {
         background-color: #8C8C8C;
     }
+    
+    .filtreWrapper {
+		border-bottom: 2px solid #008CBA;
+		border-left: 2px solid #008CBA;
+		border-right: 2px solid #008CBA;
+		padding: 10px 10px 0px 10px;
+		margin-bottom: 10px !important;
+    }
+    
+    .filtreWrapper > .row {
+    	margin-bottom: 20px !important;
+    }
+    
+    .filtreWrapper input {
+    	margin: 0px;
+    }
+    
+    .filterLabel {
+    	margin-left: 15px;
+    	vertical-align: middle;
+    	font-size: 13px;
+    	padding-right: 0;
+    }
 </style>
 
 
@@ -53,7 +76,7 @@
     <div class="row">
         <div class="small-2 large-12 columns">
             <ul class="button-group left">
-                <li><a class="button"><i class="fi-refresh padding-10"></i>Refresh</a></li>
+                <li><a class="button noactive"><i class="fi-refresh padding-10"></i>Refresh</a></li>
             </ul>
             <ul class="button-group right">
                 <li><a class="button noactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
@@ -66,17 +89,96 @@
     <!--div class="show-for-large-up large-2 columns"-->
 
 
-    <div class="row">
+    <div class="row"  style="margin-top: 20px;">
         <div class="large-12 columns">
-
+			<a ng-click="toggleFiltre()"><i class="fi-filter padding-10"></i>Filters</a>
+			<span ng-show="filtersActive" class="label filterLabel">active filters <a ng-click="removeFilters()" style="color:white;padding: 5px;">x</a></span>
+			<div class="filtreWrapper" ng-show="displayFiltres" id="filtre" style="margin:initial;">
+				<div class="row collapse">
+					<div class="large-2 columns">
+						<div style="margin-top:5px;">Ingest date :</div>
+					</div>
+					<div class="large-4 columns">
+						<div class="row collapse">
+							<div class="small-7 columns">
+								<input class="end-date" type="text"
+									datetime="yyyy-MM-dd HH:mm:ss" ng-model="date.start">
+							</div>
+							<div class="small-2 columns">
+								<a title="delete"><span class="postfix" ng-click="date.start=''"><i class="fi-x button-margin"></i></span></a>
+							</div>
+							<div class="small-1 small-offset-1 columns end">
+								<div style="margin-top:5px;">to</div>
+							</div>
+						</div>
+					</div>
+					<div class="large-4 columns end">
+						<div class="row collapse">
+							<div class="small-7 columns">
+								<input class="end-date" type="text"
+									datetime="yyyy-MM-dd HH:mm:ss" ng-model="date.end">
+							</div>
+							<div class="small-2 columns end">
+								<a title="delete"><span class="postfix" ng-click="date.end=''"><i class="fi-x button-margin"></i></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row collapse">
+					<div class="large-2 columns">
+						<div style="margin-top:5px;">Product status :</div>
+					</div>
+					<div class="large-4 columns end">
+				        <select>
+				          <option value="husker">All</option>
+				          <option value="husker">New</option>
+				          <option value="starbuck">Download TODO</option>
+				          <option value="hotdog">Download in progress</option>
+				          <option value="apollo">Download error</option>
+				          <option value="12">Download done</option>
+				          <option value="13">Archive TODO</option>
+				          <option value="17">Archive error</option>
+				          <option value="45">Catalog TODO</option>
+				          <option value="7">Catalog error</option>
+				          <option value="37">Catalog done</option>
+				          <option value="45">Duplicated</option>
+				        </select>
+					</div>
+				</div>
+				<div class="row collapse">
+					<div class="large-2 columns">
+						<div style="margin-top:5px;">Product priority :</div>
+					</div>
+					<div class="large-2 columns">
+						<div class="row collapse">
+							<div class="small-5 columns">
+								<input type="number" ng-model="priority.min">
+							</div>
+							<div class="small-3 columns">
+								<a title="delete"><span class="postfix" ng-click="priority.min=''"><i class="fi-x button-margin"></i></span></a>
+							</div>
+							<div class="small-1 small-offset-1 columns end">
+								<div style="margin-top:5px;">to</div>
+							</div>
+						</div>
+					</div>
+					<div class="large-2 columns">
+						<div class="row collapse">
+							<div class="small-5 columns">
+								<input type="number" ng-model="priority.max">
+							</div>
+							<div class="small-3 columns end">
+								<a title="delete"><span class="postfix" ng-click="priority.max=''"><i class="fi-x button-margin"></i></span></a>
+							</div>
+						</div>
+					</div>
+					<div class="large-2 large-offset-4 columns">
+               			 <a ng-click="applyFilters()" class="button" style="margin-bottom: 0px; padding: 10px;">Apply Filters</a>
+					</div>
+				</div>
+			</div>	
             <div class="history tableContainer" >
                 <div>
-                    <!--div class="small-12 large-4 columns">
-                        <h1>Acquisition</h1><br>
-
-                    </div-->
-
-
                     <table>
                         <thead>
                             <tr>

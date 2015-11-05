@@ -46,6 +46,7 @@
     function acquisitionController($scope, administrationServices, administrationAPI, CONFIG, ngDialog) {
     	
     	$scope.displayFiltres = false;
+    	$scope.filtersActive = false;
     	
         if (administrationServices.isUserAnAdministrator()) {
 
@@ -204,6 +205,15 @@
             $scope.toggleFiltre = function() {
             	$scope.displayFiltres = !$scope.displayFiltres;
              }
+            
+            $scope.applyFilters = function() {
+            	$scope.displayFiltres = false;
+            	$scope.filtersActive = true;
+            }
+            
+            $scope.removeFilters = function() {
+            	$scope.filtersActive = false;
+            }
 
             $scope.init();
             $scope.getHistory();

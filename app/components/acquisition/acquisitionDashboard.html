@@ -15,7 +15,8 @@
 -->
 <style>
 	.dashboard {
-		margin-top:30px;
+		margin-top:60px;
+		text-align: center;
 	}
     .custom.button.dashboard span {
         background: #a50c1d; 
@@ -45,15 +46,24 @@
     }
     
     .dashTable {
-    	width: 500px !important;
+    	width: 700px !important;
 		margin: auto;
     }
     .dashTable tr {
-		border: 1px solid black;    
+		border: 1px solid black;   
+		height: 60px; 
     }
     .tableValue {
-    	font-size: 18px;
+    	font-size: 36px;
 		font-weight: bold;
+    }
+    .tableLabel {
+    	font-size: 26px;
+    }
+    pi-chart {
+    	float: left;
+    	margin-right: 150px;
+		margin-left: -50px;
     }
 </style>
 
@@ -65,7 +75,7 @@
     <div class="row">
         <div class="small-2 large-12 columns">
             <ul class="button-group left">
-                <li><a class="button"><i class="fi-refresh padding-10"></i>Refresh</a></li>
+                <li><a class="button noactive"><i class="fi-refresh padding-10"></i>Refresh</a></li>
             </ul>
             <ul class="button-group right">
                 <li><a class="button btnactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
@@ -80,33 +90,30 @@
     <div class="row">
         <div class="large-12 columns">
             <div class="dashboard tableContainer" >
+            	<pi-chart chart-data="productData" ></pi-chart>
 				<table class="dashTable">
 				  <thead>
-				    <tr style="background:#E3E3E3;">
-				      <th>Name</th>
-				      <th>Value</th>
-				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr style="background:#FFF;">
-				      <td>Total products</td>
-				      <td class="tableValue">560</td>
-				    </tr>
-				    <tr style="background:#FFF;">
-				      <td>Products to download</td>
+				    <tr style="background:#E3E3E3;">
+				      <td class="tableLabel">Products to download</td>
 				      <td class="tableValue">50</td>
 				    </tr>
-				    <tr style="background:#FFF;">
-				      <td>Products download in progress</td>
+				    <tr style="background:#E3E3E3;">
+				      <td class="tableLabel">Products download in progress</td>
 				      <td class="tableValue">4</td>
 				    </tr>
 				    <tr style="background:rgba(154, 249, 135, 1);">
-				      <td>Products cataloged</td>
+				      <td class="tableLabel">Products cataloged</td>
 				      <td class="tableValue">470</td>
 				    </tr>
 				    <tr style="background:rgba(249, 135, 135, 1);">
-				      <td>Products in error</td>
+				      <td class="tableLabel">Products in error</td>
 				      <td class="tableValue">36</td>
+				    </tr>
+				    <tr style="background:#FFF;">
+				      <td class="tableLabel">Total products</td>
+				      <td class="tableValue">560</td>
 				    </tr>
 				  </tbody>
 				</table>                  

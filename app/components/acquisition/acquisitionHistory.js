@@ -45,6 +45,9 @@
 
     function acquisitionHistoryController($scope, administrationServices, administrationAPI, CONFIG) {
 
+    	$scope.displayFiltres = false;
+    	$scope.filtersActive = false;
+    	
         if (administrationServices.isUserAnAdministrator()) {
 
 
@@ -203,6 +206,19 @@
                 $scope.service = null;
                 $scope.collection = null;
             };
+            
+            $scope.toggleFiltre = function() {
+            	$scope.displayFiltres = !$scope.displayFiltres;
+             }
+            
+            $scope.applyFilters = function() {
+            	$scope.displayFiltres = false;
+            	$scope.filtersActive = true;
+            }
+            
+            $scope.removeFilters = function() {
+            	$scope.filtersActive = false;
+            }
 
             $scope.init();
             $scope.getHistory();

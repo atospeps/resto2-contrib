@@ -81,7 +81,7 @@
 		border-bottom: 2px solid #008CBA;
 		border-left: 2px solid #008CBA;
 		border-right: 2px solid #008CBA;
-		padding: 10px;
+		padding: 10px 10px 0px 10px;
 		margin-bottom: 10px !important;
     }
     
@@ -91,6 +91,13 @@
     
     .filtreWrapper input {
     	margin: 0px;
+    }
+    
+    .filterLabel {
+    	margin-left: 15px;
+    	vertical-align: middle;
+    	font-size: 13px;
+    	padding-right: 0;
     }
 
 </style>
@@ -103,7 +110,7 @@
     <div class="row">
         <div class="small-2 large-12 columns">
             <ul class="button-group left">
-                <li><a class="button"><i class="fi-refresh padding-10"></i>Refresh</a></li>
+                <li><a class="button noactive"><i class="fi-refresh padding-10"></i>Refresh</a></li>
             </ul>
             <ul class="button-group right">
                 <li><a class="button noactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
@@ -117,7 +124,21 @@
 
     <div class="row" style="margin-top: 20px;">
         <div class="large-12 columns">
-			<a ng-click="toggleFiltre()"><i class="fi-filter padding-10"></i>Filtres</a>
+			<div class="row collapse">
+				<div class="large-2 columns">
+					<a ng-click="toggleFiltre()"><i class="fi-filter padding-10"></i>Filters</a>
+				</div>
+				<div class="large-2 large-offset-6 columns">
+					<div style="margin-top:5px;">Datasource :</div>
+				</div>
+				<div class="large-2 columns end">
+			        <select>
+			          <option value="1">SCIHUB</option>
+			          <option value="2">COLHUB</option>
+			        </select>
+				</div>
+			</div>
+			<span ng-show="filtersActive" class="label filterLabel">active filters <a ng-click="removeFilters()" style="color:white;padding: 5px;">x</a></span>
 			<div class="filtreWrapper" ng-show="displayFiltres" id="filtre" style="margin:initial;">
 				<div class="row collapse">
 					<div class="large-2 columns">
@@ -187,7 +208,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="large-2 columns end">
+					<div class="large-2 columns">
 						<div class="row collapse">
 							<div class="small-5 columns">
 								<input type="number" ng-model="priority.max">
@@ -197,12 +218,11 @@
 							</div>
 						</div>
 					</div>
+					<div class="large-2 large-offset-4 columns">
+               			 <a ng-click="applyFilters()" class="button" style="margin-bottom: 0px; padding: 10px;">Apply Filters</a>
+					</div>
 				</div>
 			</div>	
-            <ul class="tabs" data-tab role="tablist" style="margin-top:20px;">
-                <li class="tab-title active" role="presentation"><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" aria-controls="panel2-1">Waiting</a></li>
-                <li class="tab-title" role="presentation"><a href="#panel2-2" role="tab" tabindex="0" aria-selected="false" aria-controls="panel2-2">In Progess</a></li>
-            </ul>
             <div class="tabs-content">
                 <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
                     <div class="history tableContainer">					
@@ -253,12 +273,6 @@
                         </div>
                         <a class="button right" ng-click="changePriority()">Change Priority</a>
                     </div>
-
-
-
-                </section>
-                <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
-                    <h2>Second panel content goes here...</h2>
                 </section>
             </div>
 
