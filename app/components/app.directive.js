@@ -12,8 +12,8 @@
     	         link: function (scope, element, attrs) {
 
     	        	 var chart = d3.select(element[0]);
-		             var width = 360;
-		             var height = 360;
+		             var width = 320;
+		             var height = 320;
 		             var radius = Math.min(width, height) / 2;
 		             var color = d3.scale.category20b();
 	
