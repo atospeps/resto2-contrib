@@ -108,7 +108,7 @@
     <div class="row">
         <div class="small-2 large-12 columns">
             <ul class="button-group left">
-                <li><a class="button noactive"><i class="fi-refresh padding-10"></i>Refresh</a></li>
+                <li><a class="button" style="background-color: #449C44;"><i class="fi-refresh padding-10"></i>Refresh</a></li>
             </ul>
             <ul class="button-group right">
                 <li><a class="button noactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
@@ -228,7 +228,7 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th class="show-for-medium-up clickable custom-th"><input type="checkbox"></th>
+                                        <th class="show-for-medium-up clickable custom-th"><input type="checkbox" ng-click="rowSelect()" ng-model="allRowSelected"></th>
                                         <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('userid')" >Product identifier  <i class="fi-arrow-up" ng-show="orderBy === 'userid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></i></th>
                                         <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('resourceid')" >Priority  <i class="fi-arrow-up" ng-show="orderBy === 'resourceid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
                                         <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('resourceid')" >Status  <i class="fi-arrow-up" ng-show="orderBy === 'resourceid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
@@ -242,7 +242,7 @@
                                 </thead>
                                 <tbody ng-show="showAcquisition">
                                     <tr ng-repeat="x in history" ng-class="{'alert':(x.status === 'ERROR')}">
-                                        <td style="max-width:10px;"><input type="checkbox"></td>
+                                        <td style="max-width:10px;"><input type="checkbox" ng-model="x.selected"></td>
                                         <td style="max-width:150px;" class="show-for-medium-up" title="">NQWB3_1HDGXL_HVO8</td>
                                         <td class="show-for-medium-up" style="max-width:200px; overflow:hidden;text-align: center;"><span>{{ x.priority}}</span></td>
                                         <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.status}}</td>
@@ -268,6 +268,7 @@
                                 <li><a href="">13</a></li>
                                 <li class="arrow"><a href="">&raquo;</a></li>
                             </ul>
+                            <span>{{numSelectedRow}} row(s) selected</span>
                         </div>
                         <a class="button right" ng-click="changePriority()">Change Priority</a>
                     </div>

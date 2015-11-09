@@ -45,13 +45,8 @@
 
     function acquisitionController($scope, administrationServices, administrationAPI, CONFIG, ngDialog) {
     	
-    	$scope.displayFiltres = false;
-    	$scope.filtersActive = false;
-    	
         if (administrationServices.isUserAnAdministrator()) {
-
-        		
-
+        	
             $scope.changePriority = function(){
                  ngDialog.open({ 
                      template: 'app/components/acquisition/changePriority.html',
@@ -96,11 +91,10 @@
              * @param {boolean} concatData
              */
             $scope.getHistory = function(concatData) {
-
-                var options = [];
-                
                 
                 var status = ['TO DOWNLOAD', 'ERROR']; //DEM 
+                
+                var options = [];
                 
                 options['startindex'] = $scope.startIndex;
                 options['offset'] = $scope.offset;
@@ -124,6 +118,7 @@
                     for(var j = 0; j<$scope.history.length; j++){
                         $scope.history[j]['priority'] =  Math.floor((Math.random() * 100));
                         $scope.history[j]['status'] = status[Math.floor((Math.random() * 2))];
+                        $scope.history[j]['selected'] = false; 
                     }
 
                     $scope.showAcquisition = true;
@@ -139,6 +134,36 @@
                     alert($filter('translate')('error.getHistory'));
                 });
             };
+            
+            $scope.rowSelect = function() {
+                for(var j = 0; j<$scope.history.length; j++) {
+                	$scope.history[j]['selected'] = $scope.allRowSelected;
+                }
+            }
+            
+            $scope.checkNumSelectedRow = function() {
+            	var num = 0;
+                for(var j = 0; j<$scope.history.length; j++){
+                	if($scope.history[j]['selected']) {
+                		num++;
+                	}
+                }
+                return num;
+            }
+            
+            $scope.isAllRowsSelected = function() {
+                for(var j = 0; j<$scope.history.length; j++){
+                	if(!$scope.history[j]['selected']) {
+                		return false;
+                	}
+                }
+                return true;
+            }
+
+            $scope.$watch('history', function(newValue, oldValue) {
+            	$scope.numSelectedRow = $scope.checkNumSelectedRow();
+            	$scope.allRowSelected = $scope.isAllRowsSelected();
+            }, true);
 
             /*
              * Call by infinite scroll
@@ -191,6 +216,10 @@
                 $scope.startIndex = 0;
                 $scope.offset = CONFIG.offset;
                 $scope.showAcquisition = false;
+            	$scope.displayFiltres = false;
+            	$scope.filtersActive = false;
+            	$scope.allRowSelected = false;
+            	$scope.numSelectedRow = 0;
             };
 
             $scope.initFilters = function() {
