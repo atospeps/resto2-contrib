@@ -26,6 +26,7 @@
             .constant('CONFIG', {
                 //'restoServerUrl': 'http://resto.mapshup.com/2.0/',
                 'restoServerUrl': 'http://localhost/resto',
+                'acquisitionServerUrl': 'http://172.24.219.218/acq-rest',
                 'administrationEndpoint': '/administration',
                 'offset': 55,
                 'version': 0.1,

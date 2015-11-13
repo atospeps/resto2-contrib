@@ -33,7 +33,8 @@
          */
         'infinite-scroll',
         'satellizer',
-        'pascalprecht.translate'
+        'pascalprecht.translate',
+        'datetime'
         
         // DEM : demo
         ,'ngDialog'

@@ -100,10 +100,10 @@
 						<div class="row collapse">
 							<div class="small-7 columns">
 								<input class="end-date" type="text"
-									datetime="yyyy-MM-dd HH:mm:ss" ng-model="date.start">
+									datetime="yyyy-MM-dd HH:mm:ss" ng-model="startDate">
 							</div>
 							<div class="small-2 columns">
-								<a title="delete"><span class="postfix" ng-click="date.start=''"><i class="fi-x button-margin"></i></span></a>
+								<a title="delete"><span class="postfix" ng-click="startDate=''"><i class="fi-x button-margin"></i></span></a>
 							</div>
 							<div class="small-1 small-offset-1 columns end">
 								<div style="margin-top:5px;">to</div>
@@ -114,10 +114,10 @@
 						<div class="row collapse">
 							<div class="small-7 columns">
 								<input class="end-date" type="text"
-									datetime="yyyy-MM-dd HH:mm:ss" ng-model="date.end">
+									datetime="yyyy-MM-dd HH:mm:ss" ng-model="endDate">
 							</div>
 							<div class="small-2 columns end">
-								<a title="delete"><span class="postfix" ng-click="date.end=''"><i class="fi-x button-margin"></i></span></a>
+								<a title="delete"><span class="postfix" ng-click="endDate=''"><i class="fi-x button-margin"></i></span></a>
 							</div>
 						</div>
 					</div>
@@ -127,19 +127,8 @@
 						<div style="margin-top:5px;">Product status :</div>
 					</div>
 					<div class="large-4 columns end">
-				        <select>
-				          <option value="husker">All</option>
-				          <option value="husker">New</option>
-				          <option value="starbuck">Download TODO</option>
-				          <option value="hotdog">Download in progress</option>
-				          <option value="apollo">Download error</option>
-				          <option value="12">Download done</option>
-				          <option value="13">Archive TODO</option>
-				          <option value="17">Archive error</option>
-				          <option value="45">Catalog TODO</option>
-				          <option value="7">Catalog error</option>
-				          <option value="37">Catalog done</option>
-				          <option value="45">Duplicated</option>
+				        <select ng-model="status">
+       						<option ng-repeat="option in availableStatus" value="{{option.id}}">{{option.name}}</option>
 				        </select>
 					</div>
 				</div>
@@ -150,10 +139,10 @@
 					<div class="large-2 columns">
 						<div class="row collapse">
 							<div class="small-5 columns">
-								<input type="number" ng-model="priority.min">
+								<input type="number" ng-model="minPriority">
 							</div>
 							<div class="small-3 columns">
-								<a title="delete"><span class="postfix" ng-click="priority.min=''"><i class="fi-x button-margin"></i></span></a>
+								<a title="delete"><span class="postfix" ng-click="minPriority=''"><i class="fi-x button-margin"></i></span></a>
 							</div>
 							<div class="small-1 small-offset-1 columns end">
 								<div style="margin-top:5px;">to</div>
@@ -163,10 +152,10 @@
 					<div class="large-2 columns">
 						<div class="row collapse">
 							<div class="small-5 columns">
-								<input type="number" ng-model="priority.max">
+								<input type="number" ng-model="maxPriority">
 							</div>
 							<div class="small-3 columns end">
-								<a title="delete"><span class="postfix" ng-click="priority.max=''"><i class="fi-x button-margin"></i></span></a>
+								<a title="delete"><span class="postfix" ng-click="maxPriority=''"><i class="fi-x button-margin"></i></span></a>
 							</div>
 						</div>
 					</div>
@@ -175,40 +164,30 @@
 					</div>
 				</div>
 			</div>	
+			
             <div class="history tableContainer" >
                 <div>
                     <table>
                         <thead>
                             <tr>
-                                <!--th class="show-for-medium-up clickable custom-th"></th-->
-                                <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('userid')" >Product identifier  <i class="fi-arrow-up" ng-show="orderBy === 'userid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></i></th>
-                                <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('resourceid')" >Priority  <i class="fi-arrow-up" ng-show="orderBy === 'resourceid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
-                                <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('resourceid')" >Status  <i class="fi-arrow-up" ng-show="orderBy === 'resourceid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
-                                <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('method')" >Ingest date  <i class="fi-arrow-up" ng-show="orderBy === 'method'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
-                                <th class="clickable custom-th" ng-click="setHistory('service')" >Re-ingest date  <i class="fi-arrow-up" ng-show="orderBy === 'service'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
-                                <th class="clickable custom-th" ng-click="setHistory('collection')" >Removed date  <i class="fi-arrow-up" ng-show="orderBy === 'collection'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
-                                <!--th class="show-for-medium-up clickable custom-th" ng-click="setHistory('query')" >{{'query'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'query'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-                                <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('querytime')" >{{'querytime'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'querytime'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-                                <th class="show-for-medium-up" >ip</th-->
+                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('identifier')" >Product identifier  <i ng-show="orderBy === 'identifier'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
+                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('product_type')" >Product type  <i ng-show="orderBy === 'product_type'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('priority')" >Priority  <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('product_status')" >Status  <i ng-show="orderBy === 'product_status'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('ingest_date')" >Ingest date  <i ng-show="orderBy === 'ingest_date'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
                             </tr>
                         </thead>
-                        <tbody ng-show="showAcquisition">
+                        <tbody>
                             <tr ng-repeat="x in history" ng-class="getStatusClass(x.status)">
-                                <!--td style="max-width:10px;"><input type="checkbox"></td-->
-                                <td style="max-width:150px;" class="show-for-medium-up" title="">NQWB3_1HDGXL_HVO8</td>
+                                <td style="max-width:150px;" class="show-for-medium-up" title="">{{x.identifier}}</td>
+                                <td class="show-for-medium-up" style="max-width:200px; overflow:hidden;text-align: center;"><span>{{ x.product_type}}</span></td>
                                 <td class="show-for-medium-up" style="max-width:200px; overflow:hidden;text-align: center;"><span>{{ x.priority}}</span></td>
-                                <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.status}}</td>
-                                <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.querytime}}</td>
-                                <td style="max-width:200px; overflow:hidden;text-align: center;" >-</td>
-                                <td style="max-width:200px; overflow:hidden;text-align: center;" class="show-for-medium-up">-</td>
-                                <!--td style="max-width:700px; overflow:hidden;" class="show-for-medium-up">{{ x.query}}</td>
-                                <td style="width:210px" class="show-for-medium-up">{{ x.querytime}}</td>
-                                <td style="width:100px" class="show-for-medium-up">{{ x.ip}}</td-->
+                                <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.product_status}}</td>
+                                <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.ingest_date}}</td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <!--a class="button expand tiny" ng-click="loadMore()">{{'load_more'| translate}}</a-->
                     <ul class="pagination">
                         <li class="arrow unavailable"><a href="">&laquo;</a></li>
                         <li class="current"><a href="">1</a></li>
@@ -221,12 +200,8 @@
                         <li class="arrow"><a href="">&raquo;</a></li>
                     </ul>
                 </div>
-                <!--a class="button right" ng-click="loadMore()">Change Priority</a-->
             </div>
-
-
         </div>
-        <!--div class="large-2 columns"></div--> 
     </div>
 </div>
 
