@@ -201,6 +201,47 @@ div.history {
 	color: red;
 }
 
+/****************************************
+        	Acquisition Tab
+*****************************************/
+
+.padding-10 {
+    padding: 10px;
+}
+  
+table td {
+	overflow: hidden;
+}
+
+.btnactive {
+    background-color: #F60 !important;
+}
+  
+.noactive {
+	background-color: #8C8C8C;
+}
+  
+.filtreWrapper {
+	background-color: #E7E7E7;
+	padding: 20px;
+	margin-top: 5px !important;
+}
+  
+.filtreWrapper > .row + .row {
+  	margin-top: 20px !important;
+}
+  
+.filtreWrapper input {
+	margin: 0px;
+}
+  
+.filterLabel {
+	margin-left: 15px;
+	vertical-align: middle;
+	font-size: 13px;
+	padding-right: 0;
+}
+
 /*------------------------------------*\
     $SPINNER
 \*------------------------------------*/

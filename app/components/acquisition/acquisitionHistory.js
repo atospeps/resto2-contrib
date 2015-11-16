@@ -8,6 +8,13 @@
     	
         if (administrationServices.isUserAnAdministrator()) {
 
+        	/**
+        	 * Refresh data
+        	 */
+        	$scope.refresh = function() {
+        		$scope.getHistory();
+        	}
+        	
             /**
              * Get history
              */
@@ -17,7 +24,7 @@
                 options['startIndex'] = $scope.startIndex;
                 options['offset'] = $scope.offset;
                 options['sortOrder'] = $scope.sortOrder;
-                options['orderby'] = $scope.orderBy;
+                options['orderBy'] = $scope.orderBy;
                 options['filter'] = $scope.filtersActive;
                 options['status'] = $scope.status;
                 options['minPriority'] = $scope.minPriority;
@@ -26,7 +33,8 @@
                 options['endDate'] = $scope.endDate;
 
                 acquisitionAPI.getHistory(options, function(data) {
-                    $scope.history = data;
+                    $scope.history = data.results;
+                    $scope.maxPage = Math.ceil(data.nbResults / $scope.offset);
                 }, function() {
                     alert($filter('translate')('error.getHistory'));
                 });
@@ -46,6 +54,29 @@
             	// Update data
             	$scope.getHistory();
             }
+            
+            /**
+             * Change page
+             */
+            $scope.changePage = function(num) {
+            	if(num == $scope.currentPage) {
+            		return;
+            	}
+                $scope.currentPage = num;
+                $scope.startIndex = $scope.offset * ($scope.currentPage - 1);
+            	$scope.getHistory();
+            };
+            
+            
+            $scope.pagesButtonRange = function() {
+            	var range = [];
+            	var minPage = ($scope.currentPage - 2) > 1 ? $scope.currentPage - 2 : 1;
+            	var maxPage = ($scope.currentPage + 2) < $scope.maxPage ? $scope.currentPage + 2 : $scope.maxPage;
+            	for(var i = minPage; i <= maxPage; i++) {
+            		range.push(i);
+            	}
+            	return range;
+            };
             
             $scope.toggleFiltre = function() {
             	$scope.displayFiltres = !$scope.displayFiltres;
@@ -84,6 +115,8 @@
                               {id: '11', name: 'Catalog done'},
                               {id: '12', name: 'Duplicated'}];
                 
+                $scope.currentPage = 1;
+                $scope.maxPage = 1;
                 $scope.startIndex = 0;
                 $scope.offset = CONFIG.offset;
                 $scope.sortOrder = 'DESC';

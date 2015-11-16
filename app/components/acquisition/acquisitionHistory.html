@@ -13,68 +13,12 @@
  License for the specific language governing permissions and limitations
  under the License.
 -->
-<style>
-
-    .custom.button.history span {
-        //background: #a50c1d; 
-    }
-
-
-    .custom.button.history span:after {
-        border: none;
-        font-family: "foundation-icons";
-        content: "\f12b";
-        font-size: 2rem;
-        line-height: 0.25rem;
-        margin-left: -0.7rem; }
-
-    .padding-10 {
-        padding: 10px;
-    }
-
-    .btnactive {
-        background-color: #F60 !important;
-    }
-
-    .alert {
-        background-color: #FFA4A4 !important;
-    }
-    
-    .noactive {
-        background-color: #8C8C8C;
-    }
-    
-    .filtreWrapper {
-		background-color: #E7E7E7;
-		padding: 20px;
-		margin-top: 5px !important;
-    }
-    
-    .filtreWrapper > .row + .row {
-    	margin-top: 20px !important;
-    }
-    
-    .filtreWrapper input {
-    	margin: 0px;
-    }
-    
-    .filterLabel {
-    	margin-left: 15px;
-    	vertical-align: middle;
-    	font-size: 13px;
-    	padding-right: 0;
-    }
-</style>
-
-
 <div class="main">
-    <div class="show-for-large-up large-2 columns"></div>
-
 
     <div class="row">
         <div class="small-2 large-12 columns">
             <ul class="button-group left">
-                <li><a class="button" style="background-color: #449C44;"><i class="fi-refresh padding-10"></i>Refresh</a></li>
+                <li><a class="button" style="background-color: #449C44;" ng-click="refresh()"><i class="fi-refresh padding-10"></i>Refresh</a></li>
             </ul>
             <ul class="button-group right">
                 <li><a class="button noactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
@@ -83,8 +27,6 @@
             </ul>
         </div>        
     </div>
-
-    <!--div class="show-for-large-up large-2 columns"-->
 
 
     <div class="row"  style="margin-top: 20px;">
@@ -170,7 +112,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('identifier')" >Product identifier  <i ng-show="orderBy === 'identifier'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
+                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
                                 <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('product_type')" >Product type  <i ng-show="orderBy === 'product_type'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
                                 <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('priority')" >Priority  <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
                                 <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('product_status')" >Status  <i ng-show="orderBy === 'product_status'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
@@ -179,26 +121,34 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="x in history" ng-class="getStatusClass(x.status)">
-                                <td style="max-width:150px;" class="show-for-medium-up" title="">{{x.identifier}}</td>
-                                <td class="show-for-medium-up" style="max-width:200px; overflow:hidden;text-align: center;"><span>{{ x.product_type}}</span></td>
-                                <td class="show-for-medium-up" style="max-width:200px; overflow:hidden;text-align: center;"><span>{{ x.priority}}</span></td>
-                                <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.product_status}}</td>
-                                <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.ingest_date}}</td>
+                                <td style="max-width:300px;" class="show-for-medium-up" title="">{{x.title}}</td>
+                                <td style="max-width:100px;" class="show-for-medium-up" ><span>{{ x.product_type}}</span></td>
+                                <td style="max-width:100px;" class="show-for-medium-up"><span>{{ x.priority}}</span></td>
+                                <td style="max-width:150px;">{{ x.product_status}}</td>
+                                <td style="max-width:200px;">{{ x.ingest_date}}</td>
                             </tr>
                         </tbody>
                     </table>
-
-                    <ul class="pagination">
-                        <li class="arrow unavailable"><a href="">&laquo;</a></li>
-                        <li class="current"><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">4</a></li>
-                        <li class="unavailable"><a href="">&hellip;</a></li>
-                        <li><a href="">12</a></li>
-                        <li><a href="">13</a></li>
-                        <li class="arrow"><a href="">&raquo;</a></li>
-                    </ul>
+                    
+					<div class="row collapse">
+						<div class="large-4 columns">
+		                    <ul class="pagination">
+		                        <li class="arrow" ng-class="{unavailable: currentPage == 1}"><a ng-click="changePage(1)">&laquo;</a></li>
+		       
+		                        <li ng-repeat="n in pagesButtonRange()" ng-class="{current: n == currentPage}" ng-click="changePage(n)">
+		                            <a ng-bind="n"></a>
+		                        </li>
+		               
+		                        <li class="arrow" ng-class="{unavailable: currentPage == maxPage}"><a ng-click="changePage(maxPage)">&raquo;</a></li>
+		                    </ul>
+						</div>
+	                    <div class="large-2 large-offset-5 columns">
+	                    	Results per page
+	                    </div>
+	                    <div class="large-1 columns end">
+	                    	<input type="number" ng-model="offset">
+	                    </div>
+                    </div>
                 </div>
             </div>
         </div>

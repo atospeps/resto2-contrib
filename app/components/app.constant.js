@@ -28,7 +28,7 @@
                 'restoServerUrl': 'http://localhost/resto',
                 'acquisitionServerUrl': 'http://172.24.219.218/acq-rest',
                 'administrationEndpoint': '/administration',
-                'offset': 55,
+                'offset': 30,
                 'version': 0.1,
                 'theia': {
                     'name': 'theia',
