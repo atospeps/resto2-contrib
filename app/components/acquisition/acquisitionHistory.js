@@ -2,24 +2,9 @@
 
     'use strict';
 
-    /*
-     * Copyright 2014 Jérôme Gasperi
-     *
-     * Licensed under the Apache License, version 2.0 (the "License");
-     * You may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at:
-     *
-     *   http://www.apache.org/licenses/LICENSE-2.0
-     *
-     * Unless required by applicable law or agreed to in writing, software
-     * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-     * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-     * License for the specific language governing permissions and limitations
-     * under the License.
-     */
-    angular.module('administration').controller('AcquisitionHistoryController', ['$scope', 'administrationServices', 'administrationAPI', 'acquisitionAPI', 'CONFIG', acquisitionHistoryController]);
+    angular.module('administration').controller('AcquisitionHistoryController', ['$scope', 'administrationServices', 'acquisitionAPI', 'CONFIG', acquisitionHistoryController]);
 
-    function acquisitionHistoryController($scope, administrationServices, administrationAPI, acquisitionAPI, CONFIG) {
+    function acquisitionHistoryController($scope, administrationServices, acquisitionAPI, CONFIG) {
     	
         if (administrationServices.isUserAnAdministrator()) {
 
@@ -103,22 +88,13 @@
                 $scope.offset = CONFIG.offset;
                 $scope.sortOrder = 'DESC';
                 $scope.orderBy = null;
-                $scope.status = "1";
+                $scope.status = "All";
                 $scope.minPriority;
                 $scope.maxPriority;
                 $scope.startDate;
                 $scope.endDate;
                 
                 $scope.history = [];
-            };
-            
-
-            /**
-             * Checks if string date is valid
-             */
-            $scope.isValidDate = function(date) {
-                var dateWrapper = new Date(date);
-                return !isNaN(dateWrapper.getDate());
             };
 
             $scope.init();
