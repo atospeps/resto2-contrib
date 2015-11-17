@@ -27,7 +27,8 @@
     function acquisitionAPI($http, config) {
 
         var api = {
-            getHistory: getHistory
+            getHistory: getHistory,
+            getDashboardStats: getDashboardStats
         };
         return api;
 
@@ -48,7 +49,32 @@
                         callback(data);
                     })
                     .error(function() {
-                        alert('error - get acquisition history');
+                    	error('error - get acquisition history');
+                    });
+        };
+
+        /**
+         * Get dashboard stats 
+         * 
+         * @param {array} options
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function getDashboardStats(options, callback, error) {
+
+            var url = config.acquisitionServerUrl + '/statistiques';
+            
+            if(options.startDate != null && options.endDate != null) {
+            	url += "?startDate=" + options.startDate + "&endDate=" + options.endDate;
+            }
+            
+            $http.get(url)
+                    .success(function(data) {
+                        callback(data);
+                    })
+                    .error(function() {
+                    	error('error - get acquisition dashboard');
                     });
         };
     };

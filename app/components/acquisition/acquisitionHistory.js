@@ -35,8 +35,8 @@
                 acquisitionAPI.getHistory(options, function(data) {
                     $scope.history = data.results;
                     $scope.maxPage = Math.ceil(data.nbResults / $scope.offset);
-                }, function() {
-                    alert($filter('translate')('error.getHistory'));
+                }, function(data) {
+                    alert(data);
                 });
             };
             

@@ -204,15 +204,32 @@ div.history {
 /****************************************
         	Acquisition Tab
 *****************************************/
+.acquisitionStateWrapper {
+	margin-bottom: 20px;
+	font-size: 18px;
+}
+
+.refreshButton {
+	background-color: #449C44;	
+}
+
+.stateIcon {
+	font-size: 30px;
+	margin-left: 20px;
+	vertical-align: bottom;
+}
+
+.stateStarted {
+	color: #8CEA79;
+}
+
+.stateStopped {
+	color: #F87F7F;
+}
 
 .padding-10 {
     padding: 10px;
 }
-  
-table td {
-	overflow: hidden;
-}
-
 .btnactive {
     background-color: #F60 !important;
 }
@@ -240,6 +257,53 @@ table td {
 	vertical-align: middle;
 	font-size: 13px;
 	padding-right: 0;
+}
+
+.removeFilter {
+	color: white !important;
+	padding: 5px;
+}
+
+.applyFilter {
+	margin-bottom: 0px; 
+	padding: 10px;
+}
+
+.acquisitionMenu {
+	margin-bottom: 30px;	
+}
+
+.acquisitionHistory {
+	margin-top: 20px;	
+}
+
+.acquisitionHistory td {
+	overflow: hidden;
+}
+
+.dashboard {
+	text-align: center;
+}
+
+.dashTable {
+	width: 700px !important;
+	margin-top: 20px;
+}
+
+.dashTable tr {
+	border: 1px solid black;   
+	height: 50px; 
+}
+
+.tableValue {
+  	font-size: 32px;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 20px;
+}
+
+.tableLabel {
+	font-size: 22px;
 }
 
 /*------------------------------------*\

@@ -15,10 +15,10 @@
 -->
 <div class="main">
 
-    <div class="row">
+    <div class="row acquisitionMenu">
         <div class="small-2 large-12 columns">
             <ul class="button-group left">
-                <li><a class="button" style="background-color: #449C44;" ng-click="refresh()"><i class="fi-refresh padding-10"></i>Refresh</a></li>
+                <li><a class="button refreshButton" ng-click="refresh()"><i class="fi-refresh padding-10"></i>Refresh</a></li>
             </ul>
             <ul class="button-group right">
                 <li><a class="button noactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
@@ -29,10 +29,10 @@
     </div>
 
 
-    <div class="row"  style="margin-top: 20px;">
+    <div class="row">
         <div class="large-12 columns">
 			<a ng-click="toggleFiltre()"><i class="fi-filter padding-10"></i>Filters</a>
-			<span ng-show="filtersActive" class="label filterLabel">active filters <a ng-click="removeFilters()" style="color:white;padding: 5px;">x</a></span>
+			<span ng-show="filtersActive" class="label filterLabel">active filters <a ng-click="removeFilters()" class="removeFilter">x</a></span>
 			<div class="filtreWrapper" ng-show="displayFiltres" id="filtre" style="margin:initial;">
 				<div class="row collapse">
 					<div class="large-2 columns">
@@ -102,12 +102,12 @@
 						</div>
 					</div>
 					<div class="large-2 large-offset-4 columns">
-               			 <a ng-click="applyFilters()" class="button" style="margin-bottom: 0px; padding: 10px;">Apply Filters</a>
+               			 <a ng-click="applyFilters()" class="button applyFilter">Apply Filters</a>
 					</div>
 				</div>
 			</div>	
 			
-            <div class="history tableContainer" >
+            <div class="tableContainer acquisitionHistory" >
                 <div>
                     <table>
                         <thead>
@@ -125,7 +125,7 @@
                                 <td style="max-width:100px;" class="show-for-medium-up" ><span>{{ x.product_type}}</span></td>
                                 <td style="max-width:100px;" class="show-for-medium-up"><span>{{ x.priority}}</span></td>
                                 <td style="max-width:150px;">{{ x.product_status}}</td>
-                                <td style="max-width:200px;">{{ x.ingest_date}}</td>
+                                <td style="max-width:250px;">{{ x.ingest_date}}</td>
                             </tr>
                         </tbody>
                     </table>

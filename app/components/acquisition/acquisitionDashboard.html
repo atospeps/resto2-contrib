@@ -13,75 +13,11 @@
  License for the specific language governing permissions and limitations
  under the License.
 -->
-<style>
-	.dashboard {
-		margin-top: 50px;
-		text-align: center;
-	}
-    .custom.button.dashboard span {
-        background: #a50c1d; 
-    }
-    .custom.button.dashboard span:after {
-        border: none;
-        font-family: "foundation-icons";
-        content: "\f12b";
-        font-size: 2rem;
-        line-height: 0.25rem;
-        margin-left: -0.7rem; }
-
-    .padding-10 {
-        padding: 10px;
-    }
-
-    .btnactive {
-        background-color: #F60 !important;
-    }
-
-    .alert {
-        background-color: #FFA4A4 !important;
-    }
-    
-    .noactive {
-        background-color: #8C8C8C;
-    }
-    
-    .dashTable {
-    	width: 700px !important;
-    	margin-top: 10px;
-    }
-    .dashTable tr {
-		border: 1px solid black;   
-		height: 60px; 
-    }
-    .tableValue {
-    	font-size: 36px;
-		font-weight: bold;
-    }
-    .tableLabel {
-    	font-size: 26px;
-    }
-    .dynamicTable {
-    	width: 700px !important;
-    	margin-top: 50px;
-    }
-    .dynamicTable tr {
-		border: 1px solid black;   
-		height: 60px; 
-    }
-    pi-chart {
-    	float: left;
-    }
-</style>
-
-
 <div class="main">
-    <div class="show-for-large-up large-2 columns"></div>
-
-
-    <div class="row">
+    <div class="row acquisitionMenu">
         <div class="small-2 large-12 columns">
             <ul class="button-group left">
-                <li><a class="button" style="background-color: #449C44;"><i class="fi-refresh padding-10"></i>Refresh</a></li>
+                <li><a class="button refreshButton"><i class="fi-refresh padding-10"></i>Refresh</a></li>
             </ul>
             <ul class="button-group right">
                 <li><a class="button btnactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
@@ -91,64 +27,95 @@
         </div>        
     </div>
 
-
-
     <div class="dashboard tableContainer">
-    	<div class="row">
-        	<div class="large-5 columns">
-            	<pi-chart chart-data="productData"></pi-chart>
-	        </div>
-        	<div class="large-7 columns">
+      	<div class="row collapse acquisitionStateWrapper">
+        	<div class="large-4 columns">
+				<span>Module acquisition</span><i class="fa fa-circle stateIcon" ng-class="acquisitionState == 'started' ? 'stateStarted' : 'stateStopped'"></i>
+            </div>
+        	<div class="large-4 columns">
+				<span>Datasource SCIHUB</span><i class="fa fa-circle stateIcon" ng-class="scihubState == 'started' ? 'stateStarted' : 'stateStopped'"></i>
+            </div>
+        	<div class="large-4 columns end">
+				<span>Datasource COLHUB</span><i class="fa fa-circle stateIcon" ng-class="colhubState == 'started' ? 'stateStarted' : 'stateStopped'"></i>
+            </div>
+      	</div>
+      	
+      	
+    	<div class="row" ng-repeat="tab in stats">
+        	<div class="large-8 large-offset-2 columns">
 				<table class="dashTable">
 				  <thead>
 				  </thead>
 				  <tbody>
-				    <tr style="background:#E3E3E3;">
-				      <td class="tableLabel">Products to download</td>
-				      <td class="tableValue">50</td>
-				    </tr>
-				    <tr style="background:#E3E3E3;">
-				      <td class="tableLabel">Products download in progress</td>
-				      <td class="tableValue">4</td>
-				    </tr>
-				    <tr style="background:rgba(154, 249, 135, 1);">
-				      <td class="tableLabel">Products cataloged</td>
-				      <td class="tableValue">470</td>
-				    </tr>
-				    <tr style="background:rgba(249, 135, 135, 1);">
-				      <td class="tableLabel">Products in error</td>
-				      <td class="tableValue">36</td>
-				    </tr>
-				    <tr style="background:#FFF;">
-				      <td class="tableLabel">Total products</td>
-				      <td class="tableValue">560</td>
+				    <tr ng-repeat="line in tab" style="background:{{line.color}};">
+				      <td class="tableLabel">{{line.label}}</td>
+				      <td class="tableValue">{{line.count}}</td>
 				    </tr>
 				  </tbody>
 				</table>                  
             </div>
       	</div>
-      	<div class="row">
-        	<div class="large-7 large-offset-5 columns">
-				<table class="dynamicTable">
+    
+    <!-- 
+    	<div class="row">
+        	<div class="large-8 large-offset-2 columns">
+				<table class="dashTable" ng-repeat="tab in stats">
 				  <thead>
 				  </thead>
 				  <tbody>
-				    <tr style="background:#FFF;">
-				      <td class="tableLabel">Module acquisition state</td>
-				      <td class="tableValue" style="color:green;">Started</td>
+				    <tr style="background:#E3E3E3;">
+				      <td class="tableLabel">New products</td>
+				      <td class="tableValue">{{products.NEW}}</td>
+				    </tr>
+				    <tr style="background:#E3E3E3;">
+				      <td class="tableLabel">Products to download</td>
+				      <td class="tableValue">{{products.DOWNLOAD_TODO}}</td>
+				    </tr>
+				    <tr style="background:#E3E3E3;">
+				      <td class="tableLabel">Products download in progress</td>
+				      <td class="tableValue">{{products.DOWNLOAD_IN_PROGRESS}}</td>
+				    </tr>
+				    <tr style="background:#F98787;">
+				      <td class="tableLabel">Products download error</td>
+				      <td class="tableValue">{{products.DOWNLOAD_ERROR}}</td>
+				    </tr>
+				    <tr style="background:#9AF987;">
+				      <td class="tableLabel">Products downloaded</td>
+				      <td class="tableValue">{{products.DOWNLOAD_DONE}}</td>
+				    </tr>
+				    <tr style="background:#E3E3E3;">
+				      <td class="tableLabel">Products to archive</td>
+				      <td class="tableValue">{{products.ARCHIVE_TODO}}</td>
+				    </tr>
+				    <tr style="background:#F98787;">
+				      <td class="tableLabel">Products archive error</td>
+				      <td class="tableValue">{{products.ARCHIVE_ERROR}}</td>
+				    </tr>
+				    <tr style="background:#E3E3E3;">
+				      <td class="tableLabel">Products to catalog</td>
+				      <td class="tableValue">{{products.CATALOG_TODO}}</td>
+				    </tr>
+				    <tr style="background:#F98787;">
+				      <td class="tableLabel">Products catalog error</td>
+				      <td class="tableValue">{{products.CATALOG_ERROR}}</td>
+				    </tr>
+				    <tr style="background:#9AF987;">
+				      <td class="tableLabel">Products cataloged</td>
+				      <td class="tableValue">{{products.CATALOG_DONE}}</td>
+				    </tr>
+				    <tr style="background:#E3E3E3;">
+				      <td class="tableLabel">Products duplicated</td>
+				      <td class="tableValue">{{products.DUPLICATED}}</td>
 				    </tr>
 				    <tr style="background:#FFF;">
-				      <td class="tableLabel">Datasource SCIHUB state</td>
-				      <td class="tableValue" style="color:green;">Started</td>
-				    </tr>
-				    <tr style="background:#FFF;">
-				      <td class="tableLabel">Datasource COLHUB state</td>
-				      <td class="tableValue" style="color:red;">Stopped</td>
+				      <td class="tableLabel">Total products</td>
+				      <td class="tableValue">{{products.ALL}}</td>
 				    </tr>
 				  </tbody>
 				</table>                  
             </div>
       	</div>
+      	 -->
     </div>
 </div>
 
