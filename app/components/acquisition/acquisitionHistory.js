@@ -13,7 +13,7 @@
         	 */
         	$scope.refresh = function() {
         		$scope.getHistory();
-        	}
+        	};
         	
             /**
              * Get history

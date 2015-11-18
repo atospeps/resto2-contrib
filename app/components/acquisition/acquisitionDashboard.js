@@ -7,13 +7,24 @@
     function acquisitionDashboardController($scope, administrationServices, acquisitionAPI) {
 
         if (administrationServices.isUserAnAdministrator()) {
+
+        	/**
+        	 * Refresh data
+        	 */
+        	$scope.refresh = function() {
+        		$scope.getStats();
+        	};
         	
-        	
+        	/**
+        	 * Get acquisition statistics
+        	 */
         	$scope.getStats = function() {
                 var options = {};
                 
-                options['startDate'] = $scope.startDate;
-                options['endDate'] = $scope.endDate;
+                if($scope.startDate !== "" && $scope.endDate !== "") {
+                    options['startDate'] = $scope.startDate.toISOString();
+                    options['endDate'] = $scope.endDate.toISOString();
+                }
 
                 acquisitionAPI.getDashboardStats(options, function(data) {
                 	$scope.stats = data;
@@ -30,8 +41,8 @@
             	$scope.scihubState = "started";
             	$scope.colhubState = "stopped";
                 $scope.stats;
-                $scope.startDate;
-                $scope.endDate;
+                $scope.startDate = "";
+                $scope.endDate = "";
             };
 
             $scope.init();

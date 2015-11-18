@@ -17,7 +17,7 @@
     <div class="row acquisitionMenu">
         <div class="small-2 large-12 columns">
             <ul class="button-group left">
-                <li><a class="button refreshButton"><i class="fi-refresh padding-10"></i>Refresh</a></li>
+                <li><a class="button refreshButton" ng-click="refresh()"><i class="fi-refresh padding-10"></i>Refresh</a></li>
             </ul>
             <ul class="button-group right">
                 <li><a class="button btnactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
@@ -41,6 +41,38 @@
       	</div>
       	
       	
+		<div class="row collapse">
+			<div class="large-2 large-offset-1 columns">
+				<div style="margin-top:5px;">Ingest date :</div>
+			</div>
+			<div class="large-4 columns">
+				<div class="row collapse">
+					<div class="small-7 columns">
+						<input class="end-date" type="text"
+							datetime="yyyy-MM-dd HH:mm:ss" ng-model="startDate">
+					</div>
+					<div class="small-2 columns">
+						<a title="delete"><span class="postfix" ng-click="startDate=''"><i class="fi-x button-margin"></i></span></a>
+					</div>
+					<div class="small-1 small-offset-1 columns end">
+						<div style="margin-top:5px;">to</div>
+					</div>
+				</div>
+			</div>
+			<div class="large-4 columns end">
+				<div class="row collapse">
+					<div class="small-7 columns">
+						<input class="end-date" type="text"
+							datetime="yyyy-MM-dd HH:mm:ss" ng-model="endDate">
+					</div>
+					<div class="small-2 columns end">
+						<a title="delete"><span class="postfix" ng-click="endDate=''"><i class="fi-x button-margin"></i></span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+      	
+      	
     	<div class="row" ng-repeat="tab in stats">
         	<div class="large-8 large-offset-2 columns">
 				<table class="dashTable">
@@ -55,67 +87,6 @@
 				</table>                  
             </div>
       	</div>
-    
-    <!-- 
-    	<div class="row">
-        	<div class="large-8 large-offset-2 columns">
-				<table class="dashTable" ng-repeat="tab in stats">
-				  <thead>
-				  </thead>
-				  <tbody>
-				    <tr style="background:#E3E3E3;">
-				      <td class="tableLabel">New products</td>
-				      <td class="tableValue">{{products.NEW}}</td>
-				    </tr>
-				    <tr style="background:#E3E3E3;">
-				      <td class="tableLabel">Products to download</td>
-				      <td class="tableValue">{{products.DOWNLOAD_TODO}}</td>
-				    </tr>
-				    <tr style="background:#E3E3E3;">
-				      <td class="tableLabel">Products download in progress</td>
-				      <td class="tableValue">{{products.DOWNLOAD_IN_PROGRESS}}</td>
-				    </tr>
-				    <tr style="background:#F98787;">
-				      <td class="tableLabel">Products download error</td>
-				      <td class="tableValue">{{products.DOWNLOAD_ERROR}}</td>
-				    </tr>
-				    <tr style="background:#9AF987;">
-				      <td class="tableLabel">Products downloaded</td>
-				      <td class="tableValue">{{products.DOWNLOAD_DONE}}</td>
-				    </tr>
-				    <tr style="background:#E3E3E3;">
-				      <td class="tableLabel">Products to archive</td>
-				      <td class="tableValue">{{products.ARCHIVE_TODO}}</td>
-				    </tr>
-				    <tr style="background:#F98787;">
-				      <td class="tableLabel">Products archive error</td>
-				      <td class="tableValue">{{products.ARCHIVE_ERROR}}</td>
-				    </tr>
-				    <tr style="background:#E3E3E3;">
-				      <td class="tableLabel">Products to catalog</td>
-				      <td class="tableValue">{{products.CATALOG_TODO}}</td>
-				    </tr>
-				    <tr style="background:#F98787;">
-				      <td class="tableLabel">Products catalog error</td>
-				      <td class="tableValue">{{products.CATALOG_ERROR}}</td>
-				    </tr>
-				    <tr style="background:#9AF987;">
-				      <td class="tableLabel">Products cataloged</td>
-				      <td class="tableValue">{{products.CATALOG_DONE}}</td>
-				    </tr>
-				    <tr style="background:#E3E3E3;">
-				      <td class="tableLabel">Products duplicated</td>
-				      <td class="tableValue">{{products.DUPLICATED}}</td>
-				    </tr>
-				    <tr style="background:#FFF;">
-				      <td class="tableLabel">Total products</td>
-				      <td class="tableValue">{{products.ALL}}</td>
-				    </tr>
-				  </tbody>
-				</table>                  
-            </div>
-      	</div>
-      	 -->
     </div>
 </div>
 
