@@ -13,94 +13,6 @@
  License for the specific language governing permissions and limitations
  under the License.
 -->
-<style>
-
-    .custom.button.history span {
-        //background: #a50c1d; 
-    }
-
-
-    .custom.button.history span:after {
-        border: none;
-        font-family: "foundation-icons";
-        content: "\f12b";
-        font-size: 2rem;
-        line-height: 0.25rem;
-        margin-left: -0.7rem; }
-
-    .padding-10 {
-        padding: 10px;
-    }
-
-    .btnactive {
-        background-color: #F60;
-    }
-
-    .alert {
-        background-color: #FFA4A4 !important;
-    }
-
-    .noactive {
-        background-color: #8C8C8C;
-    }
-
-    .tabs {
-        border-bottom: 1px solid #ddd !important;
-
-        padding-left: 0;
-        margin-bottom: 0;
-        list-style: none;
-    }
-
-
-    .tabs>li.tab-title.active>a, .tabs>li.tab-title.active>a:focus, .tabs>li.tab-title.active>a:hover {
-        color: #555;
-        cursor: default;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-bottom-color: transparent;
-    }
-    .tabs>li>a {
-        margin-right: 2px;
-        line-height: 1.42857143;
-        border: 1px solid transparent;
-        border-radius: 4px 4px 0 0;
-    }
-    .tabs>li>a {
-        position: relative;
-        display: block;
-        padding: 10px 15px;
-    }
-
-    .tabs>li.tab-title {
-        float: left !important;
-        margin-bottom: -1px !important;
-    }
-    
-    .filtreWrapper {
-		background-color: #E7E7E7;
-		padding: 20px;
-		margin-top: 5px !important;
-    }
-    
-    .filtreWrapper > .row + .row {
-    	margin-top: 20px !important;
-    }
-    
-    .filtreWrapper input {
-    	margin: 0px;
-    }
-    
-    .filterLabel {
-    	margin-left: 15px;
-    	vertical-align: middle;
-    	font-size: 13px;
-    	padding-right: 0;
-    }
-
-</style>
-
-
 <div class="main">
     <div class="show-for-large-up large-2 columns"></div>
 
@@ -108,7 +20,7 @@
     <div class="row">
         <div class="small-2 large-12 columns">
             <ul class="button-group left">
-                <li><a class="button" style="background-color: #449C44;"><i class="fi-refresh padding-10"></i>Refresh</a></li>
+                <li><a class="button refreshButton" ng-click="refresh()"><i class="fi-refresh padding-10"></i>Refresh</a></li>
             </ul>
             <ul class="button-group right">
                 <li><a class="button noactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
@@ -117,8 +29,6 @@
             </ul>
         </div>        
     </div>
-
-    <!--div class="show-for-large-up large-2 columns"-->
 
     <div class="row" style="margin-top: 20px;">
         <div class="large-12 columns">
@@ -131,9 +41,8 @@
 					<div style="margin-top:6px;">Datasource :</div>
 				</div>
 				<div class="large-2 columns end">
-			        <select>
-			          <option value="1">SCIHUB</option>
-			          <option value="2">COLHUB</option>
+			        <select ng-model="selectedDatasource">
+						<option ng-repeat="option in datasources" value="{{option}}">{{option}}</option>
 			        </select>
 				</div>
 			</div>
@@ -146,10 +55,10 @@
 						<div class="row collapse">
 							<div class="small-7 columns">
 								<input class="end-date" type="text"
-									datetime="yyyy-MM-dd HH:mm:ss" ng-model="date.start">
+									datetime="yyyy-MM-dd HH:mm:ss" ng-model="startDate">
 							</div>
 							<div class="small-2 columns">
-								<a title="delete"><span class="postfix" ng-click="date.start=''"><i class="fi-x button-margin"></i></span></a>
+								<a title="delete"><span class="postfix" ng-click="startDate=''"><i class="fi-x button-margin"></i></span></a>
 							</div>
 							<div class="small-1 small-offset-1 columns end">
 								<div style="margin-top:5px;">to</div>
@@ -160,10 +69,10 @@
 						<div class="row collapse">
 							<div class="small-7 columns">
 								<input class="end-date" type="text"
-									datetime="yyyy-MM-dd HH:mm:ss" ng-model="date.end">
+									datetime="yyyy-MM-dd HH:mm:ss" ng-model="endDate">
 							</div>
 							<div class="small-2 columns end">
-								<a title="delete"><span class="postfix" ng-click="date.end=''"><i class="fi-x button-margin"></i></span></a>
+								<a title="delete"><span class="postfix" ng-click="endDate=''"><i class="fi-x button-margin"></i></span></a>
 							</div>
 						</div>
 					</div>
@@ -173,19 +82,8 @@
 						<div style="margin-top:5px;">Product status :</div>
 					</div>
 					<div class="large-4 columns end">
-				        <select>
-				          <option value="husker">All</option>
-				          <option value="husker">New</option>
-				          <option value="starbuck">Download TODO</option>
-				          <option value="hotdog">Download in progress</option>
-				          <option value="apollo">Download error</option>
-				          <option value="12">Download done</option>
-				          <option value="13">Archive TODO</option>
-				          <option value="17">Archive error</option>
-				          <option value="45">Catalog TODO</option>
-				          <option value="7">Catalog error</option>
-				          <option value="37">Catalog done</option>
-				          <option value="45">Duplicated</option>
+				        <select ng-model="status">
+       						<option ng-repeat="option in availableStatus" value="{{option.name}}">{{option.name}}</option>
 				        </select>
 					</div>
 				</div>
@@ -196,10 +94,10 @@
 					<div class="large-2 columns">
 						<div class="row collapse">
 							<div class="small-5 columns">
-								<input type="number" ng-model="priority.min">
+								<input type="number" ng-model="minPriority">
 							</div>
 							<div class="small-3 columns">
-								<a title="delete"><span class="postfix" ng-click="priority.min=''"><i class="fi-x button-margin"></i></span></a>
+								<a title="delete"><span class="postfix" ng-click="minPriority=''"><i class="fi-x button-margin"></i></span></a>
 							</div>
 							<div class="small-1 small-offset-1 columns end">
 								<div style="margin-top:5px;">to</div>
@@ -209,95 +107,58 @@
 					<div class="large-2 columns">
 						<div class="row collapse">
 							<div class="small-5 columns">
-								<input type="number" ng-model="priority.max">
+								<input type="number" ng-model="maxPriority">
 							</div>
 							<div class="small-3 columns end">
-								<a title="delete"><span class="postfix" ng-click="priority.max=''"><i class="fi-x button-margin"></i></span></a>
+								<a title="delete"><span class="postfix" ng-click="maxPriority=''"><i class="fi-x button-margin"></i></span></a>
 							</div>
 						</div>
 					</div>
 					<div class="large-2 large-offset-4 columns">
-               			 <a ng-click="applyFilters()" class="button" style="margin-bottom: 0px; padding: 10px;">Apply Filters</a>
+               			 <a ng-click="applyFilters()" class="button applyFilter">Apply Filters</a>
 					</div>
 				</div>
 			</div>	
-            <div class="tabs-content">
-                <section role="tabpanel" aria-hidden="false" class="content active" style="padding:0px;" id="panel2-1">
-                    <div class="history tableContainer">					
-                        <div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th class="show-for-medium-up clickable custom-th"><input type="checkbox" ng-click="rowSelect()" ng-model="allRowSelected"></th>
-                                        <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('userid')" >Product identifier  <i class="fi-arrow-up" ng-show="orderBy === 'userid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></i></th>
-                                        <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('resourceid')" >Priority  <i class="fi-arrow-up" ng-show="orderBy === 'resourceid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
-                                        <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('resourceid')" >Status  <i class="fi-arrow-up" ng-show="orderBy === 'resourceid'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
-                                        <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('method')" >Ingest date  <i class="fi-arrow-up" ng-show="orderBy === 'method'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
-                                        <!--th class="clickable custom-th" ng-click="setHistory('service')" >Re-ingest date  <i class="fi-arrow-up" ng-show="orderBy === 'service'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
-                                        <th class="clickable custom-th" ng-click="setHistory('collection')" >Removed date  <i class="fi-arrow-up" ng-show="orderBy === 'collection'" ng-class="{true:'fi - arrow - up', false:'fi - arrow - down'}[ascOrDesc === 'DESC']"></th>
-                                        <!--th class="show-for-medium-up clickable custom-th" ng-click="setHistory('query')" >{{'query'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'query'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-                                        <th class="show-for-medium-up clickable custom-th" ng-click="setHistory('querytime')" >{{'querytime'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'querytime'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-                                        <th class="show-for-medium-up" >ip</th-->
-                                    </tr>
-                                </thead>
-                                <tbody ng-show="showAcquisition">
-                                    <tr ng-repeat="x in history" ng-class="{'alert':(x.status === 'ERROR')}">
-                                        <td style="max-width:10px;"><input type="checkbox" ng-model="x.selected"></td>
-                                        <td style="max-width:150px;" class="show-for-medium-up" title="">NQWB3_1HDGXL_HVO8</td>
-                                        <td class="show-for-medium-up" style="max-width:200px; overflow:hidden;text-align: center;"><span>{{ x.priority}}</span></td>
-                                        <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.status}}</td>
-                                        <td style="max-width:200px; overflow:hidden;text-align: center;">{{ x.querytime}}</td>
-                                        <!--td style="max-width:200px; overflow:hidden;text-align: center;" >-</td>
-                                        <td style="max-width:200px; overflow:hidden;text-align: center;" class="show-for-medium-up">-</td>
-                                        <!--td style="max-width:700px; overflow:hidden;" class="show-for-medium-up">{{ x.query}}</td>
-                                        <td style="width:210px" class="show-for-medium-up">{{ x.querytime}}</td>
-                                        <td style="width:100px" class="show-for-medium-up">{{ x.ip}}</td-->
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <!--a class="button expand tiny" ng-click="loadMore()">{{'load_more'| translate}}</a-->
-                            <ul class="pagination">
-                                <li class="arrow unavailable"><a href="">&laquo;</a></li>
-                                <li class="current"><a href="">1</a></li>
-                                <li><a href="">2</a></li>
-                                <li><a href="">3</a></li>
-                                <li><a href="">4</a></li>
-                                <li class="unavailable"><a href="">&hellip;</a></li>
-                                <li><a href="">12</a></li>
-                                <li><a href="">13</a></li>
-                                <li class="arrow"><a href="">&raquo;</a></li>
-                            </ul>
-                            <span>{{numSelectedRow}} row(s) selected</span>
-                        </div>
-                        <a class="button right" ng-click="changePriority()">Change Priority</a>
-                    </div>
-                </section>
-            </div>
-
-<script type="text/ng-template" id="firstDialogId">
-        <div class="ngdialog-message">
-            <h3>ngDialog template</h3>
-            <p ng-show="theme">Test content for <code>{{theme}}</code></p>
-            <p ng-show="ngDialogId">Dialog Id: <code>{{ngDialogId}}</code></p>
-            <p class="data-passed-through" ng-show="ngDialogData.foo">Data passed through: <code>{{ngDialogData.foo}}</code></p>
-            <p ng-show="dialogModel.message">Scope passed through: <code>{{dialogModel.message}}</code></p>
-            <p>Close this dialog: <button class="inline close-this-dialog" ng-click="closeThisDialog()">Close</button></p>
-
+			
+			<div class="acquisitionQueue tableContainer">					
+				<table>
+				    <thead>
+						 <tr>
+						    <th style="width:10px;" class="clickable custom-th"><input type="checkbox" ng-click="rowSelect()" ng-model="allRowSelected"></th>
+						    <th class="clickable custom-th" ng-click="sortData('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
+						    <th class="clickable custom-th" ng-click="sortData('product_type')" >Product type  <i ng-show="orderBy === 'product_type'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+						    <th class="clickable custom-th" ng-click="sortData('priority')" >Priority  <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+						    <th class="clickable custom-th" ng-click="sortData('product_status')" >Status  <i ng-show="orderBy === 'product_status'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+						    <th class="clickable custom-th" ng-click="sortData('ingest_date')" >Ingest date  <i ng-show="orderBy === 'ingest_date'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+						</tr>
+				   </thead>
+				   <tbody ng-show="showAcquisition">                                    
+						<tr ng-repeat="x in data" ng-class="getStatusClass(x.status)">
+					        <td><input type="checkbox" ng-model="x.selected"></td>
+					   		<td style="max-width:200px;">{{x.title}}</td>
+							<td style="max-width:100px;"><span>{{ x.productType}}</span></td>
+							<td style="max-width:100px;"><span>{{ x.priority}}</span></td>
+							<td style="max-width:150px;">{{ x.productStatus}}</td>
+							<td style="max-width:250px;">{{ x.ingestDate}}</td>
+						</tr>
+				    </tbody>
+				</table>
+			
+				<ul class="pagination">
+				    <li class="arrow unavailable"><a href="">&laquo;</a></li>
+				    <li class="current"><a href="">1</a></li>
+				    <li><a href="">2</a></li>
+				    <li><a href="">3</a></li>
+				    <li><a href="">4</a></li>
+				    <li class="unavailable"><a href="">&hellip;</a></li>
+				    <li><a href="">12</a></li>
+				    <li><a href="">13</a></li>
+				    <li class="arrow"><a href="">&raquo;</a></li>
+				</ul>
+			   <span>{{numSelectedRow}} row(s) selected</span>
+			</div>
+            <a class="button right" ng-click="changePriority()">Change Priority</a>
         </div>
-        <div class="ngdialog-buttons">
-            <button type="button" class="ngdialog-button ngdialog-button-secondary"
-                ng-dialog="secondDialogId"
-                ng-dialog-class="ngdialog-theme-default"
-                ng-dialog-controller="SecondModalCtrl"
-                ng-dialog-close-previous>Close and open</button>
-            <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="openSecond()">Open next</button>
-        </div>
-    </script>
-
-
-        </div>
-        <!--div class="large-2 columns"></div--> 
     </div>
 </div>
 

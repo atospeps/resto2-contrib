@@ -281,6 +281,18 @@ div.history {
 	overflow: hidden;
 }
 
+.acquisitionQueue {
+	margin-top: 20px;	
+}
+
+.acquisitionQueue td {
+	overflow: hidden;
+}
+
+.acquisitionQueue input {
+	margin: 0;
+}
+
 .dashboard {
 	text-align: center;
 }
@@ -303,6 +315,41 @@ div.history {
 
 .tableLabel {
 	font-size: 22px;
+}
+
+.close-icon:after {
+  content: "\f00d";
+  font: normal normal normal 14px/1 FontAwesome;
+  display: block;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  z-index: 1;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  padding: 2px;
+  border-radius: 50%;
+  text-align: center;
+  color: gray;
+  font-weight: normal;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.close-icon {
+    background-color: transparent;
+    border:0 !important;
+    cursor: pointer;
+}
+
+.clearicon {
+  display: none;
+}
+
+.dateInput::-ms-clear {
+    display: none;
 }
 
 /*------------------------------------*\

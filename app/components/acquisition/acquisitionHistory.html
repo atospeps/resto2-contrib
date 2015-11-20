@@ -112,18 +112,18 @@
                     <table>
                         <thead>
                             <tr>
-                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
-                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('product_type')" >Product type  <i ng-show="orderBy === 'product_type'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
-                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('priority')" >Priority  <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
-                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('product_status')" >Status  <i ng-show="orderBy === 'product_status'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
-                                <th class="show-for-medium-up clickable custom-th" ng-click="sortHistory('ingest_date')" >Ingest date  <i ng-show="orderBy === 'ingest_date'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th class="clickable custom-th" ng-click="sortHistory('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
+                                <th class="clickable custom-th" ng-click="sortHistory('product_type')" >Product type  <i ng-show="orderBy === 'product_type'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th class="clickable custom-th" ng-click="sortHistory('priority')" >Priority  <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th class="clickable custom-th" ng-click="sortHistory('product_status')" >Status  <i ng-show="orderBy === 'product_status'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th class="clickable custom-th" ng-click="sortHistory('ingest_date')" >Ingest date  <i ng-show="orderBy === 'ingest_date'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="x in history" ng-class="getStatusClass(x.status)">
-                                <td style="max-width:300px;" class="show-for-medium-up" title="">{{x.title}}</td>
-                                <td style="max-width:100px;" class="show-for-medium-up" ><span>{{ x.product_type}}</span></td>
-                                <td style="max-width:100px;" class="show-for-medium-up"><span>{{ x.priority}}</span></td>
+                                <td style="max-width:300px;">{{x.title}}</td>
+                                <td style="max-width:100px;"><span>{{ x.product_type}}</span></td>
+                                <td style="max-width:100px;"><span>{{ x.priority}}</span></td>
                                 <td style="max-width:150px;">{{ x.product_status}}</td>
                                 <td style="max-width:250px;">{{ x.ingest_date}}</td>
                             </tr>
@@ -154,10 +154,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-

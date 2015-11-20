@@ -13,6 +13,24 @@
         	 */
         	$scope.refresh = function() {
         		$scope.getStats();
+                $scope.getDatasource();
+        	};
+        	
+        	/**
+        	 * Get datasources state
+        	 */
+        	$scope.getDatasource = function() {
+                acquisitionAPI.getDatasource(function(data) {
+                	$scope.datasources = [];
+                    for (var key in data) {
+                        $scope.datasources.push({"state":data[key] ? "started" : "stopped", "name": key});
+                    }
+                    $scope.acquisitionState = "started";
+                    console.log($scope.datasources);
+                }, function() {
+                    $scope.acquisitionState = "stopped";
+                    $scope.datasources = [];
+                });
         	};
         	
         	/**
@@ -38,6 +56,7 @@
              */
             $scope.init = function() {
             	$scope.acquisitionState = "started";
+            	$scope.datasources = [];
             	$scope.scihubState = "started";
             	$scope.colhubState = "stopped";
                 $scope.stats;
@@ -47,6 +66,7 @@
 
             $scope.init();
             $scope.getStats();
+            $scope.getDatasource();
             $scope.$emit('showAcquisition');
         }
     };

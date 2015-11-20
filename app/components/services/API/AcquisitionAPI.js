@@ -28,7 +28,9 @@
 
         var api = {
             getHistory: getHistory,
-            getDashboardStats: getDashboardStats
+            getDashboardStats: getDashboardStats,
+            getDatasource: getDatasource,
+            getDatasourceData: getDatasourceData
         };
         return api;
 
@@ -42,7 +44,7 @@
          */
         function getHistory(options, callback, error) {
 
-            var url = config.acquisitionServerUrl + '/historique';
+            var url = config.acquisitionStatsUrl + '/historique';
             
             $http.post(url, options)
                     .success(function(data) {
@@ -63,7 +65,7 @@
          */
         function getDashboardStats(options, callback, error) {
 
-            var url = config.acquisitionServerUrl + '/statistiques';
+            var url = config.acquisitionStatsUrl + '/statistiques';
             
             if(options.startDate != null && options.endDate != null) {
             	url += "?startDate=" + options.startDate + "&endDate=" + options.endDate;
@@ -75,6 +77,47 @@
                     })
                     .error(function() {
                     	error('error - get acquisition dashboard');
+                    });
+        };
+
+        /**
+         * Get datasources state 
+         * 
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function getDatasource(callback, error) {
+
+            var url = config.acquisitionModuleUrl + '/config';
+            
+            $http.get(url)
+                    .success(function(data) {
+                        callback(data);
+                    })
+                    .error(function() {
+                    	error('error - get acquisition datasource');
+                    });
+        };
+
+        /**
+         * Get datasource data 
+         * 
+         * @param {String} datasourceName
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function getDatasourceData(datasourceName, callback, error) {
+
+            var url = config.acquisitionModuleUrl + '/queue/' + datasourceName + "/list";
+            
+            $http.get(url)
+                    .success(function(data) {
+                        callback(data);
+                    })
+                    .error(function() {
+                    	error('error - get acquisition datasource');
                     });
         };
     };

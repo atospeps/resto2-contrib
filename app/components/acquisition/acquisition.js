@@ -2,51 +2,15 @@
 
     'use strict';
 
-    /*
-     * Copyright 2014 Jérôme Gasperi
-     *
-     * Licensed under the Apache License, version 2.0 (the "License");
-     * You may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at:
-     *
-     *   http://www.apache.org/licenses/LICENSE-2.0
-     *
-     * Unless required by applicable law or agreed to in writing, software
-     * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-     * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-     * License for the specific language governing permissions and limitations
-     * under the License.
-     */
+    angular.module('administration').controller('AcquisitionController', ['$scope', 'administrationServices', 'acquisitionAPI', 'CONFIG', 'ngDialog', acquisitionController]);
 
-    /* Controller Users */
-
-    /*
-     * 
-     * history :
-     * 
-     * [
-     {
-     "gid": "3417",
-     "userid": "2",
-     "method": "GET",
-     "service": "search",
-     "collection": "SpotWorldHeritage",
-     "resourceid": null,
-     "query": "{\"lang\":\"en\",\"_view\":\"panel-list\",\"_\":\"1424249607459\"}",
-     "querytime": "2015-02-18 09:53:31.010211",
-     "url": "http:\/\/localhost\/PEPS\/api\/collections\/SpotWorldHeritage\/search.json?lang=en&_view=panel-list&_=1424249607459",
-     "ip": "127.0.0.1"
-     },
-     ...
-     ]
-     */
-
-    angular.module('administration').controller('AcquisitionController', ['$scope', 'administrationServices', 'administrationAPI', 'CONFIG', 'ngDialog', acquisitionController]);
-
-    function acquisitionController($scope, administrationServices, administrationAPI, CONFIG, ngDialog) {
+    function acquisitionController($scope, administrationServices, acquisitionAPI, CONFIG, ngDialog) {
     	
         if (administrationServices.isUserAnAdministrator()) {
         	
+        	/**
+        	 * Change priority/status popup
+        	 */
             $scope.changePriority = function(){
                  ngDialog.open({ 
                      template: 'app/components/acquisition/changePriority.html',
@@ -54,201 +18,148 @@
                     className: 'ngdialog-theme-plain',
                     closeByDocument: false
                  });
-            }
-
-            $scope.methods = ['POST', 'GET', 'PUT', 'DELETE'];
-            $scope.services = ['search', 'visualize', 'create', 'insert', 'download', 'remove'];
-            $scope.collections = [];
-
-            /**
-             * Set history order by field "orderBy"
-             * 
-             * @param {String} orderBy
-             */
-            $scope.setHistory = function(orderBy) {
-
-                $scope.busy = true;
-                $scope.startIndex = 0;
-                $scope.offset = CONFIG.offset;
-                $scope.showAcquisition = false;
-
-                if ($scope.ascOrDesc === 'DESC') {
-                    $scope.ascOrDesc = 'ASC';
-                } else {
-                    $scope.ascOrDesc = 'DESC';
-                }
-
-                $scope.orderBy = orderBy;
-                $scope.getHistory(false);
             };
 
-            /**
-             * Get history
-             * 
-             * If concatData is true, data is concataning with existing data. If not,
-             * data is replacing existing data.
-             * 
-             * @param {boolean} concatData
-             */
-            $scope.getHistory = function(concatData) {
-                
-                var status = ['TO DOWNLOAD', 'ERROR']; //DEM 
-                
-                var options = [];
-                
-                options['startindex'] = $scope.startIndex;
-                options['offset'] = $scope.offset;
-                options['ascordesc'] = $scope.ascOrDesc;
-                options['orderby'] = $scope.orderBy;
-                options['collection'] = $scope.collection;
-                options['method'] = $scope.method;
-                options['service'] = $scope.service;
-                options['maxDate'] = $scope.maxDate;
-                options['minDate'] = $scope.minDate;
+        	/**
+        	 * Refresh data
+        	 */
+        	$scope.refresh = function() {
+        		$scope.getDatasource();
+        	};
 
-                administrationAPI.getHistory(options, function(data) {
-                    $scope.startIndex = $scope.startIndex + $scope.offset;
-                    if (concatData === false) {
-                        $scope.history = data;
-                    } else {
-                        $scope.history = $scope.history.concat(data);
+        	/**
+        	 * Get datasources state
+        	 */
+        	$scope.getDatasource = function() {
+                acquisitionAPI.getDatasource(function(data) {
+                	$scope.datasources = [];
+                    for (var key in data) {
+                    	if(data[key]) {
+                    		$scope.datasources.push(key);
+                    		$scope.selectedDatasource = key;
+                    	}
                     }
-
-                    // DEM : for demo create priority attribute
-                    for(var j = 0; j<$scope.history.length; j++){
-                        $scope.history[j]['priority'] =  Math.floor((Math.random() * 100));
-                        $scope.history[j]['status'] = status[Math.floor((Math.random() * 2))];
-                        $scope.history[j]['selected'] = false; 
+                    if($scope.selectedDatasource) {
+                        $scope.getAcquisitionData();
                     }
-
-                    $scope.showAcquisition = true;
-                    /*
-                     * At the end of data, stop infinitscrolling with busy attribute
-                     */
-                    if (!data[0]) {
-                        $scope.busy = true;
-                        $scope.startIndex = $scope.startIndex - $scope.offset;
-                    }
-                    $scope.busy = false;
                 }, function() {
-                    alert($filter('translate')('error.getHistory'));
+                    $scope.datasources = [];
+                });
+        	};
+        	
+            /**
+             * Get acquisition data
+             */
+            $scope.getAcquisitionData = function() {
+                var options = {};
+                
+                options['startIndex'] = $scope.startIndex;
+                options['offset'] = $scope.offset;
+                options['sortOrder'] = $scope.sortOrder;
+                options['orderBy'] = $scope.orderBy;
+                options['filter'] = $scope.filtersActive;
+                options['status'] = $scope.status;
+                options['minPriority'] = $scope.minPriority;
+                options['maxPriority'] = $scope.maxPriority;
+                options['startDate'] = $scope.startDate;
+                options['endDate'] = $scope.endDate;
+
+                acquisitionAPI.getDatasourceData($scope.selectedDatasource, function(data) {
+                    $scope.data = data;
+                }, function(data) {
+                    alert(data);
                 });
             };
             
             $scope.rowSelect = function() {
-                for(var j = 0; j<$scope.history.length; j++) {
-                	$scope.history[j]['selected'] = $scope.allRowSelected;
+                for(var j = 0; j<$scope.data.length; j++) {
+                	$scope.data[j]['selected'] = $scope.allRowSelected;
                 }
-            }
+            };
             
             $scope.checkNumSelectedRow = function() {
             	var num = 0;
-                for(var j = 0; j<$scope.history.length; j++){
-                	if($scope.history[j]['selected']) {
+                for(var j = 0; j<$scope.data.length; j++){
+                	if($scope.data[j]['selected']) {
                 		num++;
                 	}
                 }
                 return num;
-            }
+            };
             
             $scope.isAllRowsSelected = function() {
-                for(var j = 0; j<$scope.history.length; j++){
-                	if(!$scope.history[j]['selected']) {
+                for(var j = 0; j<$scope.data.length; j++){
+                	if(!$scope.data[j]['selected']) {
                 		return false;
                 	}
                 }
                 return true;
-            }
+            };
 
-            $scope.$watch('history', function(newValue, oldValue) {
+            $scope.$watch('data', function(newValue, oldValue) {
             	$scope.numSelectedRow = $scope.checkNumSelectedRow();
             	$scope.allRowSelected = $scope.isAllRowsSelected();
             }, true);
-
-            /*
-             * Call by infinite scroll
-             */
-            $scope.loadMore = function() {
-                if ($scope.busy)
-                    return;
-                $scope.busy = true;
-                $scope.getHistory(true);
+            
+            $scope.toggleFiltre = function() {
+            	$scope.displayFiltres = !$scope.displayFiltres;
             };
-
-            $scope.getCollections = function() {
-                administrationAPI.getCollections(function(data) {
-                    for (var c in data) {
-                        $scope.collections.push(c);
-                    }
-                }, function() {
-                    alert($filter('translate')('error.setCollections'));
-                });
+            
+            $scope.applyFilters = function() {
+            	$scope.displayFiltres = false;
+            	$scope.filtersActive = true;
+            	// Update data
+            	$scope.getAcquisitionData();
             };
-
-            $scope.setParam = function(type, value) {
-                $scope.init();
-
-                if (type === 'method') {
-                    $scope.method = value;
-                } else if (type === 'service') {
-                    $scope.service = value;
-                } else if (type === 'collection') {
-                    $scope.collection = value;
-                }
-
-                $scope.getHistory(false);
-            };
-
-            $scope.resetFilters = function() {
-                $scope.init();
-                $scope.initFilters();
-                $scope.getHistory(false);
+            
+            $scope.removeFilters = function() {
+            	$scope.filtersActive = false;
+            	// Update data
+            	$scope.getAcquisitionData();
             };
 
             /*
              * Init the context
              */
             $scope.init = function() {
-                $scope.ascOrDesc = 'DESC';
-                $scope.orderBy = null;
-                $scope.history = [];
-                $scope.busy = true;
-                $scope.startIndex = 0;
-                $scope.offset = CONFIG.offset;
-                $scope.showAcquisition = false;
             	$scope.displayFiltres = false;
             	$scope.filtersActive = false;
+            	$scope.datasources = [];
+            	$scope.selectedDatasource = "";
+                $scope.availableStatus = [
+                              {id: '1', name: 'All'},
+                              {id: '2', name: 'New'},
+                              {id: '3', name: 'Download TODO'},
+                              {id: '4', name: 'Download in progress'},
+                              {id: '5', name: 'Download error'},
+                              {id: '6', name: 'Download done'},
+                              {id: '7', name: 'Archive TODO'},
+                              {id: '8', name: 'Archive error'},
+                              {id: '9', name: 'Catalog TODO'},
+                              {id: '10', name: 'Catalog error'},
+                              {id: '11', name: 'Catalog done'},
+                              {id: '12', name: 'Duplicated'}];
+                
+                $scope.currentPage = 1;
+                $scope.maxPage = 1;
+                $scope.startIndex = 0;
+                $scope.offset = CONFIG.offset;
+                $scope.sortOrder = 'DESC';
+                $scope.orderBy = null;
+                $scope.status = "All";
+                $scope.minPriority;
+                $scope.maxPriority;
+                $scope.startDate;
+                $scope.endDate;
+                
+                $scope.data = [];
             	$scope.allRowSelected = false;
             	$scope.numSelectedRow = 0;
             };
 
-            $scope.initFilters = function() {
-                $scope.selectedService = null;
-                $scope.selectedCollection = null;
-                $scope.selectedMethod = null;
-                $scope.method = null;
-                $scope.service = null;
-                $scope.collection = null;
-            };
-            
-            $scope.toggleFiltre = function() {
-            	$scope.displayFiltres = !$scope.displayFiltres;
-             }
-            
-            $scope.applyFilters = function() {
-            	$scope.displayFiltres = false;
-            	$scope.filtersActive = true;
-            }
-            
-            $scope.removeFilters = function() {
-            	$scope.filtersActive = false;
-            }
-
             $scope.init();
-            $scope.getHistory();
-            $scope.getCollections();
+            $scope.getDatasource();
             $scope.$emit('showAcquisition');
         }
-    }
-    ;
+    };
 })();

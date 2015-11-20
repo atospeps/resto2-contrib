@@ -67,7 +67,9 @@
             	$scope.getHistory();
             };
             
-            
+            /**
+             * Return num page to display for paging
+             */
             $scope.pagesButtonRange = function() {
             	var range = [];
             	var minPage = ($scope.currentPage - 2) > 1 ? $scope.currentPage - 2 : 1;
