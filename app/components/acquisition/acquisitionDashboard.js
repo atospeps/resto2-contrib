@@ -26,7 +26,6 @@
                         $scope.datasources.push({"state":data[key] ? "started" : "stopped", "name": key});
                     }
                     $scope.acquisitionState = "started";
-                    console.log($scope.datasources);
                 }, function() {
                     $scope.acquisitionState = "stopped";
                     $scope.datasources = [];

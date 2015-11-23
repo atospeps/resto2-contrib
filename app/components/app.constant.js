@@ -29,8 +29,11 @@
                 'acquisitionStatsUrl': 'http://172.24.219.218/acq-rest',
                 'acquisitionModuleUrl': 'http://172.24.219.226:8080',
                 'administrationEndpoint': '/administration',
-                'offset': 30,
+                'offset': 5,
                 'version': 0.1,
+                'productType' : ["All", "SLC", "GRD", "OCN"],
+                'productPlatform' : ["All", "S1A", "S1B", "S2A", "S2B"],
+                'productStatus' : ["All", "NEW", "DOWNLOAD_TODO", "DOWNLOAD_IN_PROGRESS", "DOWNLOAD_ERROR", "DOWNLOAD_DONE", "ARCHIVE_TODO", "ARCHIVE_ERROR", "CATALOG_TODO", "CATALOG_ERROR", "CATALOG_DONE", "DUPLICATED"],
                 'theia': {
                     'name': 'theia',
                     'signUpUrl': 'https://sso.theia-land.fr/theia/app/register/register.xhtml',

@@ -103,19 +103,7 @@
             $scope.init = function() {
             	$scope.displayFiltres = false;
             	$scope.filtersActive = false;
-                $scope.availableStatus = [
-                              {id: '1', name: 'All'},
-                              {id: '2', name: 'New'},
-                              {id: '3', name: 'Download TODO'},
-                              {id: '4', name: 'Download in progress'},
-                              {id: '5', name: 'Download error'},
-                              {id: '6', name: 'Download done'},
-                              {id: '7', name: 'Archive TODO'},
-                              {id: '8', name: 'Archive error'},
-                              {id: '9', name: 'Catalog TODO'},
-                              {id: '10', name: 'Catalog error'},
-                              {id: '11', name: 'Catalog done'},
-                              {id: '12', name: 'Duplicated'}];
+                $scope.availableStatus = CONFIG.productStatus;
                 
                 $scope.currentPage = 1;
                 $scope.maxPage = 1;

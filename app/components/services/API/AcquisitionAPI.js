@@ -91,7 +91,7 @@
 
             var url = config.acquisitionModuleUrl + '/config';
             
-            $http.get(url)
+            $http.get(url, {timeout: 10000})
                     .success(function(data) {
                         callback(data);
                     })
@@ -112,7 +112,7 @@
 
             var url = config.acquisitionModuleUrl + '/queue/' + datasourceName + "/list";
             
-            $http.get(url)
+            $http.get(url,  {timeout: 25000})
                     .success(function(data) {
                         callback(data);
                     })
