@@ -1,0 +1,38 @@
+<div class="ngdialog-message">
+    <div class="row">
+        <h5 style="text-align:center;">Update products</h5>
+        <div class="large-12 columns">
+            <div class="row collapse prefix-radius">
+                <div class="small-7 columns">
+                    <span class="prefix" style="color:#000 !important;">New Priority value</span>
+                </div>
+                <div class="small-5 columns end">
+                    <input ng-model="productPriority" type="number" placeholder="Priority">
+                </div>
+            </div>
+        </div>
+        <div class="large-12 columns">
+            <div class="row collapse prefix-radius">
+                <div class="small-7 columns">
+                    <span class="prefix" style="color:#000 !important;">New status</span>
+                </div>
+                <div class="small-5 columns end">
+			        <select ng-model="productStatus">
+      						<option ng-repeat="option in availableStatus" value="{{option}}">{{option}}</option>
+			        </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form>
+        <div class="row" style="margin-top:20px;">
+            <div class="large-12 columns ">
+                <ul class="button-group right">
+                    <li><a class="button tiny" style="margin:0px;" ng-click="closeThisDialog();">Cancel</a></li>
+                    <li><a class="button tiny success" style="margin:0px;"ng-click="updateProducts(productPriority, productStatus);closeThisDialog();">Submit</a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+

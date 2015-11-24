@@ -30,7 +30,8 @@
             getHistory: getHistory,
             getDashboardStats: getDashboardStats,
             getDatasource: getDatasource,
-            getDatasourceData: getDatasourceData
+            getDatasourceData: getDatasourceData,
+            updateProducts: updateProducts
         };
         return api;
 
@@ -118,6 +119,42 @@
                     })
                     .error(function() {
                     	error('error - get acquisition datasource');
+                    });
+        };
+
+        /**
+         * Get datasource data 
+         * 
+         * @param {array} options
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function updateProducts(options, callback, error) {
+            console.log(options);
+            var url = config.acquisitionModuleUrl + '/queue/' + options.datasourceName + "/update";
+            
+            var data = {};
+            if(options.priority) {
+            	data.priority = options.priority;
+            }
+            if(options.status) {
+            	data.status = options.status;
+            }
+            if(options.products) {
+            	data.products = [];
+            	for(var i=0; i < options.products.length; i++) {
+            		data.products.push(options.products[i].identifier);
+            	}
+            }
+            console.log(data);
+            
+            $http.post(url, data)
+                    .success(function(data) {
+                        callback(data);
+                    })
+                    .error(function() {
+                    	error('error - update products');
                     });
         };
     };

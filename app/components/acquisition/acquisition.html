@@ -53,7 +53,7 @@
 					</div>
 					<div class="large-4 columns end">
 				        <select ng-model="productType">
-       						<option ng-repeat="option in availableType" value="{{option}}">{{option}}</option>
+       						<option ng-repeat="option in filterType" value="{{option}}">{{option}}</option>
 				        </select>
 					</div>
 				</div>
@@ -63,7 +63,7 @@
 					</div>
 					<div class="large-4 columns end">
 				        <select ng-model="platform">
-       						<option ng-repeat="option in availablePlatform" value="{{option}}">{{option}}</option>
+       						<option ng-repeat="option in filterPlatform" value="{{option}}">{{option}}</option>
 				        </select>
 					</div>
 				</div>
@@ -73,7 +73,7 @@
 					</div>
 					<div class="large-4 columns end">
 				        <select ng-model="status">
-       						<option ng-repeat="option in availableStatus" value="{{option}}">{{option}}</option>
+       						<option ng-repeat="option in filterStatus" value="{{option}}">{{option}}</option>
 				        </select>
 					</div>
 				</div>
@@ -120,6 +120,7 @@
 						    <th class="clickable custom-th" ng-click="sortData('missionIdentifier')" >Platform  <i ng-show="orderBy === 'missionIdentifier'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
 						    <th class="clickable custom-th" ng-click="sortData('priority')" >Priority  <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
 						    <th class="clickable custom-th" ng-click="sortData('productStatus')" >Status  <i ng-show="orderBy === 'productStatus'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
+						    <th class="clickable custom-th" ng-click="sortData('archiveSize')" >Size (Mo)  <i ng-show="orderBy === 'archiveSize'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
 						</tr>
 				   </thead>
 				   <tbody ng-show="showAcquisition">                                    
@@ -130,6 +131,7 @@
 							<td style="max-width:100px;"><span>{{ x.missionIdentifier}}</span></td>
 							<td style="max-width:100px;"><span>{{ x.priority}}</span></td>
 							<td style="max-width:150px;">{{ x.productStatus}}</td>
+							<td style="max-width:150px;">{{ x.archiveSize/1000000}}</td>
 						</tr>
 				    </tbody>
 				</table>
@@ -153,9 +155,19 @@
                 		<input type="number" ng-model="offset">
                 	</div>
               	</div>
-			   <span>{{numSelectedRow}} row(s) selected</span>
 			</div>
-            <a class="button right" ng-click="changePriority()">Change Priority</a>
+			<div class="row collapse" style="margin-top:20px;">
+				<div class="large-3 columns">
+				    <div>Products selected : {{numSelectedRow}}</div>
+				    <div>Total products : {{dataFiltered.length}}</div>
+				</div>
+				<div class="large-5 large-offset-4 end columns">
+		            <ul class="button-group right">
+		                <li><button class="button updateButton right" ng-class="{disabled: numSelectedRow == 0}" ng-click="changeProducts(getSelectedData())">Update selected products</button></li>
+		                <li><button class="button updateButton right" ng-class="{disabled: !filtersActive}" ng-click="changeProducts(getFilteredData())">Update filtered products</button></li>
+		            </ul>
+		        </div>
+		    </div>
         </div>
     </div>
 </div>

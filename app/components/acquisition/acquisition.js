@@ -11,20 +11,47 @@
         	/**
         	 * Change priority/status popup
         	 */
-            $scope.changePriority = function(){
+            $scope.changeProducts = function(productList) {
+            	if(productList.length == 0) {
+            		return;
+            	}
+            	$scope.productsToUpdate = productList;
                  ngDialog.open({ 
-                     template: 'app/components/acquisition/changePriority.html',
+                     template: 'app/components/acquisition/changeProducts.html',
                      scope: $scope,
                     className: 'ngdialog-theme-plain',
                     closeByDocument: false
                  });
             };
+            
+            /**
+             * Update products
+             */
+            $scope.updateProducts = function(newPriority, newStatus) {
+            	var options = {
+            			datasourceName : $scope.selectedDatasource,
+            			products : $scope.productsToUpdate,
+            			priority : newPriority,
+            			status : newStatus};
+                acquisitionAPI.updateProducts(options, function(data) {
+                    $scope.rowSelect(false);
+                    $scope.data = data;
+                    if($scope.filtersActive){
+                    	$scope.dataFiltered = $scope.data.filter($scope.filter);
+                    } else {
+                        $scope.dataFiltered = $scope.data;
+                    }
+                }, function(data) {
+                    alert(data);
+                });
+            }
 
         	/**
         	 * Refresh data
         	 */
         	$scope.refresh = function() {
                 if($scope.selectedDatasource) {
+                    $scope.rowSelect(false);
                     $scope.getAcquisitionData();
                 }
         	};
@@ -54,8 +81,13 @@
              */
             $scope.getAcquisitionData = function() {
                 acquisitionAPI.getDatasourceData($scope.selectedDatasource, function(data) {
+                    $scope.rowSelect(false);
                     $scope.data = data;
-                    $scope.dataFiltered = $scope.data;
+                    if($scope.filtersActive){
+                    	$scope.dataFiltered = $scope.data.filter($scope.filter);
+                    } else {
+                        $scope.dataFiltered = $scope.data;
+                    }
                 }, function(data) {
                     alert(data);
                 });
@@ -140,7 +172,31 @@
             $scope.refreshRow = function() {
             	$scope.numSelectedRow = $scope.checkNumSelectedRow();
             	$scope.allRowSelected = $scope.isAllRowsSelected();
-            }
+            };
+            
+            /**
+             * Return all selected products
+             */
+            $scope.getSelectedData = function() {
+            	var selectedData = [];
+                for(var j = 0; j<$scope.displayedData.length; j++){
+                	if($scope.displayedData[j]['selected']) {
+                		selectedData.push($scope.displayedData[j]);
+                	}
+                }
+                return selectedData;
+            };
+            
+            /**
+             * Return all filtered products
+             */
+            $scope.getFilteredData = function() {
+            	if($scope.filtersActive) {
+            		return $scope.dataFiltered;
+            	} else {
+            		return [];
+            	}
+            };
             
             /**
              * Sort Data 
@@ -149,7 +205,7 @@
             	$scope.sortOrder = !$scope.sortOrder;
             	$scope.orderBy = order;
                 $scope.rowSelect(false);
-            }
+            };
             
             $scope.toggleFiltre = function() {
             	$scope.displayFiltres = !$scope.displayFiltres;
@@ -199,9 +255,13 @@
             	$scope.filtersActive = false;
             	$scope.datasources = [];
             	$scope.selectedDatasource = "";
-                $scope.availableStatus = CONFIG.productStatus;
-                $scope.availableType = CONFIG.productType;
-                $scope.availablePlatform = CONFIG.productPlatform;
+            	$scope.availableStatus = CONFIG.productStatus.slice();
+                $scope.filterStatus = CONFIG.productStatus.slice();
+                $scope.filterStatus.splice(0,0,"All");
+                $scope.filterType = CONFIG.productType.slice();
+                $scope.filterType.splice(0,0,"All");
+                $scope.filterPlatform = CONFIG.productPlatform.slice();
+                $scope.filterPlatform.splice(0,0,"All");
                 
                 $scope.currentPage = 1;
                 $scope.maxPage = 1;
@@ -222,6 +282,7 @@
                 $scope.displayedData = [];
             	$scope.allRowSelected = false;
             	$scope.numSelectedRow = 0;
+            	$scope.productsToUpdate = [];
             };
 
             $scope.init();

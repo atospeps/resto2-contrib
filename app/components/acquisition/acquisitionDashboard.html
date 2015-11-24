@@ -30,10 +30,10 @@
     <div class="dashboard tableContainer">
       	<div class="row collapse acquisitionStateWrapper">
         	<div class="large-4 columns">
-				<span>Module acquisition</span><i class="fa fa-circle stateIcon" ng-class="acquisitionState == 'started' ? 'stateStarted' : 'stateStopped'"></i>
+				<span>Module acquisition</span><i class="fa fa-circle stateIcon" ng-class="acquisitionState == 'started' ? 'stateStarted' : acquisitionState == 'stopped' ? 'stateStopped' : 'stateUnknown'"></i>
             </div>
         	<div ng-repeat="datasource in datasources" class="large-4 columns">
-				<span>Datasource {{datasource.name}}</span><i class="fa fa-circle stateIcon" ng-class="datasource.state == 'started' ? 'stateStarted' : 'stateStopped'"></i>
+				<span>Datasource {{datasource.name}}</span><i class="fa fa-circle stateIcon" ng-class="datasource.state == 'started' ? 'stateStarted' : datasource.state == 'stopped' ? 'stateStopped' : 'stateUnknown'"></i>
             </div>
       	</div>
       	

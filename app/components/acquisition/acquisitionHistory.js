@@ -103,7 +103,8 @@
             $scope.init = function() {
             	$scope.displayFiltres = false;
             	$scope.filtersActive = false;
-                $scope.availableStatus = CONFIG.productStatus;
+                $scope.availableStatus = CONFIG.productStatus.slice();
+                $scope.availableStatus.splice(0,0,"All");
                 
                 $scope.currentPage = 1;
                 $scope.maxPage = 1;

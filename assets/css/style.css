@@ -204,6 +204,10 @@ div.history {
 /****************************************
         	Acquisition Tab
 *****************************************/
+.ngdialog-overlay { 
+    background: rgba(0,0,0,.6) !important; 
+} 
+
 .acquisitionStateWrapper {
 	margin-bottom: 60px !important;
 	font-size: 18px;
@@ -225,6 +229,10 @@ div.history {
 
 .stateStopped {
 	color: #F87F7F;
+}
+
+.stateUnknown {
+	color: #929292;
 }
 
 .padding-10 {
@@ -267,6 +275,12 @@ div.history {
 .applyFilter {
 	margin-bottom: 0px; 
 	padding: 10px;
+}
+
+.updateButton {
+	margin-bottom: 0px; 
+	padding: 10px;
+	font-size: 14px;
 }
 
 .acquisitionMenu {
