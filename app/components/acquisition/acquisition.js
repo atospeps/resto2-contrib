@@ -2,9 +2,9 @@
 
     'use strict';
 
-    angular.module('administration').controller('AcquisitionController', ['$scope', 'administrationServices', 'acquisitionAPI', 'CONFIG', 'ngDialog', acquisitionController]);
+    angular.module('administration').controller('AcquisitionController', ['$scope', '$timeout', 'administrationServices', 'acquisitionAPI', 'CONFIG', 'ngDialog', acquisitionController]);
 
-    function acquisitionController($scope, administrationServices, acquisitionAPI, CONFIG, ngDialog) {
+    function acquisitionController($scope, $timeout, administrationServices, acquisitionAPI, CONFIG, ngDialog) {
     	
         if (administrationServices.isUserAnAdministrator()) {
         	
@@ -34,13 +34,7 @@
             			priority : newPriority,
             			status : newStatus};
                 acquisitionAPI.updateProducts(options, function(data) {
-                    $scope.rowSelect(false);
-                    $scope.data = data;
-                    if($scope.filtersActive){
-                    	$scope.dataFiltered = $scope.data.filter($scope.filter);
-                    } else {
-                        $scope.dataFiltered = $scope.data;
-                    }
+                	$scope.loadProducts(data);
                 }, function(data) {
                     alert(data);
                 });
@@ -51,6 +45,11 @@
         	 */
         	$scope.refresh = function() {
                 if($scope.selectedDatasource) {
+                	$scope.tempData = [];
+                	var data = $scope.getSelectedData();
+                	for(var key in data) {
+                		$scope.tempData.push(data[key].identifier);
+                	}
                     $scope.rowSelect(false);
                     $scope.getAcquisitionData();
                 }
@@ -80,17 +79,27 @@
              * Get acquisition data
              */
             $scope.getAcquisitionData = function() {
-                acquisitionAPI.getDatasourceData($scope.selectedDatasource, function(data) {
-                    $scope.rowSelect(false);
-                    $scope.data = data;
-                    if($scope.filtersActive){
-                    	$scope.dataFiltered = $scope.data.filter($scope.filter);
-                    } else {
-                        $scope.dataFiltered = $scope.data;
-                    }
+                acquisitionAPI.getDatasourceData($scope.selectedDatasource, function(data) {  
+                	$scope.loadProducts(data);
                 }, function(data) {
                     alert(data);
                 });
+            };
+            
+            /**
+             * Load products
+             */
+            $scope.loadProducts = function(products) {          	
+                $scope.rowSelect(false);
+                $scope.data = products;
+                if($scope.filtersActive){
+                	$scope.dataFiltered = $scope.data.filter($scope.filter);
+                } else {
+                    $scope.dataFiltered = $scope.data;
+                }
+                $timeout(function(){
+                    $scope.reselectProducts();
+                });  
             };
 
             /**
@@ -175,6 +184,21 @@
             };
             
             /**
+             * Reselect row according to previous selection
+             */
+            $scope.reselectProducts = function() {
+            	for(var i=0; i < $scope.tempData.length; i++) {
+            		for(var j=0; j < $scope.displayedData.length; j++) {
+            			if($scope.displayedData[j].identifier == $scope.tempData[i]) {
+            				$scope.displayedData[j].selected = true;
+            				break;
+            			}
+            		}
+            	}
+            	$scope.refreshRow();
+            };
+            
+            /**
              * Return all selected products
              */
             $scope.getSelectedData = function() {
@@ -256,6 +280,7 @@
             	$scope.datasources = [];
             	$scope.selectedDatasource = "";
             	$scope.availableStatus = CONFIG.productStatus.slice();
+                $scope.availableStatus.splice(0,0,"");
                 $scope.filterStatus = CONFIG.productStatus.slice();
                 $scope.filterStatus.splice(0,0,"All");
                 $scope.filterType = CONFIG.productType.slice();
@@ -280,6 +305,7 @@
                 $scope.data = [];
                 $scope.dataFiltered = [];
                 $scope.displayedData = [];
+                $scope.tempData = [];
             	$scope.allRowSelected = false;
             	$scope.numSelectedRow = 0;
             	$scope.productsToUpdate = [];

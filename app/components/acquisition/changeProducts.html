@@ -3,22 +3,22 @@
         <h5 style="text-align:center;">Update products</h5>
         <div class="large-12 columns">
             <div class="row collapse prefix-radius">
-                <div class="small-7 columns">
-                    <span class="prefix" style="color:#000 !important;">New Priority value</span>
+                <div class="small-4 small-offset-2 columns">
+                    <span class="prefix" style="color:#000 !important;">New Priority</span>
                 </div>
-                <div class="small-5 columns end">
+                <div class="small-4 columns end">
                     <input ng-model="productPriority" type="number" placeholder="Priority">
                 </div>
             </div>
         </div>
         <div class="large-12 columns">
             <div class="row collapse prefix-radius">
-                <div class="small-7 columns">
+                <div class="small-4 small-offset-2 columns">
                     <span class="prefix" style="color:#000 !important;">New status</span>
                 </div>
-                <div class="small-5 columns end">
+                <div class="small-4 columns end">
 			        <select ng-model="productStatus">
-      						<option ng-repeat="option in availableStatus" value="{{option}}">{{option}}</option>
+      						<option ng-init="productStatus = options[0]" ng-repeat="option in availableStatus">{{option}}</option>
 			        </select>
                 </div>
             </div>

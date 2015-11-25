@@ -36,6 +36,17 @@
 			<div class="filtreWrapper" ng-show="displayFiltres" id="filtre" style="margin:initial;">
 				<div class="row collapse">
 					<div class="large-2 columns">
+						<div style="margin-top:5px;">Product title :</div>
+					</div>
+					<div class="large-3 columns end">
+						<div style="position: relative">
+                        	<input type="text" placeholder="^S[0-9]" ng-model="title">
+                        	<i class="close-icon" ng-class="{clearicon: title == '' || title == null}" ng-click="title=''"></i>
+		                </div>
+					</div>
+				</div>
+				<div class="row collapse">
+					<div class="large-2 columns">
 						<div style="margin-top:5px;">Ingest date :</div>
 					</div>
 					<div class="large-3 columns">
@@ -110,7 +121,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th class="clickable custom-th" ng-click="sortHistory('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
+                                <th style="width:250px;" class="clickable custom-th" ng-click="sortHistory('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
                                 <th class="clickable custom-th" ng-click="sortHistory('product_type')" >Product type  <i ng-show="orderBy === 'product_type'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
                                 <th class="clickable custom-th" ng-click="sortHistory('priority')" >Priority  <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
                                 <th class="clickable custom-th" ng-click="sortHistory('product_status')" >Status  <i ng-show="orderBy === 'product_status'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
@@ -119,11 +130,11 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="x in history" ng-class="getStatusClass(x.status)">
-                                <td style="max-width:300px;">{{x.title}}</td>
-                                <td style="max-width:100px;"><span>{{ x.product_type}}</span></td>
-                                <td style="max-width:100px;"><span>{{ x.priority}}</span></td>
-                                <td style="max-width:150px;">{{ x.product_status}}</td>
-                                <td style="max-width:250px;">{{ x.ingest_date}}</td>
+                                <td><input readonly class="acquisitionTitle" type="text" value="{{x.title}}"></input></td>
+                                <td><span>{{ x.product_type}}</span></td>
+                                <td><span>{{ x.priority}}</span></td>
+                                <td>{{ x.product_status}}</td>
+                                <td>{{ x.ingest_date}}</td>
                             </tr>
                         </tbody>
                     </table>

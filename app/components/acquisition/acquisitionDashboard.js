@@ -12,6 +12,7 @@
         	 * Refresh data
         	 */
         	$scope.refresh = function() {
+            	$scope.acquisitionState = "unknown";
         		$scope.getStats();
                 $scope.getDatasource();
         	};
@@ -54,10 +55,8 @@
              * Init the context
              */
             $scope.init = function() {
-            	$scope.acquisitionState = "started";
+            	$scope.acquisitionState = "unknown";
             	$scope.datasources = [];
-            	$scope.scihubState = "started";
-            	$scope.colhubState = "stopped";
                 $scope.stats;
                 $scope.startDate = "";
                 $scope.endDate = "";

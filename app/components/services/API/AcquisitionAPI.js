@@ -131,12 +131,13 @@
          * @returns {undefined}
          */
         function updateProducts(options, callback, error) {
-            console.log(options);
             var url = config.acquisitionModuleUrl + '/queue/' + options.datasourceName + "/update";
             
             var data = {};
             if(options.priority) {
             	data.priority = options.priority;
+            } else {
+            	data.priority = -1;
             }
             if(options.status) {
             	data.status = options.status;
@@ -147,7 +148,6 @@
             		data.products.push(options.products[i].identifier);
             	}
             }
-            console.log(data);
             
             $http.post(url, data)
                     .success(function(data) {

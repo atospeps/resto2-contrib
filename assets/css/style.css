@@ -235,9 +235,25 @@ div.history {
 	color: #929292;
 }
 
+.acquisitionTitle {
+	border: 0px none !important; 
+	box-shadow: none !important;
+	background: rgba(255, 250, 250, 0) !important;
+	cursor: pointer !important;
+	transition: all 0.05s ease 0s !important;
+	padding: 0px !important;
+	margin: 0px !important;
+	height: initial !important;
+}
+
+.acquisitionTitle:focus {
+	font-size: 0.925rem;
+}
+
 .padding-10 {
     padding: 10px;
 }
+
 .btnactive {
     background-color: #F60 !important;
 }
@@ -297,6 +313,9 @@ div.history {
 
 .acquisitionQueue {
 	margin-top: 20px;	
+    width: 1300px;
+    position: relative;
+    right: 150px;
 }
 
 .acquisitionQueue td {

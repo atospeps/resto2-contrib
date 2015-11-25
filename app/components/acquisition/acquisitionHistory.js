@@ -31,6 +31,7 @@
                 options['maxPriority'] = $scope.maxPriority;
                 options['startDate'] = $scope.startDate;
                 options['endDate'] = $scope.endDate;
+                options['title'] = $scope.title;
 
                 acquisitionAPI.getHistory(options, function(data) {
                     $scope.history = data.results;
@@ -117,6 +118,7 @@
                 $scope.maxPriority;
                 $scope.startDate;
                 $scope.endDate;
+                $scope.title;
                 
                 $scope.history = [];
             };
