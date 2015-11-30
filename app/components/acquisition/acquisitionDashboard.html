@@ -76,7 +76,7 @@
 				  <tbody>
 				    <tr ng-repeat="line in tab" style="background:{{line.color}};">
 				      <td class="tableLabel">{{line.label}}</td>
-				      <td class="tableValue">{{line.count}}</td>
+				      <td class="tableValue"><div ng-class="{rowFilterIcon: line.date_filter}">{{line.count}} <i class="fi-filter" title="Filter available" ng-class="{clearicon: !line.date_filter}"></i></div></td>
 				    </tr>
 				  </tbody>
 				</table>                  

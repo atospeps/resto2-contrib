@@ -2,11 +2,26 @@
 
     'use strict';
 
-    angular.module('administration').controller('AcquisitionHistoryController', ['$scope', 'administrationServices', 'acquisitionAPI', 'CONFIG', acquisitionHistoryController]);
+    angular.module('administration').controller('AcquisitionHistoryController', ['$scope', 'administrationServices', 'acquisitionAPI', 'CONFIG', 'ngDialog', acquisitionHistoryController]);
 
-    function acquisitionHistoryController($scope, administrationServices, acquisitionAPI, CONFIG) {
+    function acquisitionHistoryController($scope, administrationServices, acquisitionAPI, CONFIG, ngDialog) {
     	
         if (administrationServices.isUserAnAdministrator()) {
+        	
+        	/**
+        	 * Display product info
+        	 */
+            $scope.displayProduct = function(product) {
+            	if(!product) {
+            		return;
+            	}
+            	$scope.displayedProduct = product;
+                ngDialog.open({ 
+                     template: 'app/components/acquisition/productDetail.html',
+                     scope: $scope,
+                    className: 'ngdialog-theme-plain productDialog'
+                });
+            };
 
         	/**
         	 * Refresh data
@@ -118,7 +133,7 @@
                 $scope.maxPriority;
                 $scope.startDate;
                 $scope.endDate;
-                $scope.title;
+                $scope.displayedProduct;
                 
                 $scope.history = [];
             };

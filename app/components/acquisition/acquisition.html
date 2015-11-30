@@ -83,24 +83,24 @@
 					</div>
 					<div class="large-2 columns">
 						<div class="row collapse">
-							<div class="small-5 columns">
-								<input type="number" ng-model="minPriority">
+							<div class="small-6 columns">
+								<div style="position: relative">
+									<input type="number" ng-model="minPriority">
+		                        	<i class="close-icon" ng-class="{clearicon: minPriority == '' || minPriority == null}" ng-click="minPriority=''"></i>
+				                </div>
 							</div>
-							<div class="small-3 columns">
-								<a title="delete"><span class="postfix" ng-click="minPriority=''"><i class="fi-x button-margin"></i></span></a>
-							</div>
-							<div class="small-1 small-offset-1 columns end">
+							<div class="small-1 small-offset-2 columns end">
 								<div style="margin-top:5px;">to</div>
 							</div>
 						</div>
 					</div>
 					<div class="large-2 columns">
 						<div class="row collapse">
-							<div class="small-5 columns">
-								<input type="number" ng-model="maxPriority">
-							</div>
-							<div class="small-3 columns end">
-								<a title="delete"><span class="postfix" ng-click="maxPriority=''"><i class="fi-x button-margin"></i></span></a>
+							<div class="small-6 columns">
+								<div style="position: relative">
+									<input type="number" ng-model="maxPriority">
+		                        	<i class="close-icon" ng-class="{clearicon: maxPriority == '' || maxPriority == null}" ng-click="maxPriority=''"></i>
+				                </div>
 							</div>
 						</div>
 					</div>
@@ -115,8 +115,8 @@
 				    <thead>
 						 <tr>
 						    <th style="width:10px;" class="clickable custom-th"><input type="checkbox" ng-click="rowSelect(allRowSelected)" ng-model="allRowSelected"></th>
-						    <th style="width:400px;" class="clickable custom-th" ng-click="sortData('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></i></th>
-						    <th style="width:100px;" class="clickable custom-th" ng-click="sortData('productType')" >Product type  <i ng-show="orderBy === 'productType'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
+						    <th style="width:500px;" class="clickable custom-th" ng-click="sortData('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></i></th>
+						    <th style="width:80px;" class="clickable custom-th" ng-click="sortData('productType')" >Type  <i ng-show="orderBy === 'productType'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
 						    <th class="clickable custom-th" ng-click="sortData('missionIdentifier')" >Platform  <i ng-show="orderBy === 'missionIdentifier'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
 						    <th style="width:80px;" class="clickable custom-th" ng-click="sortData('priority')" >Priority  <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
 						    <th class="clickable custom-th" ng-click="sortData('productStatus')" >Status  <i ng-show="orderBy === 'productStatus'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
@@ -126,7 +126,7 @@
 				   <tbody ng-show="showAcquisition">                                    
 						<tr ng-repeat="x in displayedData = (dataFiltered|orderBy:orderBy:sortOrder|start:startIndex|limitTo:offset)" ng-class="getStatusClass(x.status)">
 					        <td><input type="checkbox" ng-click="refreshRow()" ng-model="x.selected"></td>
-					   		<td><input readonly class="acquisitionTitle" type="text" value="{{x.title}}"></input></td>
+                            <td><span>{{x.title}}</span></td>
 							<td><span>{{ x.productType}}</span></td>
 							<td><span>{{ x.missionIdentifier}}</span></td>
 							<td><span>{{ x.priority}}</span></td>

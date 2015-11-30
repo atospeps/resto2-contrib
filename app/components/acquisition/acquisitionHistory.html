@@ -89,24 +89,24 @@
 					</div>
 					<div class="large-2 columns">
 						<div class="row collapse">
-							<div class="small-5 columns">
-								<input type="number" ng-model="minPriority">
+							<div class="small-6 columns">
+								<div style="position: relative">
+									<input type="number" ng-model="minPriority">
+		                        	<i class="close-icon" ng-class="{clearicon: minPriority == '' || minPriority == null}" ng-click="minPriority=''"></i>
+				                </div>
 							</div>
-							<div class="small-3 columns">
-								<a title="delete"><span class="postfix" ng-click="minPriority=''"><i class="fi-x button-margin"></i></span></a>
-							</div>
-							<div class="small-1 small-offset-1 columns end">
+							<div class="small-1 small-offset-2 columns end">
 								<div style="margin-top:5px;">to</div>
 							</div>
 						</div>
 					</div>
 					<div class="large-2 columns">
 						<div class="row collapse">
-							<div class="small-5 columns">
-								<input type="number" ng-model="maxPriority">
-							</div>
-							<div class="small-3 columns end">
-								<a title="delete"><span class="postfix" ng-click="maxPriority=''"><i class="fi-x button-margin"></i></span></a>
+							<div class="small-6 columns">
+								<div style="position: relative">
+									<input type="number" ng-model="maxPriority">
+		                        	<i class="close-icon" ng-class="{clearicon: maxPriority == '' || maxPriority == null}" ng-click="maxPriority=''"></i>
+				                </div>
 							</div>
 						</div>
 					</div>
@@ -121,25 +121,27 @@
                     <table>
                         <thead>
                             <tr>
-                                <th style="width:250px;" class="clickable custom-th" ng-click="sortHistory('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
-                                <th class="clickable custom-th" ng-click="sortHistory('product_type')" >Product type  <i ng-show="orderBy === 'product_type'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
-                                <th class="clickable custom-th" ng-click="sortHistory('priority')" >Priority  <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th style="width:450px;" class="clickable custom-th" ng-click="sortHistory('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
+                                <th style="width:80px;" class="clickable custom-th" ng-click="sortHistory('product_type')" >Product <i ng-show="orderBy === 'product_type'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th style="width:80px;" class="clickable custom-th" ng-click="sortHistory('priority')" >Priority  <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
                                 <th class="clickable custom-th" ng-click="sortHistory('product_status')" >Status  <i ng-show="orderBy === 'product_status'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
-                                <th class="clickable custom-th" ng-click="sortHistory('ingest_date')" >Ingest date  <i ng-show="orderBy === 'ingest_date'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th style="width:150px;" class="clickable custom-th" ng-click="sortHistory('ingest_date')" >Ingest date  <i ng-show="orderBy === 'ingest_date'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                                <th style="width:10px;"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="x in history" ng-class="getStatusClass(x.status)">
-                                <td><input readonly class="acquisitionTitle" type="text" value="{{x.title}}"></input></td>
+                                <td><span>{{x.title}}</span></td>
                                 <td><span>{{ x.product_type}}</span></td>
                                 <td><span>{{ x.priority}}</span></td>
                                 <td>{{ x.product_status}}</td>
                                 <td>{{ x.ingest_date}}</td>
+                                <td><a ng-click="displayProduct(x)"><i class="fi-magnifying-glass"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
                     
-					<div class="row collapse">
+					<div class="row">
 						<div class="large-5 columns">
 		                    <ul class="pagination">
 		                        <li class="arrow" ng-class="{unavailable: currentPage == 1}"><a ng-click="changePage(1)">&laquo;</a></li>
@@ -151,7 +153,7 @@
 		                        <li class="arrow" ng-class="{unavailable: currentPage == maxPage}"><a ng-click="changePage(maxPage)">&raquo;</a></li>
 		                    </ul>
 						</div>
-	                    <div class="large-2 large-offset-4 columns">
+	                    <div class="large-2 large-offset-4 columns" style="text-align: right;padding-top: 6px;">
                 			<span>Results per page</span>
 	                    </div>
 	                    <div class="large-1 columns end">
