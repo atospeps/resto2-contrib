@@ -28,6 +28,9 @@
         <link rel="stylesheet" href="assets/libs/foundation/css/normalize.css" type="text/css" />
         <link rel="stylesheet" href="assets/libs/fontawesome/css/font-awesome.min.css" type="text/css" />
         <link rel="stylesheet" href="app/components/signin/signIn.css" type="text/css">
+        <link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog.min.css" type="text/css" />
+        <link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog-theme-default.min.css" type="text/css" />
+        <link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog-theme-plain.min.css" type="text/css" />
         <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
     </head>
     <body ng-app="administration">
@@ -69,12 +72,16 @@
         <script type="text/javascript" src="assets/libs/angular/satellizer/satellizer.js"></script>
         <script type="text/javascript" src="assets/libs/foundation/foundation.min.js"></script>
         <script type="text/javascript" src="assets/libs/jwt-decode.min.js"></script>
+        <script type="text/javascript" src="assets/libs/angular/ng-dialog/js/ngDialog.min.js"></script>
+        <script type="text/javascript" src="assets/libs/angular/angular-datetime.js"></script>
         <script type="text/javascript" src="app/components/app.module.js"></script>
         <script type="text/javascript" src="app/components/app.constant.js"></script>
         <script type="text/javascript" src="app/components/app.mainController.js"></script>
         <script type="text/javascript" src="app/components/app.configuration.js"></script>
         <script type="text/javascript" src="app/components/app.routes.js"></script>
         <script type="text/javascript" src="app/components/app.filters.js"></script>
+        <script type="text/javascript" src="app/components/app.directive.js"></script>
+        <script type="text/javascript" src="app/components/services/API/AcquisitionAPI.js"></script>
         <script type="text/javascript" src="app/components/services/API/AdministrationAPI.js"></script>
         <script type="text/javascript" src="app/components/services/API/RestoUsersAPI.js"></script>
         <script type="text/javascript" src="app/components/services/app.administrationServices.js"></script>
@@ -83,21 +90,11 @@
         <script type="text/javascript" src="app/components/user/user.js"></script>  
         <script type="text/javascript" src="app/components/history/history.js"></script>
         
-        <!-- DEM : acquisition demo >>>>>>>>>>>  -->
         <script type="text/javascript" src="app/components/acquisition/acquisition.js"></script>
         <script type="text/javascript" src="app/components/acquisition/acquisitionPriority.js"></script>
         <script type="text/javascript" src="app/components/acquisition/acquisitionHistory.js"></script>
         <script type="text/javascript" src="app/components/acquisition/acquisitionDashboard.js"></script>
         
-        <link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog.min.css" type="text/css" />
-        <link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog-theme-default.min.css" type="text/css" />
-        <link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog-theme-plain.min.css" type="text/css" />
-        <script type="text/javascript" src="assets/libs/angular/ng-dialog/js/ngDialog.min.js"></script>
-        <script type="text/javascript" src="assets/libs/d3js/d3.min.js"></script>
-        <script type="text/javascript" src="app/components/app.directive.js"></script>
-        <script type="text/javascript" src="app/components/services/API/AcquisitionAPI.js"></script>
-        <script type="text/javascript" src="assets/libs/angular/angular-datetime.js"></script>
-        <!-- DEM : acquisition demo <<<<<<<<<<<  -->
         
         <script type="text/javascript" src="app/components/collections/collections.js"></script>
         <script type="text/javascript" src="app/components/stats/stats.js"></script>
