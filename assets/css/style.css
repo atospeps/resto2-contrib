@@ -210,8 +210,16 @@ div.history {
 
 .productDialog .ngdialog-content {
 	width: 800px !important;	
-	font-size: 16px !important;
+	font-size: 14px !important;
 	padding: 20px !important;
+}
+
+.productPopupLabel {
+	font-weight: bold;
+}
+
+.productPopupRow div + div {
+	padding-top: 10px;
 }
 
 .acquisitionStateWrapper {
