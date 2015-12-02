@@ -110,6 +110,7 @@ div.leftMenu {
     z-index: 10;
     width: 150px;
     height: 100%;
+    text-align: center;
 }
 
 div.leftMenu div {
@@ -146,6 +147,7 @@ h3.title {
 .bottomAlign {
     position: absolute;
     bottom: 0;
+    left:0;
 }
 
 div.history {
@@ -199,6 +201,11 @@ div.history {
 
 .logMessage .errorLog {
 	color: red;
+}
+
+.logoPeps {
+	padding-top:5px;
+	height: 60px;
 }
 
 /****************************************
