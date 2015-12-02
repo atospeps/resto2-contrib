@@ -64,6 +64,14 @@
         		// convert timer from minute to millisecond
             	return $interval(function() {$scope.refresh();}, CONFIG.autoRefreshTimer * 60000);
         	};
+        	
+
+            /**
+             * Change Datasource and load new datasource data
+             */
+            $scope.$watch('selectedDatasource', function(newValue, oldValue) {
+                $scope.refresh();
+        	});
 
         	/**
         	 * Get datasources state
@@ -74,9 +82,9 @@
                     for (var key in data) {
                     	if(data[key]) {
                     		$scope.datasources.push(key);
-                    		$scope.selectedDatasource = key;
                     	}
                     }
+            		$scope.selectedDatasource = $scope.datasources[0];
                     if($scope.selectedDatasource) {
                         $scope.getAcquisitionData();
                     }
@@ -307,7 +315,7 @@
                 $scope.maxPage = 1;
                 $scope.startIndex = 0;
                 $scope.offset = CONFIG.offset;
-                $scope.sortOrder = true;
+                $scope.sortOrder = false;
                 $scope.orderBy = "index";
                 $scope.status = "All";
                 $scope.platform = "All";

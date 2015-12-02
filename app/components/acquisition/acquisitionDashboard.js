@@ -49,7 +49,7 @@
         	$scope.getStats = function() {
                 var options = {};
                 
-                if($scope.startDate !== "" && $scope.endDate !== "") {
+                if($scope.filtersActive && $scope.startDate !== "" && $scope.endDate !== "") {
                     options['startDate'] = $scope.startDate.toISOString();
                     options['endDate'] = $scope.endDate.toISOString();
                 }
@@ -60,6 +60,14 @@
                     alert(data);
                 });
         	};
+            
+        	/**
+        	 * enable/disable filter
+        	 */
+            $scope.setFilterEnabled = function() {
+            	$scope.filtersActive = !$scope.filtersActive;
+            	$scope.refresh();
+            }
 
             /*
              * Init the context
@@ -68,6 +76,7 @@
             	$scope.acquisitionState = "unknown";
             	$scope.datasources = [];
                 $scope.stats;
+                $scope.filtersActive = false;
                 $scope.startDate = "";
                 $scope.endDate = "";
             };

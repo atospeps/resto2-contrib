@@ -52,8 +52,6 @@
                 options['orderBy'] = $scope.orderBy;
                 options['filter'] = $scope.filtersActive;
                 options['status'] = $scope.status;
-                options['minPriority'] = $scope.minPriority;
-                options['maxPriority'] = $scope.maxPriority;
                 options['startDate'] = $scope.startDate;
                 options['endDate'] = $scope.endDate;
                 options['title'] = $scope.title;
@@ -139,8 +137,6 @@
                 $scope.sortOrder = 'DESC';
                 $scope.orderBy = null;
                 $scope.status = "All";
-                $scope.minPriority;
-                $scope.maxPriority;
                 $scope.startDate;
                 $scope.endDate;
                 $scope.displayedProduct;

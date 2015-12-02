@@ -24,13 +24,13 @@
 
     angular.module('administration')
             .constant('CONFIG', {
-                //'restoServerUrl': 'http://resto.mapshup.com/2.0/',
-                'restoServerUrl': 'http://localhost/resto',
+                'restoServerUrl': 'http://192.168.56.101/resto',
                 'acquisitionStatsUrl': 'http://172.24.219.218/acq-rest',
-                'acquisitionModuleUrl': 'http://172.24.219.226:8080',
+                'acquisitionModuleUrl': 'http://172.24.219.218:8080',
                 'administrationEndpoint': '/administration',
                 'offset': 20,
                 'version': 1.0,
+                'autoRefreshTimer' : '1', /*Minutes*/
                 'productType' : ["SLC", "GRD", "OCN"],
                 'productPlatform' : ["S1A", "S1B", "S2A", "S2B"],
                 'productStatus' : ["NEW", "DOWNLOAD_TODO", "DOWNLOAD_IN_PROGRESS", "DOWNLOAD_ERROR", "DOWNLOAD_DONE", "ARCHIVE_TODO", "ARCHIVE_ERROR", "CATALOG_TODO", "CATALOG_ERROR", "CATALOG_DONE", "DUPLICATED"],
