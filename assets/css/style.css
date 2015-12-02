@@ -316,8 +316,6 @@ div.history {
 .acquisitionHistory {
 	margin-top: 20px;	
     width: 1300px;
-    position: relative;
-    right: 150px;
 }
 
 .acquisitionHistory td {
@@ -327,8 +325,6 @@ div.history {
 .acquisitionQueue {
 	margin-top: 20px;	
     width: 1300px;
-    position: relative;
-    right: 150px;
 }
 
 .acquisitionQueue td {

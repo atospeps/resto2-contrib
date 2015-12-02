@@ -6,7 +6,6 @@
     	  return function(input, start) {
     	    var start = parseInt(start, 10);
     	    return input.slice(start);
-    		  return input;
     	  };
     	});
 })();

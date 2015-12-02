@@ -2,11 +2,13 @@
 
     'use strict';
 
-    angular.module('administration').controller('AcquisitionHistoryController', ['$scope', 'administrationServices', 'acquisitionAPI', 'CONFIG', 'ngDialog', acquisitionHistoryController]);
+    angular.module('administration').controller('AcquisitionHistoryController', ['$scope', '$interval', 'administrationServices', 'acquisitionAPI', 'CONFIG', 'ngDialog', acquisitionHistoryController]);
 
-    function acquisitionHistoryController($scope, administrationServices, acquisitionAPI, CONFIG, ngDialog) {
+    function acquisitionHistoryController($scope, $interval, administrationServices, acquisitionAPI, CONFIG, ngDialog) {
     	
         if (administrationServices.isUserAnAdministrator()) {
+
+        	var promise;
         	
         	/**
         	 * Display product info
@@ -28,6 +30,14 @@
         	 */
         	$scope.refresh = function() {
         		$scope.getHistory();
+        	};
+        	
+        	/**
+        	 * Launch auto refresh (return promise)
+        	 */
+        	$scope.startAutoRefresh = function() {
+        		// convert timer from minute to millisecond
+            	return $interval(function() {$scope.refresh();}, CONFIG.autoRefreshTimer * 60000);
         	};
         	
             /**
@@ -140,7 +150,14 @@
 
             $scope.init();
             $scope.getHistory();
+            promise = $scope.startAutoRefresh();
             $scope.$emit('showAcquisition');
+            
+            $scope.$on('$destroy',function(){
+                if(promise) {
+                    $interval.cancel(promise); 
+                }  
+            });
         }
     };
 })();

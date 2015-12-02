@@ -2,11 +2,13 @@
 
     'use strict';
 
-    angular.module('administration').controller('AcquisitionController', ['$scope', '$timeout', 'administrationServices', 'acquisitionAPI', 'CONFIG', 'ngDialog', acquisitionController]);
+    angular.module('administration').controller('AcquisitionController', ['$scope', '$timeout', '$interval', 'administrationServices', 'acquisitionAPI', 'CONFIG', 'ngDialog', acquisitionController]);
 
-    function acquisitionController($scope, $timeout, administrationServices, acquisitionAPI, CONFIG, ngDialog) {
+    function acquisitionController($scope, $timeout, $interval, administrationServices, acquisitionAPI, CONFIG, ngDialog) {
     	
         if (administrationServices.isUserAnAdministrator()) {
+
+        	var promise;
         	
         	/**
         	 * Change priority/status popup
@@ -54,6 +56,14 @@
                     $scope.getAcquisitionData();
                 }
         	};
+        	
+        	/**
+        	 * Launch auto refresh (return promise)
+        	 */
+        	$scope.startAutoRefresh = function() {
+        		// convert timer from minute to millisecond
+            	return $interval(function() {$scope.refresh();}, CONFIG.autoRefreshTimer * 60000);
+        	};
 
         	/**
         	 * Get datasources state
@@ -91,7 +101,12 @@
              */
             $scope.loadProducts = function(products) {          	
                 $scope.rowSelect(false);
-                $scope.data = products;
+                $scope.data = [];
+            	for(var key in products) {
+            		var row = products[key];
+            		row.index = parseInt(key);
+            		$scope.data.push(row);
+            	}
                 if($scope.filtersActive){
                 	$scope.dataFiltered = $scope.data.filter($scope.filter);
                 } else {
@@ -293,7 +308,7 @@
                 $scope.startIndex = 0;
                 $scope.offset = CONFIG.offset;
                 $scope.sortOrder = true;
-                $scope.orderBy = null;
+                $scope.orderBy = "index";
                 $scope.status = "All";
                 $scope.platform = "All";
                 $scope.productType = "All";
@@ -313,7 +328,14 @@
 
             $scope.init();
             $scope.getDatasource();
+            promise = $scope.startAutoRefresh();
             $scope.$emit('showAcquisition');
+            
+            $scope.$on('$destroy',function(){
+                if(promise) {
+                    $interval.cancel(promise); 
+                }  
+            });
         }
     };
 })();

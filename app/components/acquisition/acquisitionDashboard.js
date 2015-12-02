@@ -2,12 +2,14 @@
 
     'use strict';
     
-    angular.module('administration').controller('AcquisitionDashboardController', ['$scope', 'administrationServices', 'acquisitionAPI', acquisitionDashboardController]);
+    angular.module('administration').controller('AcquisitionDashboardController', ['$scope', '$interval', 'administrationServices', 'acquisitionAPI', 'CONFIG', acquisitionDashboardController]);
 
-    function acquisitionDashboardController($scope, administrationServices, acquisitionAPI) {
+    function acquisitionDashboardController($scope, $interval, administrationServices, acquisitionAPI, CONFIG) {
 
         if (administrationServices.isUserAnAdministrator()) {
 
+        	var promise;
+        	
         	/**
         	 * Refresh data
         	 */
@@ -15,6 +17,14 @@
             	$scope.acquisitionState = "unknown";
         		$scope.getStats();
                 $scope.getDatasource();
+        	};
+        	
+        	/**
+        	 * Launch auto refresh (return promise)
+        	 */
+        	$scope.startAutoRefresh = function() {
+        		// convert timer from minute to millisecond
+            	return $interval(function() {$scope.refresh();}, CONFIG.autoRefreshTimer * 60000);
         	};
         	
         	/**
@@ -65,7 +75,14 @@
             $scope.init();
             $scope.getStats();
             $scope.getDatasource();
+            promise = $scope.startAutoRefresh();
             $scope.$emit('showAcquisition');
+            
+            $scope.$on('$destroy',function(){
+                if(promise) {
+                    $interval.cancel(promise); 
+                }  
+            });
         }
     };
 })();
