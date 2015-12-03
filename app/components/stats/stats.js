@@ -38,7 +38,7 @@
             $scope.getStats = function(startDate, endDate) {
                 administrationAPI.getCollectionsStats(startDate, endDate, function(data) {
                     $scope.stats = data["collectionStats"];
-                    $scope.totalVolume = data["productVolume"];
+                    $scope.totalVolume = Math.round(data["productVolume"]);
                     $scope.totalQuantity = data["productQuantity"];
                     $scope.busy = false;
                 });
