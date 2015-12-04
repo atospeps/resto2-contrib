@@ -34,7 +34,13 @@
                 acquisitionAPI.getDatasource(function(data) {
                 	$scope.datasources = [];
                     for (var key in data) {
-                        $scope.datasources.push({"state":data[key] ? "started" : "stopped", "name": key});
+                    	if(data[key] == "UNKNOWN" || data[key] == "INACTIVE") {
+                    		$scope.datasources.push({"state": "unknown", "name": key});
+                    	} else if(data[key] == "OK") {
+                    		$scope.datasources.push({"state": "started", "name": key});
+                    	} else if(data[key] == "ERROR") {
+                    		$scope.datasources.push({"state": "stopped", "name": key});
+                    	}
                     }
                     $scope.acquisitionState = "started";
                 }, function() {

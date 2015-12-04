@@ -80,7 +80,7 @@
                 acquisitionAPI.getDatasource(function(data) {
                 	$scope.datasources = [];
                     for (var key in data) {
-                    	if(data[key]) {
+                    	if(data[key] == "OK") {
                     		$scope.datasources.push(key);
                     	}
                     }
