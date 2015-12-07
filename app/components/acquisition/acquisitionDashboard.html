@@ -46,7 +46,7 @@
 				<div class="row collapse">
 					<div class="small-9 columns">
 						<div style="position: relative">
-	                        <input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" ng-model="startDate"> 
+	                        <input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="startDate"> 
 	                        <i class="close-icon" ng-class="{clearicon: startDate == '' || startDate == null}" ng-click="startDate=''"></i>
 		                </div>
 					</div>
@@ -59,7 +59,7 @@
 				<div class="row collapse">
 					<div class="small-9 columns">
 						<div style="position: relative">
-                        	<input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" ng-model="endDate">
+                        	<input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="endDate">
                         	<i class="close-icon" ng-class="{clearicon: endDate == '' || endDate == null}" ng-click="endDate=''"></i>
 		                </div>
 					</div>

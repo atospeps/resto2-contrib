@@ -56,8 +56,8 @@
                 var options = {};
                 
                 if($scope.filtersActive && $scope.startDate !== "" && $scope.endDate !== "") {
-                    options['startDate'] = $scope.startDate.toISOString();
-                    options['endDate'] = $scope.endDate.toISOString();
+                    options['startDate'] = $scope.startDate;
+                    options['endDate'] = $scope.endDate;
                 }
 
                 acquisitionAPI.getDashboardStats(options, function(data) {
