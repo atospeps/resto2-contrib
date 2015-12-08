@@ -139,6 +139,7 @@
                 $scope.status = "All";
                 $scope.startDate;
                 $scope.endDate;
+                $scope.title;
                 $scope.displayedProduct;
                 
                 $scope.history = [];

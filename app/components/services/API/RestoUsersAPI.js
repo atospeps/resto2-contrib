@@ -50,7 +50,7 @@
              */
             $http({
                 method: 'GET',
-                url: config.restoServerUrl + 'api/users/connect'
+                url: config.restoServerUrl + 'api/users/connect?admin=true'
             }).success(function(data) {
                 if (data.token) {
                     callback(data.token);
