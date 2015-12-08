@@ -111,6 +111,9 @@
             $scope.applyFilters = function() {
             	$scope.displayFiltres = false;
             	$scope.filtersActive = true;
+            	// Go to the first page
+                $scope.currentPage = 1;
+                $scope.startIndex = $scope.offset * ($scope.currentPage - 1);
             	// Update data
             	$scope.getHistory();
             }
