@@ -25,7 +25,7 @@
     angular.module('administration')
             .constant('CONFIG', {
                 'restoServerUrl': 'http://192.168.56.101/resto',
-                'acquisitionStatsUrl': 'http://172.24.219.218/acq-rest',
+                'acquisitionStatsUrl': 'http://172.24.219.226/acq-rest',
                 'acquisitionModuleUrl': 'http://172.24.219.218:8080',
                 'administrationEndpoint': '/administration',
                 'offset': 20,
