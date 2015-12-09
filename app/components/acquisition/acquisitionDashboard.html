@@ -46,7 +46,7 @@
 				<div class="row collapse">
 					<div class="small-9 columns">
 						<div style="position: relative">
-	                        <input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" ng-model="startDate"> 
+	                        <input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="startDate"> 
 	                        <i class="close-icon" ng-class="{clearicon: startDate == '' || startDate == null}" ng-click="startDate=''"></i>
 		                </div>
 					</div>
@@ -59,7 +59,7 @@
 				<div class="row collapse">
 					<div class="small-9 columns">
 						<div style="position: relative">
-                        	<input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" ng-model="endDate">
+                        	<input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="endDate">
                         	<i class="close-icon" ng-class="{clearicon: endDate == '' || endDate == null}" ng-click="endDate=''"></i>
 		                </div>
 					</div>
@@ -71,14 +71,14 @@
 		</div>
       	
       	
-    	<div class="row" ng-repeat="(key,tab) in stats">
-    		<h3>{{key}}</h3>
+    	<div class="row" ng-repeat="tab in stats">
+    		<h3>{{tab.title}}</h3>
         	<div class="large-8 large-offset-2 columns">
 				<table class="dashTable">
 				  <thead>
 				  </thead>
 				  <tbody>
-				    <tr ng-repeat="line in tab" style="background:{{line.color}};">
+				    <tr ng-repeat="line in tab.rows" style="background:{{line.color}};">
 				      <td class="tableLabel">{{line.label}}</td>
 				      <td class="tableValue"><div ng-class="{rowFilterIcon: line.date_filter}">{{line.count}} <i class="fi-filter" title="Filter available" ng-class="{clearicon: !line.date_filter}"></i></div></td>
 				    </tr>

@@ -31,7 +31,7 @@
          * Authentication configuration
          */
         $authProvider.baseUrl = '';
-        $authProvider.loginUrl = CONFIG.restoServerUrl + '/api/users/connect';
+        $authProvider.loginUrl = CONFIG.restoServerUrl + '/api/users/connect?admin=true';
         $authProvider.signupUrl = CONFIG.restoServerUrl + '/users';
         $authProvider.loginRedirect = '/ok';
 

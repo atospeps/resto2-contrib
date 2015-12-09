@@ -25,15 +25,15 @@
     angular.module('administration')
             .constant('CONFIG', {
                 'restoServerUrl': 'http://192.168.56.101/resto',
-                'acquisitionStatsUrl': 'http://172.24.219.218/acq-rest',
+                'acquisitionStatsUrl': 'http://172.24.219.226/acq-rest',
                 'acquisitionModuleUrl': 'http://172.24.219.218:8080',
                 'administrationEndpoint': '/administration',
                 'offset': 20,
                 'version': 1.0,
                 'autoRefreshTimer' : '1', /*Minutes*/
-                'productType' : ["SLC", "GRD", "OCN"],
+                'productType' : ["SLC", "GRD", "OCN", "S2MSI1C"],
                 'productPlatform' : ["S1A", "S1B", "S2A", "S2B"],
-                'productStatus' : ["NEW", "DOWNLOAD_TODO", "DOWNLOAD_IN_PROGRESS", "DOWNLOAD_ERROR", "DOWNLOAD_DONE", "ARCHIVE_TODO", "ARCHIVE_ERROR", "CATALOG_TODO", "CATALOG_ERROR", "CATALOG_DONE", "DUPLICATED"],
+                'productStatus' : ["DOWNLOAD_TODO", "DOWNLOAD_IN_PROGRESS", "DOWNLOAD_ERROR", "DOWNLOAD_DONE", "ARCHIVE_TODO", "ARCHIVE_ERROR", "CATALOG_TODO", "CATALOG_ERROR", "CATALOG_DONE", "DUPLICATED"],
                 'theia': {
                     'name': 'theia',
                     'signUpUrl': 'https://sso.theia-land.fr/theia/app/register/register.xhtml',
