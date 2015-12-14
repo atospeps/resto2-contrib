@@ -288,8 +288,11 @@
             	if($scope.productType != "All" && elem.productType != $scope.productType) {
             		return false;
             	}
-            	if($scope.minPriority !== "" && $scope.maxPriority !== "") {
-            		return (elem.priority >= $scope.minPriority && elem.priority <= $scope.maxPriority);
+            	if($scope.minPriority !== "" && elem.priority < $scope.minPriority) {
+            		return false;
+            	}
+            	if($scope.maxPriority !== "" && elem.priority > $scope.maxPriority) {
+            		return false;
             	}
             	return true;
             };
