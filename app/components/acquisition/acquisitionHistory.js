@@ -44,19 +44,13 @@
              * Get history
              */
             $scope.getHistory = function() {
-                var options = {};
-                
-                options['startIndex'] = $scope.startIndex;
-                options['offset'] = $scope.offset;
-                options['sortOrder'] = $scope.sortOrder;
-                options['orderBy'] = $scope.orderBy;
-                options['filter'] = $scope.filtersActive;
-                options['status'] = $scope.status;
-                options['startDate'] = $scope.startDate;
-                options['endDate'] = $scope.endDate;
-                options['title'] = $scope.title;
-
-                acquisitionAPI.getHistory(options, function(data) {
+            	$scope.options['filter'] = $scope.filtersActive;
+            	$scope.options['startIndex'] = $scope.startIndex;
+            	$scope.options['offset'] = $scope.offset;
+            	$scope.options['sortOrder'] = $scope.sortOrder;
+            	$scope.options['orderBy'] = $scope.orderBy;
+            	
+                acquisitionAPI.getHistory($scope.options, function(data) {
                     $scope.history = data.results;
                     $scope.maxPage = Math.ceil(data.nbResults / $scope.offset);
                 }, function(data) {
@@ -109,6 +103,11 @@
              }
             
             $scope.applyFilters = function() {
+            	$scope.options['status'] = $scope.status;
+            	$scope.options['startDate'] = $scope.startDate;
+            	$scope.options['endDate'] = $scope.endDate;
+            	$scope.options['title'] = $scope.title;
+            	
             	$scope.displayFiltres = false;
             	$scope.filtersActive = true;
             	// Go to the first page
@@ -144,6 +143,7 @@
                 $scope.endDate;
                 $scope.title;
                 $scope.displayedProduct;
+                $scope.options = {};
                 
                 $scope.history = [];
             };

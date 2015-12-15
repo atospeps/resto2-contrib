@@ -259,6 +259,12 @@
             };
             
             $scope.applyFilters = function() {
+            	$scope.filters['status'] = $scope.status;
+            	$scope.filters['platform'] = $scope.platform;
+            	$scope.filters['productType'] = $scope.productType;
+            	$scope.filters['minPriority'] = $scope.minPriority;
+            	$scope.filters['maxPriority'] = $scope.maxPriority;
+            	
             	$scope.displayFiltres = false;
             	$scope.filtersActive = true;
             	$scope.dataFiltered = $scope.data.filter($scope.filter);
@@ -279,19 +285,19 @@
             	}
             	
             	// Check all
-            	if($scope.status != "All" && elem.productStatus != $scope.status) {
+            	if($scope.filters['status'] != "All" && elem.productStatus != $scope.filters['status']) {
             		return false;
             	}
-            	if($scope.platform != "All" && elem.missionIdentifier != $scope.platform) {
+            	if($scope.filters['platform'] != "All" && elem.missionIdentifier != $scope.filters['platform']) {
             		return false;
             	}
-            	if($scope.productType != "All" && elem.productType != $scope.productType) {
+            	if($scope.filters['productType'] != "All" && elem.productType != $scope.filters['productType']) {
             		return false;
             	}
-            	if($scope.minPriority !== "" && elem.priority < $scope.minPriority) {
+            	if($scope.filters['minPriority'] !== "" && elem.priority < $scope.filters['minPriority']) {
             		return false;
             	}
-            	if($scope.maxPriority !== "" && elem.priority > $scope.maxPriority) {
+            	if($scope.filters['maxPriority'] !== "" && elem.priority > $scope.filters['maxPriority']) {
             		return false;
             	}
             	return true;
@@ -327,6 +333,7 @@
                 $scope.maxPriority = "";
                 $scope.startDate;
                 $scope.endDate;
+                $scope.filters = {};
                 
                 $scope.data = [];
                 $scope.dataFiltered = [];
