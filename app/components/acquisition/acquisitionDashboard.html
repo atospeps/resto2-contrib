@@ -37,10 +37,9 @@
             </div>
       	</div>
       	
-      	
 		<div class="row collapse dashboardFilter">
 			<div class="large-2 large-offset-1 columns">
-				<div style="margin-top:5px;"><i class="fi-filter padding-10"></i> Ingest date :</div>
+				<div style="margin-top:5px;"><i class="fi-filter padding-10"></i> Catalog date :</div>
 			</div>
 			<div class="large-3 columns">
 				<div class="row collapse">
@@ -65,11 +64,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="large-2 end columns">
-  				<a ng-click="setFilterEnabled()" class="button applyFilter">{{filtersActive ? 'Remove Filters' : 'Apply Filters'}}</a>
+			<div class="large-3 end columns">
+  				<a ng-click="setFilterEnabled(true)" class="button applyFilter">Apply Filters</a>
+  				<a ng-click="setFilterEnabled(false)" ng-show="filtersActive" class="button applyFilter">Remove Filters</a>
 			</div>
 		</div>
-      	
       	
     	<div class="row" ng-repeat="tab in stats">
     		<h3>{{tab.title}}</h3>

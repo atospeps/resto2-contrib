@@ -55,7 +55,7 @@
         	$scope.getStats = function() {
                 var options = {};
                 
-                if($scope.filtersActive && $scope.startDate !== "" && $scope.endDate !== "") {
+                if($scope.filtersActive) {
                     options['startDate'] = $scope.startDate;
                     options['endDate'] = $scope.endDate;
                 }
@@ -70,8 +70,8 @@
         	/**
         	 * enable/disable filter
         	 */
-            $scope.setFilterEnabled = function() {
-            	$scope.filtersActive = !$scope.filtersActive;
+            $scope.setFilterEnabled = function(isFilterActive) {
+            	$scope.filtersActive = isFilterActive;
             	$scope.refresh();
             }
 
