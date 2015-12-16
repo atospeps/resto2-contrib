@@ -46,16 +46,9 @@
                         templateUrl: "app/components/history/history.html",
                         controller: "HistoryController"
                     })
-                    
-                    
-                    // DEM : Acquisition demo >>>>>>>>>>>>>>>>>>>>
                     .when('/acquisition', {
                         templateUrl: "app/components/acquisition/acquisition.html",
                         controller: "AcquisitionController"
-                    })
-                    .when('/acquisitionPriority', {
-                        templateUrl: "app/components/acquisition/acquisitionPriority.html",
-                        controller: "AcquisitionPriorityController"
                     })
                     .when('/acquisitionHistory', {
                         templateUrl: "app/components/acquisition/acquisitionHistory.html",
@@ -65,9 +58,6 @@
                         templateUrl: "app/components/acquisition/acquisitionDashboard.html",
                         controller: "AcquisitionDashboardController"
                     })
-                    // DEM : Acquisition demo <<<<<<<<<<<<<<<<<<<
-                    
-                    
                     .when('/stats', {
                         templateUrl: "app/components/stats/stats.html",
                         controller: "StatsController"
