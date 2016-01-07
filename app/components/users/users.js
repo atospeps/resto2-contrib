@@ -46,6 +46,28 @@
         if (administrationServices.isUserAnAdministrator()) {
 
 
+            /**
+             * Set User order by field "orderBy"
+             * 
+             * @param {String} orderBy
+             */
+            $scope.setUser = function(orderBy) {
+
+                $scope.busy = true;
+                $scope.startIndex = 0;
+                $scope.offset = CONFIG.offset;
+                $scope.showUsers = false;
+
+                if ($scope.ascOrDesc === 'DESC') {
+                    $scope.ascOrDesc = 'ASC';
+                } else {
+                    $scope.ascOrDesc = 'DESC';
+                }
+
+                $scope.orderBy = orderBy;
+                $scope.getUsers(false);
+            };
+
 
             /*
              * Get users
@@ -66,6 +88,8 @@
                 var options = [];
                 options['startIndex'] = $scope.startIndex;
                 options['offset'] = $scope.offset;
+                options['ascordesc'] = $scope.ascOrDesc;
+                options['orderby'] = $scope.orderBy;
 
                 /*
                  * Check if a keyword is written in the search bar
@@ -140,6 +164,8 @@
              * init the context
              */
             $scope.init = function() {
+                $scope.ascOrDesc = 'DESC';
+                $scope.orderBy = null;
                 $scope.users = [];
                 $scope.busy = true;
                 $scope.showUsers = false;

@@ -228,9 +228,17 @@
 
             var startIndex = options['startIndex'];
             var offset = options['offset'];
+            var ascordesc = options['ascordesc'];
+            var orderby = options['orderby'];
             var keyword = options['keyword'];
 
             var url = config.restoServerUrl + config.administrationEndpoint + '/users?min=' + startIndex + '&number=' + offset;
+            if (ascordesc) {
+                url = url + "&ascordesc=" + ascordesc;
+            }
+            if (orderby) {
+                url = url + "&orderBy=" + orderby;
+            }
             if (keyword) {
                 url = url + '&keyword=' + keyword;
             }
