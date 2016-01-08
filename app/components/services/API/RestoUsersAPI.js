@@ -24,12 +24,10 @@
     function restoUsersAPI($http, config) {
 
         var api = {
-            checkLicense: checkLicense,
             connect: connect,
             getOrder: getOrder,
             getOrders: getOrders,
             postOrder: postOrder,
-            signLicense: signLicense,
             signup: signup
         };
 
@@ -63,85 +61,6 @@
 
         }
         ;
-
-        /**
-         * Check if user has signed license
-         * 
-         * @param {type} options
-         *          {string} : userid
-         *          {string} : collection
-         * @param {type} callback
-         * @param {type} error
-         * @returns {undefined}
-         */
-        function checkLicense(options, callback, error) {
-
-            $http({
-                method: 'GET',
-                url: config.restoServerUrl + '/users/' + options.userid + '/signatures/' + options.collection,
-                dataType: "json",
-                contentType: 'application/json'
-            }).success(function(data) {
-                if (data.ErrorMessage) {
-                    alert("internal error : " + data.ErrorMessage);
-                } else {
-                    /*
-                     * resto return TRUE if license has to be signed,
-                     * FALSE if license is signed.
-                     */
-                    if (data.signatures[options.collection] === false) {
-                        callback();
-                    } else {
-                        error('unsigned');
-                    }
-                }
-            }).error(function(data) {
-                alert("internal error : " + data.ErrorMessage);
-            });
-        }
-        ;
-
-        /**
-         * Sign license
-         * 
-         * @param {type} options
-         *          {string} : userid
-         *          {string} : collection
-         * @param {type} callback
-         * @param {type} error
-         * @returns {Boolean}
-         */
-        function signLicense(options, callback, error) {
-
-            if (!options.userid || !options.collection) {
-                alert('internal error - signLicense');
-                return false;
-            }
-
-            $http({
-                method: 'POST',
-                url: config.restoServerUrl + 'api/users/' + options.userid + '/signLicense',
-                dataType: "json",
-                data: {
-                    collection: options.collection
-                },
-                contentType: 'application/json'
-            }).success(function(data) {
-                if (data.ErrorMessage) {
-                    error(data);
-                } else {
-                    callback();
-                }
-            }).error(function(data) {
-                if (data.ErrorMessage) {
-                    error(data.ErrorMessage);
-                } else {
-                    error(data);
-                }
-            });
-        }
-        ;
-
 
         /*
          * Get order 

@@ -84,6 +84,10 @@
              */
             $scope.getHistory = function(concatData) {
 
+                if (!concatData) {
+                    $scope.startIndex = 0;
+                } 
+                
                 var options = [];
                 options['startindex'] = $scope.startIndex;
                 options['offset'] = $scope.offset;
@@ -92,6 +96,8 @@
                 options['collection'] = $scope.collection;
                 options['method'] = $scope.method;
                 options['service'] = $scope.service;
+                options['userid'] = $scope.userid;
+                options['email'] = $scope.email;
                 options['maxDate'] = $scope.maxDate;
                 options['minDate'] = $scope.minDate;
 
@@ -176,6 +182,8 @@
                 $scope.method = null;
                 $scope.service = null;
                 $scope.collection = null;
+                $scope.userid = null;
+                $scope.email = null;
             };
 
             $scope.init();

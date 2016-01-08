@@ -35,7 +35,6 @@
             getCollectionsStats: getCollectionsStats,
             getHistory: getHistory,
             getRight: getRight,
-            getSignatures: getSignatures,
             getUser: getUser,
             getUsers: getUsers,
             getUsersStats: getUsersStats,
@@ -69,6 +68,7 @@
             var ascordesc = options['ascordesc'];
             var orderby = options['orderby'];
             var userid = options['userid'];
+            var email = options['email'];
             var method = options['method'];
             var service = options['service'];
             var maxDate = options['maxDate'];
@@ -103,6 +103,9 @@
             }
             if (collection) {
                 url = url + "&collection=" + collection;
+            }
+            if (email) {
+                url = url + "&email=" + email;
             }
 
 
@@ -558,31 +561,6 @@
             		error(data);
             });
         };
-        
-        /**
-         * Get signatures
-         * 
-         * @param {integer} userid
-         * @param {function} callback
-         * @param {function} error
-         * @returns {undefined}
-         */
-        function getSignatures(userid, callback, error) {
-            $http.get(config.restoServerUrl + '/users/' + userid + '/signatures.json')
-                    .success(
-                            function(data) {
-                                if (data.ErrorMessage) {
-                                    error(data);
-                                } else {
-                                    callback(data.signatures);
-                                }
-                            })
-                    .error(function() {
-                        alert('error - get signatures');
-                    });
-        }
-        ;
-
 
         function getRight(userid, callback, error) {
             $http.get(config.restoServerUrl + config.administrationEndpoint + '/users/' + userid + '/rights.json')

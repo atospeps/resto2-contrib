@@ -84,13 +84,15 @@
 
         if (administrationServices.isUserAnAdministrator()) {
 
+            $scope.methods = ['POST', 'GET', 'PUT', 'DELETE', 'ERROR'];
+            $scope.services = ['search', 'visualize', 'create', 'insert', 'download', 'remove'];
+            
             $scope.templates =
                     {
                         'history': 'app/components/user/templates/history.html',
                         'profile': 'app/components/user/templates/profile.html',
                         'rights': 'app/components/user/templates/rights.html',
                         'rightCreation': 'app/components/user/templates/rightCreation.html',
-                        'signatures': 'app/components/user/templates/signatures.html',
                         'stats': 'app/components/user/templates/stats.html'
                     };
 
@@ -103,7 +105,6 @@
                 $scope.showHistory = false;
                 $scope.showCreation = false;
                 $scope.showAdvancedRights = false;
-                $scope.showSignatures = false;
                 $scope.showStats = false;
 
                 $scope.history = [];
@@ -128,6 +129,15 @@
                 $scope.template = null;
             };
 
+            $scope.initFilters = function() {
+                $scope.selectedService = null;
+                $scope.selectedCollection = null;
+                $scope.selectedMethod = null;
+                $scope.method = null;
+                $scope.service = null;
+                $scope.collection = null;
+            };
+            
             /*
              * Set activation
              * 
@@ -213,11 +223,32 @@
                 });
             };
 
+            /**
+             * Set history param
+             */
+            $scope.setParam = function(type, value) {
+                if (type === 'method') {
+                    $scope.method = value;
+                } else if (type === 'service') {
+                    $scope.service = value;
+                } else if (type === 'collection') {
+                    $scope.collection = value;
+                }
+
+                $scope.getHistory(false);
+            };
+
+            $scope.resetFilters = function() {
+                $scope.initFilters();
+                $scope.getHistory(false);
+            };
+
             /*
              * Display history
              */
             $scope.displayHistory = function() {
                 $scope.init();
+                $scope.getCollections();
                 $scope.getHistory();
                 $scope.template = $scope.templates.history;
                 $scope.showHistory = true;
@@ -250,19 +281,9 @@
                 $scope.template = $scope.templates.rights;
                 $scope.showRights = true;
             };
-
+            
             /*
-             * Display signatures
-             */
-            $scope.displaySignatures = function() {
-                $scope.init();
-                $scope.getSignatures();
-                $scope.template = $scope.templates.signatures;
-                $scope.showSignatures = true;
-            };
-
-            /*
-             * Display signatures
+             * Display stats
              */
             $scope.displayStats = function() {
                 $scope.init();
@@ -303,15 +324,6 @@
                 var path = '/users/' + $scope.selectedUser.userid;
                 $location.path(path, false);
                 $scope.displayRights();
-            };
-
-            /*
-             * go to signatures
-             */
-            $scope.goToSignatures = function() {
-                var path = '/users/' + $scope.selectedUser.userid + '/signatures';
-                $location.path(path, false);
-                $scope.displaySignatures();
             };
 
             /*
@@ -475,15 +487,6 @@
             };
 
             /*
-             * Get signatures
-             */
-            $scope.getSignatures = function() {
-                administrationAPI.getSignatures($routeParams.userid, function(data) {
-                    $scope.signatures = data;
-                });
-            };
-
-            /*
              * Get stats for each collection
              */
             $scope.getStats = function() {
@@ -544,12 +547,22 @@
              */
             $scope.getHistory = function(concatData) {
 
+                if (!concatData) {
+                    $scope.startIndex = 0;
+                } 
+                
                 var options = [];
                 options['startindex'] = $scope.startIndex;
                 options['offset'] = $scope.offset;
                 options['ascordesc'] = $scope.ascOrDesc;
                 options['orderby'] = $scope.orderBy;
+                options['collection'] = $scope.collection;
+                options['method'] = $scope.method;
+                options['service'] = $scope.service;
                 options['userid'] = $routeParams.userid;
+                options['email'] = $scope.email;
+                options['maxDate'] = $scope.maxDate;
+                options['minDate'] = $scope.minDate;
 
                 administrationAPI.getHistory(options, function(data) {
                     $scope.startIndex = $scope.startIndex + $scope.offset;
@@ -558,13 +571,17 @@
                     } else {
                         $scope.history = $scope.history.concat(data);
                     }
+                    $scope.showHistory = true;
                     /*
                      * At the end of data, stop infinitscrolling with busy attribute
                      */
                     if (!data[0]) {
                         $scope.busy = true;
+                        $scope.startIndex = $scope.startIndex - $scope.offset;
                     }
                     $scope.busy = false;
+                }, function() {
+                    alert($filter('translate')('error.getHistory'));
                 });
             };
 
@@ -612,8 +629,6 @@
 
             if ($routeParams.section === 'history') {
                 $scope.displayHistory();
-            } else if ($routeParams.section === 'signatures') {
-                $scope.displaySignatures();
             } else if ($routeParams.section === 'rights') {
                 $scope.displayCreateAdvancedRights();
             } else if ($routeParams.section === 'profile') {
