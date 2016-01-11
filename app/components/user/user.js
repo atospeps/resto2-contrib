@@ -556,7 +556,7 @@
                 options['offset'] = $scope.offset;
                 options['ascordesc'] = $scope.ascOrDesc;
                 options['orderby'] = $scope.orderBy;
-                options['collection'] = $scope.collection;
+                options['collection'] = $scope.collection ? $scope.collection.name : undefined;
                 options['method'] = $scope.method;
                 options['service'] = $scope.service;
                 options['userid'] = $routeParams.userid;
@@ -594,7 +594,7 @@
                 if ($scope.busy)
                     return;
                 $scope.busy = true;
-                $scope.getHistory();
+                $scope.getHistory(true);
             };
 
             /*
