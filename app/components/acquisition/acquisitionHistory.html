@@ -101,7 +101,7 @@
 	                    </tr>
 	                </thead>
 	                <tbody>
-	                    <tr ng-repeat="x in history" ng-class="getStatusClass(x.status)">
+	                    <tr ng-repeat="x in history" ng-class="{'rowError' : isInError(x.product_status)}">
 	                        <td>{{x.title}}</td>
 	                        <td>{{ x.product_status}}</td>
 	                        <td>{{ x.datasource_name}}</td>
@@ -124,11 +124,14 @@
 	                       <li class="arrow" ng-class="{unavailable: currentPage == maxPage}"><a ng-click="changePage(maxPage)">&raquo;</a></li>
 	                   </ul>
 				</div>
-                <div class="large-2 large-offset-4 columns" style="text-align: right;padding-top: 6px;">
+                <div class="large-2 large-offset-3 columns" style="text-align: right;padding-top: 6px;">
            			<span>Results per page</span>
                 </div>
-                <div class="large-1 columns end">
+                <div class="large-1 columns">
                		<input type="number" ng-model="offset">
+                </div>
+                <div class="large-1 columns end">
+                	<a class="button tinyButton" ng-click="refresh()">Update</a>
                 </div>
             </div>
         </div>

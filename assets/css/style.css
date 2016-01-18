@@ -203,6 +203,9 @@ h3.title {
 	padding-bottom:10px;
 	height: 60px;
 }
+.tinyButton {
+	padding: 10px 15px;
+}
 
 /****************************************
         	Acquisition Tab
@@ -401,6 +404,9 @@ h3.title {
 
 .dateInput::-ms-clear {
     display: none;
+}
+.rowError {
+	background: #F17D7D !important;
 }
 
 /*------------------------------------*\
