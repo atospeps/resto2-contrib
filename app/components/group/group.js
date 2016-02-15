@@ -54,6 +54,7 @@
                     administrationAPI.deleteGroup($routeParams.groupid, function(data) {
             			$scope.errorMessage = "";
             			$scope.successMessage = "Group successfully deleted !";
+                        $location.path('/groups');
                     }, function(data) {
             			$scope.successMessage = "";
             			$scope.errorMessage = "Error, Group has not be deleted !"
