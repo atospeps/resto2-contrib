@@ -118,8 +118,8 @@
                         callback(data);
                     })
                     .error(function() {
-                    	error('error - get acquisition datasource');
-                    });
+                    	error();
+                    }); 
         };
 
         /**

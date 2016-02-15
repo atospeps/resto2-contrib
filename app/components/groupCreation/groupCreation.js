@@ -17,8 +17,8 @@
      * under the License.
      */
 
-    angular.module('administration').controller('GroupCreationController', ['$scope', '$filter', 'administrationServices', 'administrationAPI', 'CONFIG', groupCreationController]);
-    function groupCreationController($scope, $filter, administrationServices, administrationAPI) {
+    angular.module('administration').controller('GroupCreationController', ['$scope', '$filter', '$location', 'administrationServices', 'administrationAPI', 'CONFIG', groupCreationController]);
+    function groupCreationController($scope, $filter, $location, administrationServices, administrationAPI) {
 
         if (administrationServices.isUserAnAdministrator()) {
             $scope.group = [];
@@ -39,6 +39,7 @@
         			$scope.errorMessage = "";
         			$scope.successMessage = "Group " + $scope.group.name + " created";
                     $scope.group = [];
+                    $location.path('/groups');
                 }, function(e) {
         			$scope.successMessage = "";
         			$scope.errorMessage = "Cannot create group " + $scope.group.name;

@@ -6,6 +6,8 @@
 
     function acquisitionController($scope, $timeout, $interval, administrationServices, acquisitionAPI, CONFIG, ngDialog) {
     	
+    	$scope.warningDisplay = false;
+    	
         if (administrationServices.isUserAnAdministrator()) {
 
         	var promise;
@@ -93,14 +95,15 @@
                 });
         	};
         	
-            /**
+        	/**
              * Get acquisition data
              */
-            $scope.getAcquisitionData = function() {
-                acquisitionAPI.getDatasourceData($scope.selectedDatasource, function(data) {  
+        	$scope.getAcquisitionData = function() {
+            	$scope.warningDisplay = acquisitionAPI.getDatasourceData($scope.selectedDatasource, function(data) {
+                  $scope.warningDisplay = false;  
                 	$scope.loadProducts(data);
-                }, function(data) {
-                    alert(data);
+                }, function() {
+                   $scope.warningDisplay = true;
                 });
             };
             

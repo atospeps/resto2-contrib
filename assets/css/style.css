@@ -350,6 +350,17 @@ h3.title {
 	padding-bottom: 20px;
 }
 
+.warningMessage{
+    margin-top: 20px;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    padding: 10px;
+    background-color: #FFEFE5;
+    border-color: #662800;
+    color: #662800;
+}
+
 .dashTable {
 	margin-bottom: 30px;
     width: 100%;
