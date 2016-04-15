@@ -492,7 +492,7 @@
             $scope.getStats = function() {
                 administrationAPI.getUserStats($routeParams.userid, function(data) {
                     $scope.stats = data["collectionStats"];
-                    $scope.totalVolume = Math.round(data["downloadVolume"]/1000);
+                    $scope.totalVolume = data["downloadVolume"] * 1048576;
                     $scope.busy = false;
                 });
             };

@@ -1,6 +1,6 @@
 <div>
 	<div class="center">
-		<span style="font-weight:bold;">{{'user.stats.volume' | translate}} </span>:<span> {{totalVolume}} Go</span>
+		<span style="font-weight:bold;">{{'user.stats.volume' | translate}} </span>:<span> {{ totalVolume | bytes }}</span>
 	</div>
 
     <div ng-show='busy'>{{'loading_data'| translate}}</div>
