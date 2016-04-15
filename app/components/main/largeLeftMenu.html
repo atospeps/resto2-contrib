@@ -14,7 +14,7 @@
  under the License.
 -->
 
-<div class="show-for-large-up leftMenu">
+<div class="leftMenu">
     <img src="assets/css/img/logo-peps-texte-blanc.png" alt="Logo peps" class="logoPeps"/>
     <div ng-show="profile" class="ng-hide">
         <a ng-class="{true:'clickedRight', false:''}[showHome === true]" href="#home" class="button">{{'home'| translate}}</a>
@@ -26,7 +26,7 @@
         <a ng-class="{true:'clickedRight', false:''}[showStats === true]" href="#stats" class="button">{{'stats'| translate}}</a>
         <a ng-class="{true:'clickedRight', false:''}[showHistory === true]" href="#history" class="button">{{'history'| translate}}</a>
         <a ng-class="{true:'clickedRight', false:''}[showAcquisition === true]" href="#acquisitionDashboard" class="button">{{'acquisition'| translate}}</a>
+        <a ng-click="logout()" class="button alert" >{{'logout'| translate}}</a>
     </div>
     <a ng-click="startSignIn()" class="button ng-hide" ng-show="!profile" >{{'login'| translate}}</a>
-    <a ng-click="logout()" ng-show="profile" class="button ng-hide alert bottomAlign" >{{'logout'| translate}}</a>
 </div>

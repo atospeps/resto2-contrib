@@ -24,10 +24,15 @@
     height: 100%;
     text-align: center;
     position: fixed;
-    z-index: 10;
+    z-index: 1001;
     max-width: 1990px;
     background-color: rgba(25,30,40,0.5);
     padding: 5em;
+    
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .popup div.content {
@@ -37,7 +42,7 @@
 
 .popup a.close {
     float: right;
-    margin-right: 25px;
+    margin: 5px 10px;
     color: black;
 }
 
@@ -60,3 +65,18 @@
 .size-48 { font-size: 48px; }
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
+
+.popup .close-reveal-modal {
+    color: #AAAAAA;
+    /* cursor: pointer; */
+    font-size: 2.22222rem;
+    font-weight: bold;
+    line-height: 1;
+    float: right;
+    margin: 0.5rem 1rem;
+    text-decoration: none;
+}
+
+.popup .close-reveal-modal:hover {
+	color: #BBB;
+}

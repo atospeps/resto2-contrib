@@ -13,126 +13,128 @@
  License for the specific language governing permissions and limitations
  under the License.
 -->
-<div class="main">
 
-    <div class="row acquisitionMenu">
-        <div class="small-2 large-12 columns">
-            <ul class="button-group left">
-                <li><a class="button refreshButton" ng-click="refresh()"><i class="fi-refresh padding-10"></i>Refresh</a></li>
-            </ul>
-            <ul class="button-group right">
-                <li><a class="button noactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
-                <li><a class="button noactive" href="#acquisition"><i class="fi-download padding-10"></i>Acquisition queue</a></li>
-                <li><a class="button btnactive" href="#acquisitionHistory"><i class="fi-clock padding-10"></i>History</a></li>
-            </ul>
-        </div>        
-    </div>
+<div class="row acquisitionMenu">
+	<div class="large-12 columns">
+			<ul class="button-group left">
+				<li><a class="button refreshButton" data-ng-click="refresh()"><i
+						class="fi-refresh padding-right-5"></i>Refresh</a></li>
+			</ul>
+			<ul class="button-group right">
+				<li><a class="button noactive" href="#acquisitionDashboard"><i class="fi-home padding-right-5"></i>Dashboard</a></li>
+				<li><a class="button noactive" href="#acquisition"><i class="fi-download padding-right-5"></i>Acquisition queue</a></li>
+				<li><a class="button btnactive" href="#acquisitionHistory"><i class="fi-clock padding-right-5"></i>History</a></li>
+			</ul>
+	</div>
+</div>
 
-
-    <div class="row">
-        <div class="large-12 columns">
-			<a ng-click="toggleFiltre()"><i class="fi-filter padding-10"></i>Filters</a>
-			<span ng-show="filtersActive" class="label filterLabel">active filters <a ng-click="removeFilters()" class="removeFilter">x</a></span>
-			<div class="filtreWrapper" ng-show="displayFiltres" id="filtre" style="margin:initial;">
-				<div class="row collapse">
-					<div class="large-2 columns">
-						<div style="margin-top:5px;">Product title :</div>
-					</div>
-					<div class="large-3 columns end">
-						<div style="position: relative">
-                        	<input type="text" placeholder="S1A%" ng-model="title">
-                        	<i class="close-icon" ng-class="{clearicon: title == '' || title == null}" ng-click="title=''"></i>
-		                </div>
+ <div class="row">
+     <div class="large-12 columns">
+		<a ng-click="toggleFiltre()"><i class="fi-filter padding-10"></i>Filters</a>
+		<span ng-show="filtersActive" class="label filterLabel">active filters <a ng-click="removeFilters()" class="removeFilter">x</a></span>
+		<div class="filtreWrapper" ng-show="displayFiltres" id="filtre" style="margin:initial;">
+			<div class="row collapse">
+				<div class="large-2 columns">
+					<div style="margin-top:5px;">Product title :</div>
+				</div>
+				<div class="large-3 columns end">
+					<div style="position: relative">
+						<input type="text" placeholder="S1A%" ng-model="title">
+						<i class="close-icon" ng-class="{clearicon: title == '' || title == null}" ng-click="title=''"></i>
 					</div>
 				</div>
-				<div class="row collapse">
-					<div class="large-2 columns">
-						<div style="margin-top:5px;">Ingest date :</div>
-					</div>
-					<div class="large-3 columns">
-						<div class="row collapse">
-							<div class="small-9 columns">
-								<div style="position: relative">
-			                        <input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="startDate"> 
-			                        <i class="close-icon" ng-class="{clearicon: startDate == '' || startDate == null}" ng-click="startDate=''"></i>
-				                </div>
-							</div>
-							<div class="small-1 small-offset-1 columns end">
-								<div style="margin-top:5px;">to</div>
-							</div>
+			</div>
+			<div class="row collapse">
+				<div class="large-2 columns">
+					<div style="margin-top:5px;">Ingest date :</div>
+				</div>
+				<div class="large-3 columns">
+					<div class="row collapse">
+						<div class="small-9 columns">
+							<div style="position: relative">
+			                       <input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="startDate"> 
+			                       <i class="close-icon" ng-class="{clearicon: startDate == '' || startDate == null}" ng-click="startDate=''"></i>
+			                </div>
 						</div>
-					</div>
-					<div class="large-3 columns end">
-						<div class="row collapse">
-							<div class="small-9 columns">
-								<div style="position: relative">
-		                        	<input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="endDate">
-		                        	<i class="close-icon" ng-class="{clearicon: endDate == '' || endDate == null}" ng-click="endDate=''"></i>
-				                </div>
-							</div>
+						<div class="small-1 small-offset-1 columns end">
+							<div style="margin-top:5px;">to</div>
 						</div>
 					</div>
 				</div>
-				<div class="row collapse">
-					<div class="large-2 columns">
-						<div style="margin-top:5px;">Product status :</div>
-					</div>
-					<div class="large-4 columns end">
-				        <select ng-model="status">
-       						<option ng-repeat="option in availableStatus" value="{{option}}">{{option}}</option>
-				        </select>
-					</div>
-					<div class="large-2 large-offset-4 columns">
-               			 <a ng-click="applyFilters()" class="button applyFilter">Apply Filters</a>
+				<div class="large-3 columns end">
+					<div class="row collapse">
+						<div class="small-9 columns">
+							<div style="position: relative">
+			                      	<input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="endDate">
+			                      	<i class="close-icon" ng-class="{clearicon: endDate == '' || endDate == null}" ng-click="endDate=''"></i>
+			                </div>
+						</div>
 					</div>
 				</div>
-			</div>	
-			
-            <div class="acquisitionHistory">
-	            <table>
-	                <thead>
-	                    <tr>
-	                        <th style="width:450px;" class="clickable custom-th" ng-click="sortHistory('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
-	                        <th class="clickable custom-th" ng-click="sortHistory('product_status')" >Status <i ng-show="orderBy === 'product_status'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
-	                        <th class="clickable custom-th" ng-click="sortHistory('datasource_name')" >Datasource <i ng-show="orderBy === 'datasource_name'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
-	                        <th style="width:150px;" class="clickable custom-th" ng-click="sortHistory('download_date')" >Download date <i ng-show="orderBy === 'download_date'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
-	                        <th style="width:150px;" class="clickable custom-th" ng-click="sortHistory('ingest_date')" >Ingest date <i ng-show="orderBy === 'ingest_date'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
-	                        <th style="width:10px;"></th>
-	                    </tr>
-	                </thead>
-	                <tbody>
-	                    <tr ng-repeat="x in history" ng-class="{'rowError' : isInError(x.product_status)}">
-	                        <td>{{x.title}}</td>
-	                        <td>{{ x.product_status}}</td>
-	                        <td>{{ x.datasource_name}}</td>
-	                        <td>{{ x.download_date}}</td>
-	                        <td>{{ x.ingest_date}}</td>
-	                        <td><a ng-click="displayProduct(x)"><i class="fi-magnifying-glass"></i></a></td>
-	                    </tr>
-	                </tbody>
-	            </table>
-	        </div>
-			<div class="row">
-				<div class="large-5 columns">
-	                   <ul class="pagination">
-	                       <li class="arrow" ng-class="{unavailable: currentPage == 1}"><a ng-click="changePage(1)">&laquo;</a></li>
-	      
-	                       <li ng-repeat="n in pagesButtonRange()" ng-class="{current: n == currentPage}" ng-click="changePage(n)">
-	                           <a ng-bind="n"></a>
-	                       </li>
-	              
-	                       <li class="arrow" ng-class="{unavailable: currentPage == maxPage}"><a ng-click="changePage(maxPage)">&raquo;</a></li>
-	                   </ul>
+			</div>
+			<div class="row collapse">
+				<div class="large-2 columns">
+					<div style="margin-top:5px;">Product status :</div>
 				</div>
-                <div class="large-2 large-offset-3 columns" style="text-align: right;padding-top: 6px;">
-           			<span>Results per page</span>
-                </div>
-                <div class="large-1 columns">
-               		<input type="number" ng-model="offset">
-                </div>
-                <div class="large-1 columns end">
-                	<a class="button tinyButton" ng-click="refresh()">Update</a>
-                </div>
+				<div class="large-4 columns end">
+				       <select ng-model="status">
+				  						<option ng-repeat="option in availableStatus" value="{{option}}">{{option}}</option>
+				       </select>
+				</div>
+				<div class="large-2 large-offset-4 columns">
+					<a data-ng-click="applyFilters()" class="button applyFilter">Apply Filters</a>
+				</div>
+			</div>
+		</div>	
+
+         <div class="acquisitionHistory">
+          <table width="100%">
+              <thead>
+                  <tr>
+                      <th style="width:450px;" class="clickable custom-th" ng-click="sortHistory('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></i></th>
+                     <th class="clickable custom-th" ng-click="sortHistory('product_status')" >Status <i ng-show="orderBy === 'product_status'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                     <th class="clickable custom-th" ng-click="sortHistory('datasource_name')" >Datasource <i ng-show="orderBy === 'datasource_name'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                     <th style="width:150px;" class="clickable custom-th" ng-click="sortHistory('download_date')" >Download date <i ng-show="orderBy === 'download_date'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                     <th style="width:150px;" class="clickable custom-th" ng-click="sortHistory('ingest_date')" >Ingest date <i ng-show="orderBy === 'ingest_date'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder === 'ASC']"></th>
+                     <th style="width:10px;"></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr ng-repeat="x in history" ng-class="{'rowError' : isInError(x.product_status)}">
+                      <td>
+                      	<pre class="wrapping hide-for-medium-up max-width-250">{{ x.title }}</pre>
+                      	<pre class="wrapping hide-for-xlarge-up show-for-medium-up">{{ x.title }}</pre>
+                      	<span class="show-for-xlarge-up">{{ x.title }}</span>
+                      </td>
+                      <td>{{ x.product_status}}</td>
+                      <td>{{ x.datasource_name}}</td>
+                      <td>{{ x.download_date}}</td>
+                      <td>{{ x.ingest_date}}</td>
+                      <td><a ng-click="displayProduct(x)"><i class="fi-magnifying-glass"></i></a></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+<div class="row">
+	<div class="large-5 columns">
+                 <ul class="pagination">
+                     <li class="arrow" ng-class="{unavailable: currentPage == 1}"><a ng-click="changePage(1)">&laquo;</a></li>
+    
+                     <li ng-repeat="n in pagesButtonRange()" ng-class="{current: n == currentPage}" ng-click="changePage(n)">
+                         <a ng-bind="n"></a>
+                     </li>
+            
+                     <li class="arrow" ng-class="{unavailable: currentPage == maxPage}"><a ng-click="changePage(maxPage)">&raquo;</a></li>
+                 </ul>
+	</div>
+             <div class="large-2 large-offset-3 columns" style="text-align: right;padding-top: 6px;">
+       			<span>Results per page</span>
+            </div>
+            <div class="large-1 columns">
+           		<input type="number" ng-model="offset">
+            </div>
+            <div class="large-1 columns end">
+            	<a class="button tinyButton" ng-click="refresh()">Update</a>
             </div>
         </div>
     </div>

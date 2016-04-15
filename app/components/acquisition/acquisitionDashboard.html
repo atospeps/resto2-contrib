@@ -13,77 +13,92 @@
  License for the specific language governing permissions and limitations
  under the License.
 -->
-<div class="main">
-    <div class="row acquisitionMenu">
-        <div class="small-2 large-12 columns">
-            <ul class="button-group left">
-                <li><a class="button refreshButton" ng-click="refresh()"><i class="fi-refresh padding-10"></i>Refresh</a></li>
-            </ul>
-            <ul class="button-group right">
-                <li><a class="button btnactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
-                <li><a class="button noactive" href="#acquisition"><i class="fi-download padding-10"></i>Acquisition queue</a></li>
-                <li><a class="button noactive" href="#acquisitionHistory"><i class="fi-clock padding-10"></i>History</a></li>
-            </ul>
-        </div>        
-    </div>
+<div class="row acquisitionMenu">
+	<div class="large-12 columns">
+			<ul class="button-group left">
+				<li><a class="button refreshButton" ng-click="refresh()"><i
+						class="fi-refresh padding-right-5"></i>Refresh</a></li>
+			</ul>
+			<ul class="button-group right">
+				<li><a class="button btnactive" href="#acquisitionDashboard"><i class="fi-home padding-right-5"></i>Dashboard</a></li>
+				<li><a class="button noactive" href="#acquisition"><i class="fi-download padding-right-5"></i>Acquisition queue</a></li>
+				<li><a class="button noactive" href="#acquisitionHistory"><i class="fi-clock padding-right-5"></i>History</a></li>
+			</ul>
+	</div>
+</div>
 
-    <div class="dashboard">
-      	<div class="row collapse">
-        	<div class="large-4 columns">
-				<span>Module acquisition</span><i class="fa fa-circle stateIcon" ng-class="acquisitionState == 'started' ? 'stateStarted' : acquisitionState == 'stopped' ? 'stateStopped' : 'stateUnknown'"></i>
-            </div>
-        	<div ng-repeat="datasource in datasources" class="large-4 end columns" style="padding-bottom:10px;">
-				<span>Datasource {{datasource.name}}</span><i class="fa fa-circle stateIcon" ng-class="datasource.state == 'started' ? 'stateStarted' : datasource.state == 'stopped' ? 'stateStopped' : 'stateUnknown'"></i>
-            </div>
-      	</div>
-      	
-		<div class="row collapse dashboardFilter">
-			<div class="large-2 large-offset-1 columns">
-				<div style="margin-top:5px;"><i class="fi-filter padding-10"></i> Catalog date :</div>
-			</div>
-			<div class="large-3 columns">
-				<div class="row collapse">
-					<div class="small-9 columns">
-						<div style="position: relative">
-	                        <input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="startDate"> 
-	                        <i class="close-icon" ng-class="{clearicon: startDate == '' || startDate == null}" ng-click="startDate=''"></i>
-		                </div>
-					</div>
-					<div class="small-1 small-offset-1 columns end">
-						<div style="margin-top:5px;">to</div>
-					</div>
-				</div>
-			</div>
-			<div class="large-3 columns end">
-				<div class="row collapse">
-					<div class="small-9 columns">
-						<div style="position: relative">
-                        	<input class="dateInput" type="text" datetime="yyyy-MM-dd HH:mm:ss" datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="endDate">
-                        	<i class="close-icon" ng-class="{clearicon: endDate == '' || endDate == null}" ng-click="endDate=''"></i>
-		                </div>
-					</div>
-				</div>
-			</div>
-			<div class="large-3 end columns">
-  				<a ng-click="setFilterEnabled(true)" class="button applyFilter">Apply Filters</a>
-  				<a ng-click="setFilterEnabled(false)" ng-show="filtersActive" class="button applyFilter">Remove Filters</a>
+<div class="dashboard">
+	<div class="row collapse">
+		<div class="large-4 columns">
+			<span>Module acquisition</span><i class="fa fa-circle stateIcon"
+				ng-class="acquisitionState == 'started' ? 'stateStarted' : acquisitionState == 'stopped' ? 'stateStopped' : 'stateUnknown'"></i>
+		</div>
+		<div ng-repeat="datasource in datasources"
+			class="large-4 end columns" style="padding-bottom: 10px;">
+			<span>Datasource {{datasource.name}}</span><i
+				class="fa fa-circle stateIcon"
+				ng-class="datasource.state == 'started' ? 'stateStarted' : datasource.state == 'stopped' ? 'stateStopped' : 'stateUnknown'"></i>
+		</div>
+	</div>
+
+	<div class="row collapse dashboardFilter">
+		<div class="large-2 large-offset-1 columns">
+			<div style="margin-top: 5px;">
+				<i class="fi-filter padding-10"></i> Catalog date :
 			</div>
 		</div>
-      	
-    	<div class="row" ng-repeat="tab in stats">
-    		<h3>{{tab.title}}</h3>
-        	<div class="large-8 large-offset-2 columns">
-				<table class="dashTable">
-				  <thead>
-				  </thead>
-				  <tbody>
-				    <tr ng-repeat="line in tab.rows" style="background:{{line.color}};">
-				      <td class="tableLabel">{{line.label}}</td>
-				      <td class="tableValue"><div ng-class="{rowFilterIcon: line.date_filter}">{{line.count}} <i class="fi-filter" title="Filter available" ng-class="{clearicon: !line.date_filter}"></i></div></td>
-				    </tr>
-				  </tbody>
-				</table>                  
-            </div>
-      	</div>
-    </div>
+		<div class="large-3 columns">
+			<div class="row collapse">
+				<div class="small-9 columns">
+					<div style="position: relative">
+						<input class="dateInput" type="text"
+							datetime="yyyy-MM-dd HH:mm:ss"
+							datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="startDate">
+						<i class="close-icon"
+							ng-class="{clearicon: startDate == '' || startDate == null}"
+							ng-click="startDate=''"></i>
+					</div>
+				</div>
+				<div class="small-1 small-offset-1 columns end">
+					<div style="margin-top: 5px;">to</div>
+				</div>
+			</div>
+		</div>
+		<div class="large-3 columns end">
+			<div class="row collapse">
+				<div class="small-9 columns">
+					<div style="position: relative">
+						<input class="dateInput" type="text"
+							datetime="yyyy-MM-dd HH:mm:ss"
+							datetime-model="yyyy-MM-ddTHH:mm:ss" ng-model="endDate">
+						<i class="close-icon"
+							ng-class="{clearicon: endDate == '' || endDate == null}"
+							ng-click="endDate=''"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="large-3 end columns">
+			<a ng-click="setFilterEnabled(true)" class="button applyFilter">Apply
+				Filters</a> <a ng-click="setFilterEnabled(false)"
+				ng-show="filtersActive" class="button applyFilter">Remove
+				Filters</a>
+		</div>
+	</div>
+
+	<div class="row" ng-repeat="tab in stats">
+		<h3>{{tab.title}}</h3>
+		<div class="large-8 large-offset-2 columns">
+			<table class="dashTable">
+				<thead>
+				</thead>
+				<tbody>
+			    <tr ng-repeat="line in tab.rows" style="background:{{ line.color}};">
+			      <td class="tableLabel">{{line.label}}</td>
+			      <td class="tableValue"><div ng-class="{rowFilterIcon: line.date_filter}">{{line.count}} <i class="fi-filter" title="Filter available" ng-class="{clearicon: !line.date_filter}"></i></div></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+	</div>
 </div>

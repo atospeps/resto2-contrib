@@ -13,164 +13,157 @@
  License for the specific language governing permissions and limitations
  under the License.
 -->
-<div class="main">
-    <div class="show-for-large-up large-2 columns"></div>
 
+<div class="row acquisitionMenu">
+	<div class="large-12 columns">
+			<ul class="button-group left">
+				<li><a class="button refreshButton" data-ng-click="refresh()"><i
+						class="fi-refresh padding-right-5"></i>Refresh</a></li>
+			</ul>
+			<ul class="button-group right">
+				<li><a class="button noactive" href="#acquisitionDashboard"><i class="fi-home padding-right-5"></i>Dashboard</a></li>
+				<li><a class="button btnactive" href="#acquisition"><i class="fi-download padding-right-5"></i>Acquisition queue</a></li>
+				<li><a class="button noactive" href="#acquisitionHistory"><i class="fi-clock padding-right-5"></i>History</a></li>
+			</ul>
+	</div>
+</div>
 
-    <div class="row">
-        <div class="small-2 large-12 columns">
-            <ul class="button-group left">
-                <li><a class="button refreshButton" ng-click="refresh()"><i class="fi-refresh padding-10"></i>Refresh</a></li>
-            </ul>
-            <ul class="button-group right">
-                <li><a class="button noactive" href="#acquisitionDashboard"><i class="fi-home padding-10"></i>Dashboard</a></li>
-                <li><a class="button btnactive" href="#acquisition"><i class="fi-download padding-10"></i>Acquisition queue</a></li>
-                <li><a class="button noactive" href="#acquisitionHistory"><i class="fi-clock padding-10"></i>History</a></li>
-            </ul>
-        </div>        
+<div class="row" data-ng-if="warningDisplay">
+    <div class="large-12 columns warningMessage">
+    Warning : peps-acquisition is stopping
     </div>
-    
-    <div class="row" ng-if="warningDisplay">
-        <div class="large-12 columns warningMessage">
-        Warning : pes-acquisition is stopping
-        </div>
-    </div>
+</div>
 
-    <div class="row" style="margin-top: 20px;">
-        <div class="large-12 columns">
+<div class="row" style="margin-top: 20px;">
+     <div class="large-12 columns">
+<div class="row collapse">
+	<div class="large-3 columns">
+		<a ng-click="toggleFiltre()" style="margin-top:6px;display: inline-block;"><i class="fi-filter padding-10"></i>Filters</a>
+		<span ng-show="filtersActive" class="label filterLabel">active filters <a ng-click="removeFilters()" style="color:white;padding: 5px;">x</a></span>
+	</div>
+	<div class="large-2 large-offset-5 columns">
+		<div style="margin-top:6px;">Datasource :</div>
+	</div>
+	<div class="large-2 columns end">
+        <select ng-model="selectedDatasource">
+			<option ng-repeat="option in datasources" value="{{option}}">{{option}}</option>
+        </select>
+	</div>
+</div>
+<div class="filtreWrapper" ng-show="displayFiltres" id="filtre" style="margin:initial;">
+	<div class="row collapse">
+		<div class="large-2 columns">
+			<div style="margin-top:5px;">Product type :</div>
+		</div>
+		<div class="large-4 columns end">
+	        <select ng-model="productType">
+	   						<option ng-repeat="option in filterType" value="{{option}}">{{option}}</option>
+	        </select>
+		</div>
+	</div>
+	<div class="row collapse">
+		<div class="large-2 columns">
+			<div style="margin-top:5px;">Platform :</div>
+		</div>
+		<div class="large-4 columns end">
+	        <select ng-model="platform">
+	   						<option ng-repeat="option in filterPlatform" value="{{option}}">{{option}}</option>
+	        </select>
+		</div>
+	</div>
+	<div class="row collapse">
+		<div class="large-2 columns">
+			<div style="margin-top:5px;">Product status :</div>
+		</div>
+		<div class="large-4 columns end">
+	        <select ng-model="status">
+	   						<option ng-repeat="option in filterStatus" value="{{option}}">{{option}}</option>
+	        </select>
+		</div>
+	</div>
+	<div class="row collapse">
+		<div class="large-2 columns">
+			<div style="margin-top:5px;">Product priority :</div>
+		</div>
+		<div class="large-2 columns">
 			<div class="row collapse">
-				<div class="large-3 columns">
-					<a ng-click="toggleFiltre()" style="margin-top:6px;display: inline-block;"><i class="fi-filter padding-10"></i>Filters</a>
-					<span ng-show="filtersActive" class="label filterLabel">active filters <a ng-click="removeFilters()" style="color:white;padding: 5px;">x</a></span>
+				<div class="small-6 columns">
+					<div style="position: relative">
+						<input type="number" ng-model="minPriority">
+	                      	<i class="close-icon" ng-class="{clearicon: minPriority == '' || minPriority == null}" ng-click="minPriority=''"></i>
+	                </div>
 				</div>
-				<div class="large-2 large-offset-5 columns">
-					<div style="margin-top:6px;">Datasource :</div>
-				</div>
-				<div class="large-2 columns end">
-			        <select ng-model="selectedDatasource">
-						<option ng-repeat="option in datasources" value="{{option}}">{{option}}</option>
-			        </select>
+				<div class="small-1 small-offset-2 columns end">
+					<div style="margin-top:5px;">to</div>
 				</div>
 			</div>
-			<div class="filtreWrapper" ng-show="displayFiltres" id="filtre" style="margin:initial;">
-				<div class="row collapse">
-					<div class="large-2 columns">
-						<div style="margin-top:5px;">Product type :</div>
-					</div>
-					<div class="large-4 columns end">
-				        <select ng-model="productType">
-       						<option ng-repeat="option in filterType" value="{{option}}">{{option}}</option>
-				        </select>
-					</div>
-				</div>
-				<div class="row collapse">
-					<div class="large-2 columns">
-						<div style="margin-top:5px;">Platform :</div>
-					</div>
-					<div class="large-4 columns end">
-				        <select ng-model="platform">
-       						<option ng-repeat="option in filterPlatform" value="{{option}}">{{option}}</option>
-				        </select>
-					</div>
-				</div>
-				<div class="row collapse">
-					<div class="large-2 columns">
-						<div style="margin-top:5px;">Product status :</div>
-					</div>
-					<div class="large-4 columns end">
-				        <select ng-model="status">
-       						<option ng-repeat="option in filterStatus" value="{{option}}">{{option}}</option>
-				        </select>
-					</div>
-				</div>
-				<div class="row collapse">
-					<div class="large-2 columns">
-						<div style="margin-top:5px;">Product priority :</div>
-					</div>
-					<div class="large-2 columns">
-						<div class="row collapse">
-							<div class="small-6 columns">
-								<div style="position: relative">
-									<input type="number" ng-model="minPriority">
-		                        	<i class="close-icon" ng-class="{clearicon: minPriority == '' || minPriority == null}" ng-click="minPriority=''"></i>
-				                </div>
-							</div>
-							<div class="small-1 small-offset-2 columns end">
-								<div style="margin-top:5px;">to</div>
-							</div>
-						</div>
-					</div>
-					<div class="large-2 columns">
-						<div class="row collapse">
-							<div class="small-6 columns">
-								<div style="position: relative">
-									<input type="number" ng-model="maxPriority">
-		                        	<i class="close-icon" ng-class="{clearicon: maxPriority == '' || maxPriority == null}" ng-click="maxPriority=''"></i>
-				                </div>
-							</div>
-						</div>
-					</div>
-					<div class="large-2 large-offset-4 columns">
-               			 <a ng-click="applyFilters()" class="button applyFilter">Apply Filters</a>
-					</div>
-				</div>
-			</div>	
-			
-			<div class="acquisitionQueue">					
-				<table>
-				    <thead>
-						 <tr>
-						    <th style="width:10px;" class="clickable custom-th"><input type="checkbox" ng-click="rowSelect(allRowSelected)" ng-model="allRowSelected"></th>
-						    <th style="width:100px;" class="clickable custom-th" ng-click="sortData('index')" >Position <i ng-show="orderBy === 'index'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></i></th>
-						    <th style="width:500px;" class="clickable custom-th" ng-click="sortData('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></i></th>
-						    <th style="width:100px;" class="clickable custom-th" ng-click="sortData('priority')" >Priority <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
-						    <th class="clickable custom-th" ng-click="sortData('productStatus')" >Status <i ng-show="orderBy === 'productStatus'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
-						    <th style="width:100px;" class="clickable custom-th" ng-click="sortData('archiveSize')" >Size (Mo) <i ng-show="orderBy === 'archiveSize'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
-						</tr>
-				   </thead>
-				   <tbody ng-show="showAcquisition">                                    
-						<tr ng-repeat="x in displayedData = (dataFiltered|orderBy:orderBy:sortOrder|start:startIndex|limitTo:offset)" ng-class="getStatusClass(x.status)">
-					        <td><input type="checkbox" ng-click="refreshRow()" ng-model="x.selected"></td>
-                            <td>{{x.index}}</td>
-                            <td>{{x.title}}</td>
-							<td>{{ x.priority}}</td>
-							<td>{{ x.productStatus}}</td>
-							<td>{{ x.archiveSize/1000000}}</td>
-						</tr>
-				    </tbody>
-				</table>
-			</div>
+		</div>
+		<div class="large-2 columns">
 			<div class="row collapse">
-				<div class="large-5 columns">
-	                <ul class="pagination">
-	                    <li class="arrow" ng-class="{unavailable: currentPage == 1}"><a ng-click="changePage(1)">&laquo;</a></li>
-	    
-	                    <li ng-repeat="n in pagesButtonRange()" ng-class="{current: n == currentPage}" ng-click="changePage(n)">
-	                         <a ng-bind="n"></a>
-	                    </li>
-	            
-	                    <li class="arrow" ng-class="{unavailable: currentPage == maxPage}"><a ng-click="changePage(maxPage)">&raquo;</a></li>
-	                </ul>
+				<div class="small-6 columns">
+					<div style="position: relative">
+							<input type="number" ng-model="maxPriority">
+	                       	<i class="close-icon" ng-class="{clearicon: maxPriority == '' || maxPriority == null}" ng-click="maxPriority=''"></i>
+		                </div>
+					</div>
 				</div>
-           		<div class="large-2 large-offset-4 columns">
-               		<span>Results per page</span>
-               	</div>
-               	<div class="large-1 columns end">
-               		<input type="number" ng-model="offset">
-               	</div>
-             	</div>
-			<div class="row collapse" style="margin-top:20px;">
-				<div class="large-3 columns">
-				    <div>Products selected : {{numSelectedRow}}</div>
-				    <div>Total products : {{dataFiltered.length}}</div>
-				</div>
-				<div class="large-5 large-offset-4 end columns">
-		            <ul class="button-group right">
-		                <li><button class="button updateButton right" ng-class="{disabled: numSelectedRow == 0}" ng-click="changeProducts(getSelectedData())">Update selected products</button></li>
-		                <li><button class="button updateButton right" ng-class="{disabled: !filtersActive}" ng-click="changeProducts(getFilteredData())">Update filtered products</button></li>
-		            </ul>
-		        </div>
-		    </div>
-        </div>
+			</div>
+			<div class="large-2 large-offset-4 columns">
+	            			 <a ng-click="applyFilters()" class="button applyFilter">Apply Filters</a>
+			</div>
+		</div>
+</div>	
+
+<div class="acquisitionQueue">					
+	<table style="width:100%">
+	    <thead>
+			 <tr>
+			    <th style="width:10px;" class="clickable custom-th"><input type="checkbox" ng-click="rowSelect(allRowSelected)" ng-model="allRowSelected"></th>
+			    <th style="width:100px;" class="clickable custom-th" ng-click="sortData('index')" >Position <i ng-show="orderBy === 'index'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></i></th>
+			    <th style="width:500px;" class="clickable custom-th" ng-click="sortData('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></i></th>
+			    <th style="width:100px;" class="clickable custom-th" ng-click="sortData('priority')" >Priority <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
+			    <th class="clickable custom-th" ng-click="sortData('productStatus')" >Status <i ng-show="orderBy === 'productStatus'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
+			    <th style="width:100px;" class="clickable custom-th" ng-click="sortData('archiveSize')" >Size (Mo) <i ng-show="orderBy === 'archiveSize'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
+			</tr>
+	   </thead>
+	   <tbody ng-show="showAcquisition">                                    
+			<tr ng-repeat="x in displayedData = (dataFiltered|orderBy:orderBy:sortOrder|start:startIndex|limitTo:offset)" ng-class="getStatusClass(x.status)">
+		        <td><input type="checkbox" ng-click="refreshRow()" ng-model="x.selected"></td>
+                <td>{{x.index}}</td>
+                <td>{{x.title}}</td>
+				<td>{{ x.priority}}</td>
+				<td>{{ x.productStatus}}</td>
+				<td>{{ x.archiveSize/1000000}}</td>
+			</tr>
+	    </tbody>
+	</table>
+</div>
+<div class="row collapse">
+	<div class="large-5 columns">
+	    <ul class="pagination">
+	        <li class="arrow" ng-class="{unavailable: currentPage == 1}"><a ng-click="changePage(1)">&laquo;</a></li>
+	        <li ng-repeat="n in pagesButtonRange()" ng-class="{current: n == currentPage}" ng-click="changePage(n)"><a ng-bind="n"></a></li>
+	        <li class="arrow" ng-class="{unavailable: currentPage == maxPage}"><a ng-click="changePage(maxPage)">&raquo;</a></li>
+	    </ul>
+	</div>
+	<div class="large-2 large-offset-4 columns">
+  		<span>Results per page</span>
+  	</div>
+  	<div class="large-1 columns end">
+  		<input type="number" ng-model="offset">
+  	</div>
+</div>
+<div class="row collapse" style="margin-top:20px;">
+<div class="large-3 columns">
+    <div>Products selected : {{numSelectedRow}}</div>
+    <div>Total products : {{dataFiltered.length}}</div>
+</div>
+<div class="large-5 large-offset-4 end columns">
+          <ul class="button-group right">
+              <li><button class="button updateButton right" ng-class="{disabled: numSelectedRow == 0}" ng-click="changeProducts(getSelectedData())">Update selected products</button></li>
+              <li><button class="button updateButton right" ng-class="{disabled: !filtersActive}" ng-click="changeProducts(getFilteredData())">Update filtered products</button></li>
+          </ul>
+      </div>
+  </div>
     </div>
 </div>

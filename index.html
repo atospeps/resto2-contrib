@@ -15,90 +15,104 @@
  under the License.
 -->
 <html>
-    <head>
-        <title>Administration</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<head>
+	<title>Administration</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <link rel="shortcut icon" href="favicon.ico" />
-        <link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="assets/libs/foundation/css/foundation.css" type="text/css" />
-        <link rel="stylesheet" href="assets/libs/foundation/foundation-icons/foundation-icons.css" type="text/css" />
-        <link rel="stylesheet" href="assets/libs/foundation/css/normalize.css" type="text/css" />
-        <link rel="stylesheet" href="assets/libs/fontawesome/css/font-awesome.min.css" type="text/css" />
-        <link rel="stylesheet" href="app/components/signin/signIn.css" type="text/css">
-        <link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog.min.css" type="text/css" />
-        <link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog-theme-default.min.css" type="text/css" />
-        <link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog-theme-plain.min.css" type="text/css" />
-        <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
-    </head>
-    <body ng-app="administration">
-        <div ng-controller="mainController">
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="assets/libs/foundation/css/foundation.css" type="text/css" />
+	<link rel="stylesheet" href="assets/libs/foundation/foundation-icons/foundation-icons.css" type="text/css" />
+	<link rel="stylesheet" href="assets/libs/foundation/css/normalize.css" type="text/css" />
+	<link rel="stylesheet" href="assets/libs/fontawesome/css/font-awesome.min.css" type="text/css" />
+	<link rel="stylesheet" href="app/components/signin/signIn.css" type="text/css">
+	<link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog.min.css" type="text/css" />
+	<link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog-theme-default.min.css" type="text/css" />
+	<link rel="stylesheet" href="assets/libs/angular/ng-dialog/css/ngDialog-theme-plain.min.css" type="text/css" />
+	<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+</head>
+<body data-ng-app="administration">
 
-            <div class="hide-for-large-up small-12 topMenu">
-                <a href="" class="" ng-click="displayLeftMenu()"><i class="size-24 fi-list"></i></a>
-            </div>
+	<div data-ng-controller="mainController">
 
-            <div ng-include src="'app/components/main/largeLeftMenu.html'"></div>
+		<div class="off-canvas-wrap" data-offcanvas>
+			<div class="inner-wrap">
 
-            <div class="ng-hide" ng-show="profile" ng-view></div>
-            
-            <div id="spinner"><img class="spinner--img" ng-src="assets/css/img/spinner.gif"></div>
+				<!-- Off Canvas Menu -->
+				<aside class="left-off-canvas-menu">
+					<div data-ng-include data-src="'app/components/main/largeLeftMenu.html'"></div>
+				</aside>
+				
+				<div class="hide-for-large-up small-12 topMenu">
+					<a href="" data-ng-click="displaySideNav()"><i class="size-24 fi-list"></i></a>
+				</div>
 
-            <div class="popup ng-hide" ng-show="displaySignIn">
-                <div ng-include src="'app/components/signin/signIn.html'"></div>
-            </div>
+				<!-- main content goes here -->
+				<div class="row main fullWidth">
+					<div class="large-12 columns">
+						<div class="ng-hide" data-ng-show="profile" data-ng-view></div>
+					</div>
+				</div>
 
-            <div class="ng-hide main" ng-show="!profile">
-                <div class="show-for-large-up large-2 columns">
+				<div id="spinner">
+					<img class="spinner--img" data-ng-src="assets/css/img/spinner.gif">
+				</div>
 
-                </div>
-                <div class="small-12 large-10 columns">
-                    <h1><span ng-bind="'unloggedText' | translate"></span></h1>
-                </div>
-            </div>
+				<div class="popup ng-hide" data-ng-show="displaySignIn">
+					<div data-ng-include data-src="'app/components/signin/signIn.html'"></div>
+				</div>
 
-        </div>
+				<div class="ng-hide main" data-ng-show="!profile">
+					<div class="small-12 large-12 columns">
+						<h1>
+							<span data-ng-bind="'unloggedText' | translate"></span>
+						</h1>
+					</div>
+				</div>
 
-        <script type="text/javascript" src="assets/libs/jquery/jquery.js"></script>
-        <script type="text/javascript" src="assets/libs/angular/angular.js/angular.js"></script>
-        <script type="text/javascript" src="assets/libs/angular/angular.js/angular-route.js"></script>
-        <script type="text/javascript" src="assets/libs/angular/ng-infinite-scroll/ng-infinite-scroll.js"></script>
-        <script type="text/javascript" src="assets/libs/angular/angular-translate/angular-translate.min.js"></script>
-        <script type="text/javascript" src="assets/libs/angular/angular-translate/angular-translate-loader-static-files.min.js"></script>
-        <script type="text/javascript" src="assets/libs/angular/angular-cookies/angular-cookies.js"></script>
-        <script type="text/javascript" src="assets/libs/angular/satellizer/satellizer.js"></script>
-        <script type="text/javascript" src="assets/libs/foundation/foundation.min.js"></script>
-        <script type="text/javascript" src="assets/libs/jwt-decode.min.js"></script>
-        <script type="text/javascript" src="assets/libs/angular/ng-dialog/js/ngDialog.min.js"></script>
-        <script type="text/javascript" src="assets/libs/angular/angular-datetime.js"></script>
-        <script type="text/javascript" src="app/components/app.module.js"></script>
-        <script type="text/javascript" src="app/components/app.constant.js"></script>
-        <script type="text/javascript" src="app/components/app.mainController.js"></script>
-        <script type="text/javascript" src="app/components/app.configuration.js"></script>
-        <script type="text/javascript" src="app/components/app.routes.js"></script>
-        <script type="text/javascript" src="app/components/app.filters.js"></script>
-        <script type="text/javascript" src="app/components/app.directive.js"></script>
-        <script type="text/javascript" src="app/components/services/API/AcquisitionAPI.js"></script>
-        <script type="text/javascript" src="app/components/services/API/AdministrationAPI.js"></script>
-        <script type="text/javascript" src="app/components/services/API/RestoUsersAPI.js"></script>
-        <script type="text/javascript" src="app/components/services/app.administrationServices.js"></script>
-        <script type="text/javascript" src="app/components/home/home.js"></script>
-        <script type="text/javascript" src="app/components/users/users.js"></script>
-        <script type="text/javascript" src="app/components/user/user.js"></script>  
-        <script type="text/javascript" src="app/components/history/history.js"></script>
-        
-        <script type="text/javascript" src="app/components/acquisition/acquisition.js"></script>
-        <script type="text/javascript" src="app/components/acquisition/acquisitionHistory.js"></script>
-        <script type="text/javascript" src="app/components/acquisition/acquisitionDashboard.js"></script>
-        
-        
-        <script type="text/javascript" src="app/components/collections/collections.js"></script>
-        <script type="text/javascript" src="app/components/stats/stats.js"></script>
-        <script type="text/javascript" src="app/components/userCreation/userCreation.js"></script>
-        <script type="text/javascript" src="app/components/groups/groups.js"></script>
-        <script type="text/javascript" src="app/components/group/group.js"></script>
-        <script type="text/javascript" src="app/components/groupCreation/groupCreation.js"></script>
-    </body>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="assets/libs/jquery/jquery.js"></script>
+	<script type="text/javascript" src="assets/libs/angular/angular.js/angular.js"></script>
+	<script type="text/javascript" src="assets/libs/angular/angular.js/angular-route.js"></script>
+	<script type="text/javascript" src="assets/libs/angular/ng-infinite-scroll/ng-infinite-scroll.js"></script>
+	<script type="text/javascript" src="assets/libs/angular/angular-translate/angular-translate.min.js"></script>
+	<script type="text/javascript" src="assets/libs/angular/angular-translate/angular-translate-loader-static-files.min.js"></script>
+	<script type="text/javascript" src="assets/libs/angular/angular-cookies/angular-cookies.js"></script>
+	<script type="text/javascript" src="assets/libs/angular/satellizer/satellizer.js"></script>
+	<script type="text/javascript" src="assets/libs/foundation/foundation.min.js"></script>
+	<script type="text/javascript" src="assets/libs/jwt-decode.min.js"></script>
+	<script type="text/javascript" src="assets/libs/angular/ng-dialog/js/ngDialog.min.js"></script>
+	<script type="text/javascript" src="assets/libs/angular/angular-datetime.js"></script>
+	<script type="text/javascript" src="app/components/app.module.js"></script>
+	<script type="text/javascript" src="app/components/app.constant.js"></script>
+	<script type="text/javascript" src="app/components/app.mainController.js"></script>
+	<script type="text/javascript" src="app/components/app.configuration.js"></script>
+	<script type="text/javascript" src="app/components/app.routes.js"></script>
+	<script type="text/javascript" src="app/components/app.filters.js"></script>
+	<script type="text/javascript" src="app/components/app.directive.js"></script>
+	<script type="text/javascript" src="app/components/services/API/AcquisitionAPI.js"></script>
+	<script type="text/javascript" src="app/components/services/API/AdministrationAPI.js"></script>
+	<script type="text/javascript" src="app/components/services/API/RestoUsersAPI.js"></script>
+	<script type="text/javascript" src="app/components/services/app.administrationServices.js"></script>
+	<script type="text/javascript" src="app/components/home/home.js"></script>
+	<script type="text/javascript" src="app/components/users/users.js"></script>
+	<script type="text/javascript" src="app/components/user/user.js"></script>
+	<script type="text/javascript" src="app/components/history/history.js"></script>
+
+	<script type="text/javascript" src="app/components/acquisition/acquisition.js"></script>
+	<script type="text/javascript" src="app/components/acquisition/acquisitionHistory.js"></script>
+	<script type="text/javascript" src="app/components/acquisition/acquisitionDashboard.js"></script>
+
+	<script type="text/javascript" src="app/components/collections/collections.js"></script>
+	<script type="text/javascript" src="app/components/stats/stats.js"></script>
+	<script type="text/javascript" src="app/components/userCreation/userCreation.js"></script>
+	<script type="text/javascript" src="app/components/groups/groups.js"></script>
+	<script type="text/javascript" src="app/components/group/group.js"></script>
+	<script type="text/javascript" src="app/components/groupCreation/groupCreation.js"></script>
+</body>
 </html>

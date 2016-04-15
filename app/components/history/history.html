@@ -14,113 +14,140 @@
  under the License.
 -->
 
-<div class="main">
-    <div class="show-for-large-up large-2 columns">
-
-    </div>
-    <div class="small-12 custom-large columns">
-       <div class="history tableContainer" >
-            <div class="row">
-                <div class="small-12 large-4 columns">
-                    <div class="row">
-                        <div class="small-3 columns">
-                            <label for="right-label" class="right">Userid</label>
-                        </div>
-                        <div class="small-9 columns">
-							<input type="text" ng-change="getHistory(false)" ng-model="userid"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="small-12 large-4 columns">
-                    <div class="row">
-                        <div class="small-3 columns">
-                            <label for="right-label" class="right">Email</label>
-                        </div>
-                        <div class="small-9 columns">
-							<input type="text" ng-change="getHistory(false)" ng-model="email"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="small-12 large-4 columns">
-                    <div class="row">
-                        <div class="small-3 columns">
-                            <label for="right-label" class="right">Collection</label>
-                        </div>
-                        <div class="small-9 columns">
-                            <select class="form-control"
-                                    ng-model="selectedCollection" 
-                                    ng-options="_collection for _collection in collections" 
-                                    ng-change="setParam('collection', selectedCollection)"></select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="small-12 large-4 columns">
-                    <div class="row">
-                        <div class="small-3 columns">
-                            <label for="right-label" class="right">Service</label>
-                        </div>
-                        <div class="small-9 columns">
-                            <select class="form-control" 
-                                    ng-model="selectedService" 
-                                    ng-options="_service for _service in services" 
-                                    ng-change="setParam('service', selectedService)"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="small-12 large-4 columns">
-                    <div class="row">
-                        <div class="small-3 columns">
-                            <label for="right-label" class="right">Method</label>
-                        </div>
-                        <div class="small-9 columns">
-                            <select class="form-control"
-                                    ng-model="selectedMethod" 
-                                    ng-options="_method for _method in methods" 
-                                    ng-change="setParam('method', selectedMethod)"></select>
-                        </div>
-                    </div>
-                </div>
-	            <div class="small-12 large-4 columns">
-	                <a href="" class="button" ng-click="resetFilters()" style="padding: 10px 15px;">{{'reset filters' | translate }}</a>
-	            </div>
-            </div>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width:10px;" class="show-for-medium-up clickable custom-th" ng-click="setHistory('userid')" >{{'userid'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'userid'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></i></th>
-                        <th style="width:100px; overflow:hidden;" class="show-for-medium-up clickable custom-th" ng-click="setHistory('email')" >{{'email'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'email'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></i></th>
-                        <th style="width:100px;" class="show-for-medium-up clickable custom-th" ng-click="setHistory('method')" >{{'method'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'method'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-                        <th style="width:100px;" class="clickable custom-th" ng-click="setHistory('service')" >{{'service'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'service'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-                        <th style="width:100px;" class="clickable custom-th" ng-click="setHistory('collection')" >{{'collection'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'collection'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-                        <th style="width:200px;" class="show-for-medium-up clickable custom-th" ng-click="setHistory('resourceid')" >{{'resourceid'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'resourceid'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-                        <th style="max-width:600px;" class="show-for-medium-up clickable custom-th" ng-click="setHistory('query')" >{{'query'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'query'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-                        <th style="width:210px;" class="show-for-medium-up clickable custom-th" ng-click="setHistory('querytime')" >{{'querytime'| translate}}  <i class="fi-arrow-up" ng-show="orderBy === 'querytime'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-                        <th style="width:100px;" class="show-for-medium-up" >ip</th>
-                    </tr>
-                </thead>
-                <tbody ng-show="showHistory">
-                    <tr ng-repeat="x in history">
-                        <td class="show-for-medium-up">{{ x.userid}}</td>
-                        <td class="show-for-medium-up">{{ x.email}}</td>
-                        <td class="show-for-medium-up">{{ x.method}}</td>
-                        <td class="show-for-medium-up">{{ x.service}}</td>
-                        <td class="show-for-medium-up">{{ x.collection}}</td>
-                        <td class="show-for-medium-up">{{ x.resourceid}}</td>
-                        <td class="show-for-medium-up">{{ x.query}}</td>
-                        <td class="show-for-medium-up">{{ x.querytime}}</td>
-                        <td class="show-for-medium-up">{{ x.ip}}</td>
-                    </tr>
-                </tbody>
-            </table>
-           
-            <a class="button expand tiny" ng-click="loadMore()">{{'load_more'| translate}}</a>
-        </div>
-
-    </div>
+<div class="row">
+	<div class="small-12 large-4 columns">
+		<div class="row">
+			<div class="small-3 columns">
+				<label for="right-label" class="right">Userid</label>
+			</div>
+			<div class="small-9 columns">
+				<input type="text" ng-change="getHistory(false)" ng-model="userid" />
+			</div>
+		</div>
+	</div>
+	<div class="small-12 large-4 columns">
+		<div class="row">
+			<div class="small-3 columns">
+				<label for="right-label" class="right">Email</label>
+			</div>
+			<div class="small-9 columns">
+				<input type="text" ng-change="getHistory(false)" ng-model="email" />
+			</div>
+		</div>
+	</div>
+	<div class="small-12 large-4 columns">
+		<div class="row">
+			<div class="small-3 columns">
+				<label for="right-label" class="right">Collection</label>
+			</div>
+			<div class="small-9 columns">
+				<select class="form-control" ng-model="selectedCollection"
+					ng-options="_collection for _collection in collections"
+					ng-change="setParam('collection', selectedCollection)"></select>
+			</div>
+		</div>
+	</div>
 </div>
+<div class="row">
+	<div class="small-12 large-4 columns">
+		<div class="row">
+			<div class="small-3 columns">
+				<label for="right-label" class="right">Service</label>
+			</div>
+			<div class="small-9 columns">
+				<select class="form-control" ng-model="selectedService"
+					ng-options="_service for _service in services"
+					ng-change="setParam('service', selectedService)"></select>
+			</div>
+		</div>
+	</div>
+	<div class="small-12 large-4 columns">
+		<div class="row">
+			<div class="small-3 columns">
+				<label for="right-label" class="right">Method</label>
+			</div>
+			<div class="small-9 columns">
+				<select class="form-control" ng-model="selectedMethod"
+					ng-options="_method for _method in methods"
+					ng-change="setParam('method', selectedMethod)"></select>
+			</div>
+		</div>
+	</div>
+	<div class="small-12 large-4 columns">
+		<a href="" class="button" ng-click="resetFilters()"
+			style="padding: 10px 15px;">{{'reset filters' | translate }}</a>
+	</div>
+</div>
+<div class="row">
+	<div class="small-12 large-12 columns">
+		<div class="history tableContainer">
+			<table>
+				<thead>
+					<tr>
+						<th style="width: 10px;"
+							class="show-for-medium-up clickable custom-th"
+							ng-click="setHistory('userid')">{{'userid'| translate}} <i
+							class="fi-arrow-up" ng-show="orderBy === 'userid'"
+							ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></i></th>
+						<th style="width: 100px; overflow: hidden;"
+							class="show-for-medium-up clickable custom-th"
+							ng-click="setHistory('email')">{{'email'| translate}} <i
+							class="fi-arrow-up" ng-show="orderBy === 'email'"
+							ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></i></th>
+						<th style="width: 100px;"
+							class="show-for-medium-up clickable custom-th"
+							ng-click="setHistory('method')">{{'method'| translate}} <i
+							class="fi-arrow-up" ng-show="orderBy === 'method'"
+							ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
+						<th style="width: 100px;" class="clickable custom-th"
+							ng-click="setHistory('service')">{{'service'| translate}} <i
+							class="fi-arrow-up" ng-show="orderBy === 'service'"
+							ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
+						<th style="width: 100px;" class="clickable custom-th"
+							ng-click="setHistory('collection')">{{'collection'|
+							translate}} <i class="fi-arrow-up"
+							ng-show="orderBy === 'collection'"
+							ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']">
+						</th>
+						<th style="width: 200px;"
+							class="show-for-medium-up clickable custom-th"
+							ng-click="setHistory('resourceid')">{{'resourceid'|
+							translate}} <i class="fi-arrow-up"
+							ng-show="orderBy === 'resourceid'"
+							ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']">
+						</th>
+						<th style="max-width: 600px;"
+							class="show-for-xlarge-up clickable custom-th"
+							ng-click="setHistory('query')">{{'query'| translate}} <i
+							class="fi-arrow-up" ng-show="orderBy === 'query'"
+							ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
+						<th style="width: 210px;" class="clickable custom-th"
+							ng-click="setHistory('querytime')">{{'querytime'|
+							translate}} <i class="fi-arrow-up"
+							ng-show="orderBy === 'querytime'"
+							ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']">
+						</th>
+						<th style="width: 100px;" class="show-for-large-up">ip</th>
+					</tr>
+				</thead>
+				<tbody ng-show="showHistory">
+					<tr ng-repeat="x in history">
+						<td class="show-for-medium-up">{{ x.userid}}</td>
+						<td class="show-for-medium-up">{{ x.email}}</td>
+						<td class="show-for-medium-up">{{ x.method}}</td>
+						<td>{{ x.service}}</td>
+						<td>{{ x.collection}}</td>
+						<td class="show-for-medium-up">{{ x.resourceid}}</td>
+						<td class="show-for-xlarge-up">{{ x.query}}</td>
+						<td>{{ x.querytime}}</td>
+						<td class="show-for-large-up">{{ x.ip}}</td>
+					</tr>
+				</tbody>
+			</table>
 
+			<a class="button expand tiny" ng-click="loadMore()">{{'load_more'|
+				translate}}</a>
+		</div>
 
-
+	</div>
+</div>

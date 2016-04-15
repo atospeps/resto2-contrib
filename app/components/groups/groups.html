@@ -13,32 +13,28 @@
  License for the specific language governing permissions and limitations
  under the License.
 -->
+<div class="small-12 large-12 columns">
+	<a href="#groupCreation" class="button expand">{{'Create group'|
+		translate}}</a>
 
-<div class="main">
-    <div class="show-for-large-up large-2 columns">
-    </div>
-    <div class="small-12 large-10 columns">
-        <a href="#groupCreation" class="button expand">{{'Create group'| translate}}</a>
+	<div class="tableContainer" ng-show="showGroups">
 
-        <div class="tableContainer" 
-             ng-show="showGroups">
-             
-            <table>
-                <thead>
-                    <tr>
-                        <th class="show-for-medium-up">{{'group id'| translate}}</th>
-                        <th class="show-for-medium-up">{{'name'| translate}} </th>
-                        <th class="show-for-medium-up">{{'description'| translate}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="x in groups" ng-click="selectGroup(x)" class="clickable">
-                        <td class="show-for-medium-up">{{x.id}}</td>
-                        <td class="show-for-medium-up">{{x.groupname}}</td>
-                        <td class="show-for-medium-up">{{x.description}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+		<table role="grid">
+			<thead>
+				<tr>
+					<th>{{'group id'| translate}}</th>
+					<th>{{'name'| translate}}</th>
+					<th>{{'description'| translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="x in groups" data-ng-click="selectGroup(x)"
+					class="clickable">
+					<td>{{x.id}}</td>
+					<td>{{x.groupname}}</td>
+					<td>{{x.description}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

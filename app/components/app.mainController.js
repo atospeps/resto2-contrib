@@ -23,9 +23,9 @@
      */
 
     angular.module('administration')
-            .controller('mainController', ['$scope', '$auth', '$filter', 'administrationServices', 'restoUsersAPI', mainController]);
+            .controller('mainController', ['$scope', '$auth', '$filter', 'administrationServices', 'restoUsersAPI', '$window', mainController]);
 
-    function mainController($scope, $auth, $filter, administrationServices, restoUsersAPI) {
+    function mainController($scope, $auth, $filter, administrationServices, restoUsersAPI, $window) {
         
         $scope.profile = null;
 
@@ -149,6 +149,32 @@
             $scope.showStats = false;
             $scope.selectedUser = null;
             $scope.showLeftMenu = false;
+            $scope.sideNav();
+            
+            var w = angular.element($window);
+            w.bind('resize', function () {
+            	$scope.sideNav();
+            });
+        };
+
+        $scope.sideNav = function() {        	
+        	if ($(window).width() <= (1159 - 150)) {
+        	    $('.off-canvas-wrap').removeClass('move-right');
+        	    $('.left-off-canvas-toggle').show();
+        	  } else {
+        	    $('.off-canvas-wrap').addClass('move-right');
+        	    $('.left-off-canvas-toggle').hide();
+        	 }
+        };
+        
+        $scope.displaySideNav = function() {
+        	if (!$('.off-canvas-wrap').hasClass('move-right')){
+        		$('.off-canvas-wrap').addClass('move-right');
+        	    $('.left-off-canvas-toggle').hide();
+        	} else {
+        		$('.off-canvas-wrap').removeClass('move-right');
+        	    $('.left-off-canvas-toggle').show();
+        	}       	
         };
 
         /**

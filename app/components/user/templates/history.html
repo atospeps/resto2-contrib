@@ -69,7 +69,7 @@
 					class="fi-arrow-up" ng-show="orderBy === 'resourceid'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
 				<th style="max-width: 600px;" class="show-for-medium-up clickable custom-th" ng-click="setHistory('query')">{{'query'| translate}} <i
 					class="fi-arrow-up" ng-show="orderBy === 'query'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
-				<th style="width: 210px;" class="show-for-medium-up clickable custom-th" ng-click="setHistory('querytime')">{{'querytime'| translate}} <i
+				<th style="width: 210px;" class="clickable custom-th" ng-click="setHistory('querytime')">{{'querytime'| translate}} <i
 					class="fi-arrow-up" ng-show="orderBy === 'querytime'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></th>
 				<th style="width: 100px;" class="show-for-medium-up">ip</th>
 			</tr>
@@ -77,11 +77,11 @@
 		<tbody ng-show="showHistory">
 			<tr ng-repeat="x in history">
 				<td class="show-for-medium-up">{{ x.method}}</td>
-				<td class="show-for-medium-up">{{ x.service}}</td>
-				<td class="show-for-medium-up">{{ x.collection}}</td>
+				<td>{{ x.service}}</td>
+				<td>{{ x.collection}}</td>
 				<td class="show-for-medium-up">{{ x.resourceid}}</td>
 				<td class="show-for-medium-up">{{ x.query}}</td>
-				<td class="show-for-medium-up">{{ x.querytime}}</td>
+				<td>{{ x.querytime}}</td>
 				<td class="show-for-medium-up">{{ x.ip}}</td>
 			</tr>
 		</tbody>

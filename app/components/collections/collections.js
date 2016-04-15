@@ -56,7 +56,6 @@
             $scope.getRights = function() {
                 administrationAPI.getCollections(function(data) {
                     $scope.rights = data;
-                    console.log(JSON.stringify($scope.rights));
                     $scope.busy = false;
                 });
             };
