@@ -74,7 +74,7 @@
         $httpProvider.interceptors.push('myHttpInterceptor');
 
     }
-    ;
+
 
     /*
      * Http interceptor to display spinner
