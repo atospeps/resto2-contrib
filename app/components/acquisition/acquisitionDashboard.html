@@ -87,7 +87,10 @@
 	</div>
 
 	<div class="row" ng-repeat="tab in stats">
-		<h3>{{tab.title}}</h3>
+		<h3>{{tab.title}} <i data-ng-if="searchDatasource(tab.title) != null"
+				class="fa fa-circle stateIcon" 
+				data-ng-class="getDatasourceCssClass(tab.title)"></i>
+		</h3>
 		<div class="large-8 large-offset-2 columns">
 			<table class="dashTable">
 				<thead>

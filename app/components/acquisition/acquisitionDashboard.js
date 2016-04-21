@@ -2,9 +2,9 @@
 
     'use strict';
     
-    angular.module('administration').controller('AcquisitionDashboardController', ['$scope', '$interval', 'administrationServices', 'acquisitionAPI', 'CONFIG', acquisitionDashboardController]);
+    angular.module('administration').controller('AcquisitionDashboardController', ['$scope', '$interval', 'administrationServices', 'acquisitionAPI', 'CONFIG', '$filter', acquisitionDashboardController]);
 
-    function acquisitionDashboardController($scope, $interval, administrationServices, acquisitionAPI, CONFIG) {
+    function acquisitionDashboardController($scope, $interval, administrationServices, acquisitionAPI, CONFIG, $filter) {
 
         if (administrationServices.isUserAnAdministrator()) {
 
@@ -48,6 +48,45 @@
                     $scope.datasources = [];
                 });
         	};
+        	
+        	/**
+        	 * Search data source object from data source name.
+        	 */
+        	$scope.searchDatasource = function(datasource){
+        		var datasrc, results;        		
+        		datasrc = null;
+
+        		if (datasource == "Module acquisition"){
+        			datasrc = {
+    					state: $scope.acquisitionState,
+	    				name: datasource
+    				};
+        		}
+        		results = $filter('filter')($scope.datasources, {name: datasource}, false);
+        		if (results.length > 0){
+        			datasrc = results[0];
+        		}
+        		return datasrc;
+        	}
+        	
+        	/**
+        	 * Return CSS class of data source.
+        	 */
+        	$scope.getDatasourceCssClass = function (datasource){
+        		var data = $scope.searchDatasource(datasource);
+        		if (data && data != null){
+
+        			switch (data.state) {
+    				case 'started':
+    					return 'stateStarted';
+    				case 'stopped':
+    					return 'stateStopped';
+    				default:
+    					return 'stateUnknown';
+    				}
+        		}
+        		return;
+        	}
         	
         	/**
         	 * Get acquisition statistics

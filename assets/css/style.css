@@ -255,6 +255,10 @@ h3.title {
 	vertical-align: bottom;
 }
 
+h3 .stateIcon {
+	vertical-align: initial;
+}
+
 .stateStarted {
 	color: #8CEA79;
 }
