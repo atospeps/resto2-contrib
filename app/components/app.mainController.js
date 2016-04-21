@@ -157,14 +157,14 @@
             });
         };
 
-        $scope.sideNav = function() {        	
-        	if ($(window).width() <= (1159 - 150)) {
-        	    $('.off-canvas-wrap').removeClass('move-right');
+        $scope.sideNav = function() {
+        	if (window.matchMedia("(max-width:64.063em)").matches){
+        		$('.off-canvas-wrap').removeClass('move-right');
         	    $('.left-off-canvas-toggle').show();
-        	  } else {
-        	    $('.off-canvas-wrap').addClass('move-right');
+        	} else {
+        		$('.off-canvas-wrap').addClass('move-right');
         	    $('.left-off-canvas-toggle').hide();
-        	 }
+        	}
         };
         
         $scope.displaySideNav = function() {

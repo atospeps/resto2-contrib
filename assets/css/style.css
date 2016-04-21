@@ -106,10 +106,6 @@ div.darkBGclickable {
 
 div.leftMenu {
     background: #191e28;
-    position: fixed;
-    z-index: 10;
-    width: 150px;
-    height: 100%;
     text-align: center;
     overflow: auto;
 }
