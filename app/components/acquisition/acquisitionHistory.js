@@ -62,7 +62,6 @@
              * Check if the product is in error
              */
             $scope.isInError = function(status) {
-            	console.log(status.search('ERROR') != -1);
             	return status.search('ERROR') != -1;
             }
             
