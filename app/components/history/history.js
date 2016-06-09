@@ -48,7 +48,7 @@
         if (administrationServices.isUserAnAdministrator()) {
 
 
-            $scope.methods = ['POST', 'GET', 'PUT', 'DELETE', 'ERROR'];
+            $scope.methods = ['POST', 'GET', 'PUT', 'DELETE', 'ERROR', 'HEAD'];
             $scope.services = ['search', 'visualize', 'create', 'insert', 'download', 'remove'];
             $scope.collections = [];
 
