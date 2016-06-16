@@ -32,6 +32,11 @@
 		<input type="number" name="weeklyLimitDownloadSize" ng-model="selectedUser.weeklydownloadvolume" required>
 	</div>
 	
+	<div class="profileProperty">
+		<span>{{'storage volume (Megabyte)'| translate}}</span>
+		<input type="number" name="storagevolume" ng-model="selectedUser.storagevolume" required>
+	</div>
+	
 	<button ng-click="saveProfile()">
 		Save profile
 	</button>

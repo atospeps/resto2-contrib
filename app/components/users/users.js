@@ -102,7 +102,6 @@
                  * Get results 
                  */
                 administrationAPI.getUsers(options, function(data) {
-
                     if (data.ErrorMessage) {
                         alert('error - ' + data.ErrorMessage);
                     } else {
@@ -131,8 +130,6 @@
                             $scope.startIndex = $scope.startIndex - $scope.offset;
                         }
                     }
-
-
                 }, function(){
                     alert("error : cannot get users");
                 });

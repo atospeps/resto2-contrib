@@ -15,14 +15,10 @@
 -->
 
 <div class="small-12 large-12 columns">
-	<a href="#userCreation" class="button expand">{{'user_creation'|
-		translate}}</a>
-
+	<a href="#userCreation" class="button expand">{{'user_creation'|translate}}</a>
 	<div class="users tableContainer" ng-show="showUsers">
-
 		<div class="search">
-			{{'search'| translate}} : <input type="text"
-				ng-change="getUsers(false)" ng-model="keyword" />
+			{{'search'| translate}} : <input type="text" ng-change="getUsers(false)" ng-model="keyword" />
 		</div>
 		<table>
 			<thead>
@@ -37,6 +33,7 @@
 						ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></i></th>
 					<th class="clickable" ng-click="setUser('activated')">{{'activated'| translate}} <i class="fi-arrow-up" ng-show="orderBy === 'activated'"
 						ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[ascOrDesc === 'DESC']"></i></th>
+					<th>{{'usedstorage'| translate}}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -47,11 +44,10 @@
 					<td>{{ x.groupname}}</td>
 					<td class="show-for-medium-up">{{ x.username}}</td>
 					<td>{{ x.activated}}</td>
+					<td>{{ x.usedstorage | bytes:0}}</td>
 				</tr>
 			</tbody>
 		</table>
-		<a class="button expand tiny" ng-click="loadMore()">{{'load more'|
-			translate}}</a>
+		<a class="button expand tiny" ng-click="loadMore()">{{'load more'| translate}}</a>
 	</div>
-
 </div>
