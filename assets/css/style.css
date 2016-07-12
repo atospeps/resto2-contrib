@@ -532,7 +532,8 @@ loading-spiner-holder {
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	max-width: initial;
+	max-width: 100%;
+    max-width: initial;
 }
 
 .left-off-canvas-toggle:hover {

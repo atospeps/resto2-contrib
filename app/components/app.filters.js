@@ -27,12 +27,18 @@
 						1 : 'Ko',
 						2 : 'Mo',
 						3 : 'Go',
-						4 : 'To'
+						4 : 'To',
+						5 : 'Po'
 					}, measure, floor, precision, fixed;
-					// bytes to terra-octets
-					if (bytes >= 1099511627776) {
-						measure = 4;
-					}
+					
+					// bytes to peta-octets
+				    if (bytes >= 1125899906842624) {
+				        measure = 5;
+				    } 
+				    // bytes to terra-octets
+				    else if (bytes >= 1099511627776 && bytes < 1125899906842624) {
+				        measure = 4;
+				    }
 					// bytes to giga-octets
 					else if (bytes >= 1073741824 && bytes < 1099511627776) {
 						measure = 3;
