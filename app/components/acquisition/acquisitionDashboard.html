@@ -86,9 +86,9 @@
 		</div>
 	</div>
 
-	<div class="row" ng-repeat="tab in stats">
+	<div class="row" data-ng-repeat="tab in stats">
 		<h3>{{tab.title}} <i data-ng-if="searchDatasource(tab.title) != null"
-				class="fa fa-circle stateIcon" 
+				class="fa fa-circle stateIcon stats" 
 				data-ng-class="getDatasourceCssClass(tab.title)"></i>
 		</h3>
 		<div class="large-8 large-offset-2 columns">
@@ -96,9 +96,12 @@
 				<thead>
 				</thead>
 				<tbody>
-			    <tr ng-repeat="line in tab.rows" style="background:{{ line.color}};">
-			      <td class="tableLabel">{{line.label}}</td>
-			      <td class="tableValue"><div ng-class="{rowFilterIcon: line.date_filter}">{{line.count}} <i class="fi-filter" title="Filter available" ng-class="{clearicon: !line.date_filter}"></i></div></td>
+			    <tr data-ng-repeat="line in tab.rows" data-ng-attr-style="background:{{ line.color}};">
+			      	<td class="tableLabel">{{line.label}}</td>
+			      	<td class="tableValue"><div>
+			      		<span>{{line.count}}</span>
+			      		<i class="fi-filter" title="Filter available" data-ng-class="{rowFilterIcon: line.date_filter, clearicon: !line.date_filter}"></i></div>
+		      		</td>
 			    </tr>
 			  </tbody>
 			</table>

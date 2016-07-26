@@ -238,17 +238,22 @@ h3.title {
 	position: relative;
 	left: 55px;	
 }
-.rowFilterIcon i {
-	padding-left: 22px;
+i.rowFilterIcon {
 	cursor: default;
 	font-size: 30px;
 	color: #008CBA;
+	position: absolute;
+	right: -22px;
 }
 
 .stateIcon {
 	font-size: 30px;
 	margin-left: 20px;
 	vertical-align: bottom;
+}
+
+.stateIcon.stats{
+	margin-bottom: 5px;
 }
 
 h3 .stateIcon {
