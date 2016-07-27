@@ -29,6 +29,7 @@
     "groups_management": "Groups Management",
     "history": "History",
     "acquisition": "Acquisition",
+    "acquisition.error": "Acquisition module is unavailable",
     "users": "Users",
     "user": "User",
     "groups": "Groups",

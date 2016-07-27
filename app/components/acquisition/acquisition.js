@@ -7,6 +7,8 @@
     function acquisitionController($scope, $timeout, $interval, administrationServices, acquisitionAPI, CONFIG, ngDialog) {
     	
     	$scope.warningDisplay = false;
+    	$scope.acquisitionState = true;
+    	$scope.datasources = [];
     	
         if (administrationServices.isUserAnAdministrator()) {
 
@@ -48,7 +50,7 @@
         	 * Refresh data
         	 */
         	$scope.refresh = function() {
-                if($scope.selectedDatasource) {
+                if($scope.datasources.length >0 || $scope.selectedDatasource ) {
                 	$scope.tempData = [];
                 	var data = $scope.getSelectedData();
                 	for(var key in data) {
@@ -56,6 +58,8 @@
                 	}
                     $scope.rowSelect(false);
                     $scope.getAcquisitionData();
+                } else {
+                	$scope.getDatasource();
                 }
         	};
         	
@@ -90,23 +94,27 @@
                     if($scope.selectedDatasource) {
                         $scope.getAcquisitionData();
                     }
+                    $scope.acquisitionState = true; 
                 }, function() {
+                	$scope.acquisitionState = false;
                     $scope.datasources = [];
                 });
         	};
-        	
+
         	/**
              * Get acquisition data
              */
         	$scope.getAcquisitionData = function() {
-            	$scope.warningDisplay = acquisitionAPI.getDatasourceData($scope.selectedDatasource, function(data) {
-                  $scope.warningDisplay = false;  
-                	$scope.loadProducts(data);
-                }, function() {
-                   $scope.warningDisplay = true;
-                });
+            	acquisitionAPI.getDatasourceData($scope.selectedDatasource, 
+        			function(data) {
+        				$scope.acquisitionState = true;  
+        				$scope.loadProducts(data);
+            		}, 
+            		function() {
+            			$scope.acquisitionState = false;
+            		});
             };
-            
+
             /**
              * Load products
              */

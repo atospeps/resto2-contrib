@@ -27,6 +27,14 @@
 	</div>
 </div>
 
+<div class="row" data-ng-if="acquisitionState == 'stopped'">
+	<div class="large-12 columns">
+		<div data-alert class="alert-box warningMessage warnMsg">
+		  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{ 'acquisition.error' | translate}}
+		</div>
+	</div>
+</div>
+
 <div class="dashboard">
 	<div class="row collapse">
 		<div class="large-4 columns">
