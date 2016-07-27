@@ -28,10 +28,12 @@
 	</div>
 </div>
 
-<div class="row" data-ng-if="warningDisplay">
-    <div class="large-12 columns warningMessage">
-    Warning : peps-acquisition is stopping
-    </div>
+<div class="row" data-ng-if="!acquisitionState">
+	<div class="large-12 columns">
+		<div data-alert class="alert-box warningMessage warnMsg">
+		  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{ 'acquisition.error' | translate}}
+		</div>
+	</div>
 </div>
 
 <div class="row" style="margin-top: 20px;">

@@ -574,3 +574,14 @@ pre.wrapping {
 .max-width-250 {
 	max-width: 250px !important;
 }
+
+.warnMsg {
+    text-align: left;
+    font-size: initial;
+    font-size: inherit;
+    margin-top:0;
+}
+
+.warnMsg i {
+	padding: 0 10px;
+}

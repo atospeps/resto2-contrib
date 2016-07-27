@@ -49,12 +49,13 @@
             	$scope.options['offset'] = $scope.offset;
             	$scope.options['sortOrder'] = $scope.sortOrder;
             	$scope.options['orderBy'] = $scope.orderBy;
-            	
+            	$scope.history = [];
+
                 acquisitionAPI.getHistory($scope.options, function(data) {
                     $scope.history = data.results;
                     $scope.maxPage = Math.ceil(data.nbResults / $scope.offset);
                 }, function(data) {
-                    alert(data);
+                    $scope.history = undefined;
                 });
             };
             

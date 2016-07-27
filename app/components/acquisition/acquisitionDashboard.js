@@ -93,7 +93,7 @@
         	 */
         	$scope.getStats = function() {
                 var options = {};
-                
+                $scope.stats = [];
                 if($scope.filtersActive) {
                     options['startDate'] = $scope.startDate;
                     options['endDate'] = $scope.endDate;
@@ -102,7 +102,7 @@
                 acquisitionAPI.getDashboardStats(options, function(data) {
                 	$scope.stats = data;
                 }, function(data) {
-                    alert(data);
+                    $scope.stats = undefined;
                 });
         	};
             
@@ -120,7 +120,7 @@
             $scope.init = function() {
             	$scope.acquisitionState = "unknown";
             	$scope.datasources = [];
-                $scope.stats;
+                $scope.stats = [];
                 $scope.filtersActive = false;
                 $scope.startDate = "";
                 $scope.endDate = "";

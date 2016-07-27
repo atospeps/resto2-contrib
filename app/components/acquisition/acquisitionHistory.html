@@ -28,6 +28,14 @@
 	</div>
 </div>
 
+<div class="row" data-ng-if="!history">
+	<div class="large-12 columns">
+		<div data-alert class="alert-box warningMessage warnMsg">
+		  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{ 'acquisition.history.error' | translate}}
+		</div>
+	</div>
+</div>
+
  <div class="row">
      <div class="large-12 columns">
 		<a ng-click="toggleFiltre()"><i class="fi-filter padding-10"></i>Filters</a>
