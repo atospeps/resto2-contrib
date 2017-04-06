@@ -92,8 +92,8 @@
                         'history': 'app/components/user/templates/history.html',
                         'profile': 'app/components/user/templates/profile.html',
                         'rights': 'app/components/user/templates/rights.html',
-                        'rightCreation': 'app/components/user/templates/rightCreation.html',
-                        'stats': 'app/components/user/templates/stats.html'
+                        'rightCreation': 'app/components/user/templates/rightCreation.html'/*,
+                        'stats': 'app/components/user/templates/stats.html'*/
                     };
 
             /*

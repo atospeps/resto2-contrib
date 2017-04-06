@@ -58,10 +58,10 @@
                         templateUrl: "app/components/acquisition/acquisitionDashboard.html",
                         controller: "AcquisitionDashboardController"
                     })
-                    .when('/stats', {
+                    /*.when('/stats', {
                         templateUrl: "app/components/stats/stats.html",
                         controller: "StatsController"
-                    })
+                    })*/
                     .when('/users/:userid', {
                         templateUrl: 'app/components/user/user.html',
                         controller: 'UserController'
