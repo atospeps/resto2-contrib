@@ -92,8 +92,7 @@
                         'history': 'app/components/user/templates/history.html',
                         'profile': 'app/components/user/templates/profile.html',
                         'rights': 'app/components/user/templates/rights.html',
-                        'rightCreation': 'app/components/user/templates/rightCreation.html'/*,
-                        'stats': 'app/components/user/templates/stats.html'*/
+                        'rightCreation': 'app/components/user/templates/rightCreation.html'
                     };
 
             /*
@@ -105,10 +104,8 @@
                 $scope.showHistory = false;
                 $scope.showCreation = false;
                 $scope.showAdvancedRights = false;
-                $scope.showStats = false;
 
                 $scope.history = [];
-                $scope.stats = [];
                 $scope.feature = [];
                 $scope.feature.collection = null;
                 $scope.feature.search = false;
@@ -283,16 +280,6 @@
             };
             
             /*
-             * Display stats
-             */
-            $scope.displayStats = function() {
-                $scope.init();
-                $scope.getStats();
-                $scope.template = $scope.templates.stats;
-                $scope.showStats = true;
-            };
-
-            /*
              * Display advanced rights
              */
             $scope.displayAdvancedRights = function() {
@@ -325,16 +312,6 @@
                 $location.path(path, false);
                 $scope.displayRights();
             };
-
-            /*
-             * go to stats
-             */
-            $scope.goToStats = function() {
-                var path = '/users/' + $scope.selectedUser.userid + '/stats';
-                $location.path(path, false);
-                $scope.displayStats();
-            };
-
 
             /*
              * go to advanced rights
@@ -486,17 +463,6 @@
                 });
             };
 
-            /*
-             * Get stats for each collection
-             */
-            $scope.getStats = function() {
-                administrationAPI.getUserStats($routeParams.userid, function(data) {
-                    $scope.stats = data["collectionStats"];
-                    $scope.totalVolume = data["downloadVolume"] * 1048576;
-                    $scope.busy = false;
-                });
-            };
-            
             /**
              * Save User profile
              */
@@ -633,8 +599,6 @@
                 $scope.displayCreateAdvancedRights();
             } else if ($routeParams.section === 'profile') {
                 $scope.displayProfile();
-            } else if ($routeParams.section === 'stats') {
-                $scope.displayStats();
             }
 
         }

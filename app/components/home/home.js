@@ -31,8 +31,6 @@
             $scope.init = function() {
                 administrationAPI.getUsersStats(function(data) {
                     $scope.nb_users = data.users.count;
-                    $scope.nb_downloads = data.download.count;
-                    $scope.nb_search = data.search.count;
                 }, function() {
                     alert($filter('translate')('error.getStats'));
                 });
