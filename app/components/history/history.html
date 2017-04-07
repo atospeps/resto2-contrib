@@ -73,7 +73,10 @@
 			</div>
 		</div>
 	</div>
-	<div class="small-12 large-4 columns">
+	<div class="small-6 large-2 columns center">
+		Total : {{ totalRows | number }}
+	</div>
+	<div class="small-6 large-2 columns text-right">
 		<a href="" class="button" ng-click="resetFilters()"
 			style="padding: 10px 15px;">{{'reset filters' | translate }}</a>
 	</div>
@@ -145,8 +148,7 @@
 				</tbody>
 			</table>
 
-			<a class="button expand tiny" ng-click="loadMore()">{{'load_more'|
-				translate}}</a>
+			<a ng-show="!hasNoMore" class="button expand" ng-click="loadMore(true)">{{'load_more'| translate}}</a>
 		</div>
 
 	</div>

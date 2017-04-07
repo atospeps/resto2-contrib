@@ -16,26 +16,22 @@
 
 <div ng-show="showUser">
     <div class="headContent">
-        <div class="small-12 large-12 columns">
-
-            <div class="profile">
-                <h3 class="title">
-                    {{selectedUser.userid}} - {{selectedUser.username}}
-                </h3>
-                <p>
-                    {{'user.name'| translate}} : {{selectedUser.givenname}} {{selectedUser.lastname}} <br/>
-                    <b>{{selectedUser.email}}</b> <br/>
-                    {{'user.groupname'| translate}} : {{selectedUser.groupname}} <br/>
-                    {{'user.country'| translate}} : {{selectedUser.country}} <br/>
-                    {{'user.organization'| translate}} : {{selectedUser.organization}} <br/>
-                </p>    
-                <ul class="small-block-grid-2 large-block-grid-2">
-                    <li><a class="button expand [tiny small large]" ng-class="{ success : selectedUser.activated === 1, alert : selectedUser.activated === 0}" ng-click="activation()">{{selectedUser.activated === 1 ? 'deactivate' : 'activate'| translate}}</a></li>
-                    <li><a class="button expand [tiny small large]" ng-click="changeGroup()">{{selectedUser.groupname === 'default' ? 'set_admin_as_group' : 'set_default_as_group'| translate}}</a></li>
-                </ul>
-            </div>
-
-        </div>
+           <div class="profile">
+               <h3 class="title">
+                   {{selectedUser.userid}} - {{selectedUser.username}}
+               </h3>
+               <p>
+                   {{'user.name'| translate}} : {{selectedUser.givenname}} {{selectedUser.lastname}} <br/>
+                   <b>{{selectedUser.email}}</b> <br/>
+                   {{'user.groupname'| translate}} : {{selectedUser.groupname}} <br/>
+                   {{'user.country'| translate}} : {{selectedUser.country}} <br/>
+                   {{'user.organization'| translate}} : {{selectedUser.organization}} <br/>
+               </p>    
+               <ul class="small-block-grid-2 large-block-grid-2">
+                   <li><a class="button expand [tiny small large]" ng-class="{ success : selectedUser.activated === 1, alert : selectedUser.activated === 0}" ng-click="activation()">{{selectedUser.activated === 1 ? 'deactivate' : 'activate'| translate}}</a></li>
+                   <li><a class="button expand [tiny small large]" ng-click="changeGroup()">{{selectedUser.groupname === 'default' ? 'set_admin_as_group' : 'set_default_as_group'| translate}}</a></li>
+               </ul>
+           </div>
     </div>
 
     <div class="small-12 large-12 columns">

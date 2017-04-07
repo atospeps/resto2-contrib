@@ -51,6 +51,7 @@
             $scope.methods = ['POST', 'GET', 'PUT', 'DELETE', 'ERROR', 'HEAD'];
             $scope.services = ['search', 'visualize', 'create', 'insert', 'download', 'remove'];
             $scope.collections = [];
+            $scope.totalRows = 0;
 
             /**
              * Set history order by field "orderBy"
@@ -104,18 +105,22 @@
                 administrationAPI.getHistory(options, function(data) {
                     $scope.startIndex = $scope.startIndex + $scope.offset;
                     if (concatData === false) {
-                        $scope.history = data;
+                        $scope.history = data.history;
                     } else {
-                        $scope.history = $scope.history.concat(data);
+                        $scope.history = $scope.history.concat(data.history);
                     }
                     $scope.showHistory = true;
                     /*
                      * At the end of data, stop infinitscrolling with busy attribute
                      */
-                    if (!data[0]) {
+                    if (data.count === 0) {
                         $scope.busy = true;
                         $scope.startIndex = $scope.startIndex - $scope.offset;
                     }
+                    // no more rows?
+                    $scope.hasNoMore = (data.offset + data.count === data.total);
+                    
+                    $scope.totalRows = data.total;
                     $scope.busy = false;
                 }, function() {
                     alert($filter('translate')('error.getHistory'));
