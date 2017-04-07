@@ -17,8 +17,8 @@
      * under the License.
      */
 
-    angular.module('administration').controller('UserCreationController', ['$scope', '$filter', 'administrationServices', 'administrationAPI', 'CONFIG', userCreationController]);
-    function userCreationController($scope, $filter, administrationServices, administrationAPI) {
+    angular.module('administration').controller('UserCreationController', ['$scope', '$location', '$filter', 'administrationServices', 'administrationAPI', 'CONFIG', userCreationController]);
+    function userCreationController($scope, $location, $filter, administrationServices, administrationAPI) {
 
         if (administrationServices.isUserAnAdministrator()) {
 
@@ -37,9 +37,13 @@
                 options['username'] = $scope.profile.username;
                 options['givenname'] = $scope.profile.givenname;
                 options['lastname'] = $scope.profile.lastname;
-                administrationAPI.addUser(options, function() {
-                    alert($filter('translate')('user.user created'));
-                    $scope.profile = [];
+                administrationAPI.addUser(options, function(data) {
+                	if (data.ErrorMessage) {
+                		alert(data.ErrorMessage);
+                	} else {
+                		alert($filter('translate')('user.user_created'));
+                		$location.path('/users');
+                	}
                 }, function(e) {
                     alert($filter('translate')('user.error') + e.ErrorMessage);
                 });
