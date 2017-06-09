@@ -1,0 +1,31 @@
+<div class="padding-left-15 padding-right-15">
+
+	<div class="row">
+		<div class="large-6 small-12 columns">
+			<h1 class="margin-0">Proactive accounts</h1>
+		</div>
+		<div class="large-6 small-12 columns text-right">
+			<a href="#proactive-account-create" class="button">Create Proactive account</a>
+		</div>
+	</div>
+	
+	<div class="tableContainer">
+		<table role="grid">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>login</th>
+					<th>password</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="account in accounts" ng-click="updateAccount(account)" class="clickable">
+					<td>{{account.id}}</td>
+					<td>{{account.login}}</td>
+					<td>*****</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>

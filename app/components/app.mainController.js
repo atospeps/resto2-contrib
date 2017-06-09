@@ -117,6 +117,14 @@
             $scope.init();
             $scope.showGroups = true;
         });
+        $scope.$on('showProactiveAccount', function() {
+            $scope.init();
+            $scope.showProactiveAccount = true;
+        });
+        $scope.$on('showProactiveAccounts', function() {
+            $scope.init();
+            $scope.showProactiveAccounts = true;
+        });
         $scope.$on('showHome', function() {
             $scope.init();
             $scope.showHome = true;
@@ -144,8 +152,11 @@
             $scope.showUser = false;
             $scope.showGroups = false;
             $scope.showGroup = false;
-            $scope.showHome = false;
             $scope.showCollections = false;
+            $scope.wpsRights = false;
+            $scope.showProactiveAccounts = false;
+            $scope.showProactiveAccount = false;
+            $scope.showHome = false;
             $scope.showStats = false;
             $scope.selectedUser = null;
             $scope.showLeftMenu = false;

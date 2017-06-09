@@ -61,6 +61,9 @@
     "hasNotToSign": "has not to sign",
     "hasToSign": "has to sign",
     
+    "menu.wpsRights": "WPS rights",
+    "menu.proactiveAccounts": "<span>Proactive<br>accounts</span>",
+    
     "alert.disconnect": "Disconneted",
     
     "user.please set email and password": "please set email and password",

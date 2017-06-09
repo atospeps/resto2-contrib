@@ -48,7 +48,13 @@
             addGroup: addGroup,
             getGroup: getGroup,
             updateGroup: updateGroup,
-            deleteGroup: deleteGroup
+            deleteGroup: deleteGroup,
+            getProactiveAccounts: getProactiveAccounts,
+            addProactiveAccount: addProactiveAccount,
+            getProactiveAccount: getProactiveAccount,
+            getWpsGroupRights: getWpsGroupRights,
+            updateProactiveAccount: updateProactiveAccount,
+            deleteProactiveAccount: deleteProactiveAccount
         };
         return api;
         /////////
@@ -477,6 +483,11 @@
             });
         };
         
+        /******************************************************************
+         * GROUPS
+         * 
+         ******************************************************************/
+        
         /**
          * Get groups
          * 
@@ -562,6 +573,130 @@
             });
         };
 
+        /******************************************************************
+         * PROACTIVE ACCOUNTS
+         * 
+         ******************************************************************/
+		 
+        /**
+         * Get proactive accounts
+         * 
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function getProactiveAccounts(callback, error)
+        {
+            $http.get(config.restoServerUrl + '/proactive')
+            .success(function(data, status, headers, config) {
+            	callback(data);
+            }).error(function(data) {
+        		error(data);
+            });
+        };
+
+        /**
+         * Add proactive account
+         * 
+         * @param {array} data
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function addProactiveAccount(data, callback, error)
+        {
+            $http.post(config.restoServerUrl + '/proactive', data)
+            .success(function(data, status, headers, config) {
+            	callback(data);
+            }).error(function(data) {
+        		error(data);
+            });
+        };
+
+        /**
+         * Get proactive account
+         * 
+         * @param {string} proactiveAccountId
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function getProactiveAccount(proactiveAccountId, callback, error)
+        {
+            $http.get(config.restoServerUrl + '/proactive/' + proactiveAccountId)
+            .success(function(data, status, headers, config) {
+        		callback(data);
+            }).error(function(data) {
+        		error(data);
+            });
+        };
+
+        /**
+         * Update proactive account
+         * 
+         * @param {string} proactiveAccountId
+         * @param {array} data
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function updateProactiveAccount(proactiveAccountId, data, callback, error)
+        {
+            $http.put(config.restoServerUrl + '/proactive/' + proactiveAccountId, data)
+            .success(function(data, status, headers, config) {
+        		callback(data);
+            }).error(function(data) {
+        		error(data);
+            });
+        };
+
+        /**
+         * Delete proactive account
+         * 
+         * @param {string} proactiveAccountId
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function deleteProactiveAccount(proactiveAccountId, callback, error)
+        {
+            $http.delete(config.restoServerUrl + '/proactive/' + proactiveAccountId)
+            .success(function(data, status, headers, config) {
+        		callback(data);
+            }).error(function(data) {
+        		error(data);
+            });
+        };
+
+        
+        /******************************************************************
+         * WPS RIGHTS
+         * 
+         ******************************************************************/
+		 
+        /**
+         * Get WPS rights for the specified group 
+         * 
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function getWpsGroupRights(groupid, callback, error)
+        {
+            $http.get(config.restoServerUrl + '/wpsrights/group/' + groupid)
+            .success(function(data, status, headers, config) {
+            	callback(data);
+            }).error(function(data) {
+        		error(data);
+            });
+        };
+
+        
+        /******************************************************************
+         * RIGHTS
+         * 
+         ******************************************************************/
+		 
         function getRight(userid, callback, error) {
             $http.get(config.restoServerUrl + config.administrationEndpoint + '/users/' + userid + '/rights.json')
                     .success(

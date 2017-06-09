@@ -1,0 +1,39 @@
+<div class="padding-left-15 padding-right-15">
+
+	<h1 class="margin-top-0">WPS rights</h1>
+	
+	<label><b>Group</b></label>
+	<select ng-model="selectedGroup"
+			ng-change="getWpsGroupRights(selectedGroup.id)"
+			ng-options="group.groupname for group in groups track by group.id">
+	</select>
+	
+	<label><b>Proactive account</b></label>
+	<select ng-model="selectedGroup.proactive"
+			ng-disabled="!selectedGroup"
+			ng-options="account.login for account in proactiveAccounts track by account.id">
+	</select>
+	
+	<label><b>Processings</b></label>
+	<table width="100%" role='grid'>
+		<tr class="border-bottom">
+			<th class="text-center">
+				<input id="masterCheckbox" type="checkbox"
+					   ng-model="masterCheckbox" ng-change="toggleSelection()"/>
+				<label for="masterCheckbox"
+				       ng-attr-title="{{ masterCheckbox ? 'Unselect all' : 'Select all' | translate }}"></label>
+			</th>
+			<th width="100%">Processing identifier</th>
+		</tr>
+		<tr ng-repeat="processing in processings">
+			<td class="text-center padding-left-20">
+	            <input id="select{{$index}}" type="checkbox" ng-model="processing.selected" ng-change="onSelectedProcessing(processing)"/>
+	            <label for="select{{$index}}" class="margin-0 margin-left-15"></label>
+			</td>
+			<td>
+				{{processing.identifier}}
+			</td>
+		</tr>
+	</table>
+	
+</div>

@@ -1,0 +1,30 @@
+<div class="padding-left-15 padding-right-15">
+
+	<div class="row">
+		<div class="large-6 small-12 columns">
+			<h1 class="margin-0">Update Proactive account</h1>
+		</div>
+		<div class="large-6 small-12 columns text-right">
+			<a class="button alert" ng-click="deleteAccount()">Delete account</a>
+		</div>
+	</div>
+	
+	<label class="small fat text-light">login</label>
+	<input type="text" ng-model="account.login" class="form-control" required autofocus/>
+	
+	<label class="small fat text-light">password</label>
+	<input type="text" ng-model="account.password"
+		   ng-focus="account.password = (password==='*****') ? account.password : ''"
+		   ng-blur="account.password = (account.password==='') ? '*****' : account.password"
+		   class="form-control" required/>
+	
+	<div class="padded-top padded-left padded-right center">
+		<button type="submit" class="button radius" ng-click="updateAccount()">Update account</button>
+	</div>
+	
+	<div class="logMessage">
+		<span class="successLog">{{successMessage}}</span>
+		<span class="errorLog">{{errorMessage}}</span>
+	</div>
+	
+</div>

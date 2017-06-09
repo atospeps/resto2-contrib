@@ -42,6 +42,22 @@
                         templateUrl: "app/components/collections/collections.html",
                         controller: "CollectionsController"
                     })
+                    .when('/wps-rights', {
+                        templateUrl: "app/components/wpsRights/wpsRights.html",
+                        controller: "WpsRightsController"
+                    })
+                    .when('/proactive-accounts', {
+                        templateUrl: "app/components/proactive/proactive.html",
+                        controller: "ProactiveController"
+                    })
+                    .when('/proactive-account-create', {
+                        templateUrl: "app/components/proactive/proactiveCreate.html",
+                        controller: "ProactiveCreateController"
+                    })
+                    .when('/proactive-account-update/:accountid', {
+                        templateUrl: "app/components/proactive/proactiveUpdate.html",
+                        controller: "ProactiveUpdateController"
+                    })
                     .when('/history', {
                         templateUrl: "app/components/history/history.html",
                         controller: "HistoryController"

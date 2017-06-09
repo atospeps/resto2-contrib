@@ -1,45 +1,39 @@
-<!--
- Copyright 2014 Jérôme Gasperi
+<div class="padding-left-15 padding-right-15">
 
- Licensed under the Apache License, version 2.0 (the "License");
- You may not use this file except in compliance with the License.
- You may obtain a copy of the License at:
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- License for the specific language governing permissions and limitations
- under the License.
--->
-
-<div ng-show="showGroup" class="profileWrapper">
-    <h3 class="title">
-        {{selectedGroup.id}} - {{selectedGroup.name}}
-    </h3>
-    
-	<div class="profileProperty">
-		<span>{{'Name'| translate}}</span>
-		<input type="text" name="groupname" ng-model="selectedGroup.groupname" required>
+	<div class="row">
+		<div class="large-6 small-12 columns">
+			<h1 class="margin-0">Update group {{group.groupname}}</h1>
+		</div>
+		<div class="large-6 small-12 columns text-right">
+			<a class="button alert" ng-click="deleteGroup()">{{'Delete group'| translate}}</a>
+		</div>
 	</div>
 	
-	<div class="profileProperty">
-		<span>{{'Description'| translate}}</span>
-		<input type="text" name="description" ng-model="selectedGroup.description" required>
+	<label>{{'Name'| translate}}</label>
+	<input type="text" name="groupname" ng-model="group.groupname" required>
+
+	<span>{{'Description'| translate}}</span>
+	<input type="text" name="description" ng-model="group.description">
+
+	<label>WPS?</label>
+	<select name="canwps" ng-model="group.canwps">
+		<option value="t">Yes</option>
+		<option value="f">No</option>
+	</select>
+
+	<label>Proactive account</label>
+	<select ng-model="group.proactive"
+			ng-options="account.login for account in proactiveAccounts track by account.id">
+		<option></option>
+	</select>
+	
+	<div class="margin-top-10 center">
+		<button class="button" ng-click="saveGroup()">{{'Save group'| translate}}</button>
 	</div>
-	
-	<button class="button" ng-click="saveGroup()">
-		{{'Save group'| translate}}
-	</button>
-	
-	<button class="button alert" ng-click="deleteGroup()">
-		{{'Delete group'| translate}}
-	</button>
 	
 	<div class="logMessage">
 		<span class="successLog">{{successMessage}}</span>
 		<span class="errorLog">{{errorMessage}}</span>
 	</div>
+	
 </div>
-
