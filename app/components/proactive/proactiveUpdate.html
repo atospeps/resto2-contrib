@@ -9,10 +9,10 @@
 		</div>
 	</div>
 	
-	<label class="small fat text-light">login</label>
+	<label><b>login</b></label>
 	<input type="text" ng-model="account.login" class="form-control" required autofocus/>
 	
-	<label class="small fat text-light">password</label>
+	<label><b>password</b></label>
 	<input type="text" ng-model="account.password"
 		   ng-focus="account.password = (password==='*****') ? account.password : ''"
 		   ng-blur="account.password = (account.password==='') ? '*****' : account.password"

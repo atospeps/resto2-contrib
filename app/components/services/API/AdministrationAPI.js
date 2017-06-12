@@ -53,6 +53,8 @@
             addProactiveAccount: addProactiveAccount,
             getProactiveAccount: getProactiveAccount,
             getWpsGroupRights: getWpsGroupRights,
+            getWpsGroups: getWpsGroups,
+            updateWpsRights: updateWpsRights,
             updateProactiveAccount: updateProactiveAccount,
             deleteProactiveAccount: deleteProactiveAccount
         };
@@ -495,7 +497,8 @@
          * @param {function} error
          * @returns {undefined}
          */
-        function getGroups(callback, error) {
+        function getGroups(callback, error)
+        {
             $http.get(config.restoServerUrl + '/groups')
             .success(function(data, status, headers, config) {
             		callback(data);
@@ -504,6 +507,23 @@
             });
         };
 
+        /**
+         * Get WPS groups
+         * 
+         * @param {function} callback
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function getWpsGroups(callback, error)
+        {
+            $http.get(config.restoServerUrl + '/groups/canwps')
+            .success(function(data, status, headers, config) {
+            		callback(data);
+                }).error(function(data) {
+            		error(data);
+            });
+        };
+        
         /**
          * Add group
          * 
@@ -691,6 +711,25 @@
             });
         };
 
+        /**
+         * Update WPS rights
+         * 
+         * @param {string} groupid
+         * @param {array} data
+         * @param {function} success
+         * @param {function} error
+         * @returns {undefined}
+         */
+        function updateWpsRights(groupid, data, success, error)
+        {
+            $http.put(config.restoServerUrl + '/wpsrights/group/' + groupid, data)
+            .success(function(data, status, headers, config) {
+        		success(data);
+            }).error(function(data) {
+        		error(data);
+            });
+        };
+        
         
         /******************************************************************
          * RIGHTS

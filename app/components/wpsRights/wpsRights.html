@@ -1,6 +1,17 @@
 <div class="padding-left-15 padding-right-15">
 
-	<h1 class="margin-top-0">WPS rights</h1>
+	<div class="row">
+		<div class="large-4 small-12 columns">
+			<h1 class="margin-0">WPS rights</h1>
+		</div>
+		<div class="logMessage large-6 small-12 columns text-right" style="line-height: 51px"">
+			<span class="successLog">{{successMessage}}</span>
+			<span class="errorLog">{{errorMessage}}</span>
+		</div>
+		<div class="large-2 small-12 columns text-right">
+			<a class="button" ng-click="save()" ng-disabled="!selectedGroup">Save</a>
+		</div>
+	</div>
 	
 	<label><b>Group</b></label>
 	<select ng-model="selectedGroup"
@@ -14,20 +25,19 @@
 			ng-options="account.login for account in proactiveAccounts track by account.id">
 	</select>
 	
-	<label><b>Processings</b></label>
-	<table width="100%" role='grid'>
+	<table width="100%" role="grid" class="border-none">
 		<tr class="border-bottom">
 			<th class="text-center">
-				<input id="masterCheckbox" type="checkbox"
+				<input id="masterCheckbox" type="checkbox" ng-disabled="!selectedGroup"
 					   ng-model="masterCheckbox" ng-change="toggleSelection()"/>
 				<label for="masterCheckbox"
 				       ng-attr-title="{{ masterCheckbox ? 'Unselect all' : 'Select all' | translate }}"></label>
 			</th>
-			<th width="100%">Processing identifier</th>
+			<th width="100%"><label><b>Processing</b></label></th>
 		</tr>
 		<tr ng-repeat="processing in processings">
 			<td class="text-center padding-left-20">
-	            <input id="select{{$index}}" type="checkbox" ng-model="processing.selected" ng-change="onSelectedProcessing(processing)"/>
+	            <input id="select{{$index}}" type="checkbox" ng-model="processing.selected" ng-disabled="!selectedGroup"/>
 	            <label for="select{{$index}}" class="margin-0 margin-left-15"></label>
 			</td>
 			<td>

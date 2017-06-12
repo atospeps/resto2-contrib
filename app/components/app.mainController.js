@@ -125,6 +125,10 @@
             $scope.init();
             $scope.showProactiveAccounts = true;
         });
+        $scope.$on('showWpsRights', function() {
+            $scope.init();
+            $scope.showWpsRights = true;
+        });
         $scope.$on('showHome', function() {
             $scope.init();
             $scope.showHome = true;
@@ -156,6 +160,7 @@
             $scope.wpsRights = false;
             $scope.showProactiveAccounts = false;
             $scope.showProactiveAccount = false;
+            $scope.showWpsRights = false;
             $scope.showHome = false;
             $scope.showStats = false;
             $scope.selectedUser = null;

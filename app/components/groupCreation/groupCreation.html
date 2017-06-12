@@ -14,11 +14,13 @@
 		<option value="f">No</option>
 	</select>
    
-	<label>Proactive account</label>
-	<select ng-model="group.proactive"
-			ng-options="account.login for account in proactiveAccounts track by account.id">
-		<option></option>
-	</select>
+   <div ng-show="group.canwps === 't'">
+		<label>Proactive account</label>
+		<select ng-model="group.proactive"
+				ng-options="account.login for account in proactiveAccounts track by account.id">
+			<option></option>
+		</select>
+	</div>
 	
 	<div class="margin-top-10 center">
 	    <button type="submit" class="button radius" ng-click="createGroup()">{{'create group'| translate}}</button>

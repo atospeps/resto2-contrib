@@ -3,9 +3,9 @@
     'use strict';
 
     angular.module('administration')
-    	   .controller('WpsRightsController', ['$scope', '$location', 'administrationServices', 'administrationAPI', 'wpsAPI', wpsRightsController]);
+    	   .controller('WpsRightsController', ['$scope', '$location', '$filter', 'administrationServices', 'administrationAPI', 'wpsAPI', wpsRightsController]);
 
-    function wpsRightsController($scope, $location, administrationServices, administrationAPI, wpsAPI)
+    function wpsRightsController($scope, $location, $filter, administrationServices, administrationAPI, wpsAPI)
     {
     	/************************************************************************
          * SCOPES METHODS
@@ -17,12 +17,12 @@
          */
         $scope.toggleSelection = function()
         {
-        	if ($scope.masterCheckbox === true) {dd('t');
-        		angular.forEach($scope.processings, function(processing) {dd(processing);
+        	if ($scope.masterCheckbox === true) {
+        		angular.forEach($scope.processings, function(processing) {
         			processing.selected = true;
             	});
-        	} else {dd('f');
-        		angular.forEach($scope.processings, function(processing) {dd(processing);
+        	} else {
+        		angular.forEach($scope.processings, function(processing) {
         			processing.selected = false;
             	});
         	}
@@ -37,10 +37,32 @@
         {
             administrationAPI.getWpsGroupRights(groupid, function(data) {
                 $scope.selectedGroup.wpsRights = data;
-                dd('wpsGroupRights', data);
+                $scope.masterCheckbox = false;
+        		angular.forEach($scope.processings, function(processing) {
+        			processing.selected = ($scope.selectedGroup.wpsRights.indexOf(processing.identifier) !== -1);
+            	});
             }, function() {
                 console.log("error: cannot get WPS rights for group " + groupid);
             });
+        };
+        
+        /**
+         * Save WPS rights
+         */
+        $scope.save = function()
+        {
+        	saveGroup($scope.selectedGroup.id, function(data){
+        		saveWpsRights($scope.selectedGroup.id, function(data){
+        			$scope.successMessage = "WPS rights saved!";
+        			$scope.errorMessage = "";
+        		}, function(data){
+        			$scope.successMessage = "";
+        			$scope.errorMessage = data.ErrorMessage ? data.ErrorMessage : "WPS rights update error! WPS rights not saved!";
+        		});
+        	}, function(data){
+    			$scope.successMessage = "";
+    			$scope.errorMessage = data.ErrorMessage ? data.ErrorMessage : "Group update error! Wps rights not saved!";
+        	});
         };
         
 
@@ -52,11 +74,10 @@
         /**
          * Get groups
          */
-        function getGroups()
+        function getWpsGroups()
         {
-            administrationAPI.getGroups(function(data) {
+            administrationAPI.getWpsGroups(function(data) {
             	$scope.groups = data;
-            	dd('groups', data);
             }, function(){
                 console.log("error: cannot get groups");
             });
@@ -69,7 +90,6 @@
         {
             administrationAPI.getProactiveAccounts(function(data) {
                 $scope.proactiveAccounts = data;
-                dd('proactiveAccounts', data);
             }, function() {
                 console.log("error: cannot get proactive accounts");
             });
@@ -78,17 +98,69 @@
         /**
          * Get the processings available for the selected groups
          */
-        function getWpsRights()
+        function getProcessings()
         {
         	var processings = wpsAPI.GetCapabilities();
+        	
         	$scope.processings = [];
-        	for (var i in processings) {dd(processings[i]);
+        	for (var i in processings) {
         		$scope.processings.push({
         			'identifier': processings[i],
         			'selected': false
         		});
         	}
-        	dd($scope.processings);
+        }
+        
+        /**
+         * Save Group
+         */
+        function saveGroup(groupid, success, error)
+        {
+    		administrationAPI.updateGroup(groupid, {
+    			"groupProactiveId": $scope.selectedGroup.proactive.id
+    		}, function(data) {
+    			success(data);
+    		}, function(data) {
+    			error(data);
+    		});
+        }
+        
+        /**
+         * Save WPS rights
+         */
+        function saveWpsRights(groupid, success, error)
+        {
+        	var wpsRights = [];
+    		angular.forEach($scope.processings, function(processing) {
+    			if (processing.selected) {
+    				wpsRights.push(processing.identifier);
+    			};
+        	});
+    		administrationAPI.updateWpsRights(groupid, {
+    			'rights': wpsRights
+    		}, function(data) {
+    			success(data);
+    		}, function(data) {
+    			error(data);
+    		});
+        }
+
+        /**
+         * Returns the selected processings
+         */
+        function getSelectedProcessings()
+        {
+    		return $filter('filter')($scope.processings, function(processing) {
+				return processing.selected;
+			});
+        }
+        
+        /**
+         * Update state of the master checkbox
+         */
+        function updateMasterCheckbox()
+        {
+   			$scope.masterCheckbox = (getSelectedProcessings().length === $scope.processings.length);
         }
         
         
@@ -103,11 +175,15 @@
 		$scope.errorMessage = "";
 		$scope.successMessage = "";
 		$scope.selectedGroup = null;
+		$scope.masterCheckbox = false;
 		
 		$scope.$emit('showWpsRights');
 		
-        getGroups();
+        getWpsGroups();
         getProactiveAccounts();
-        getWpsRights();
+        getProcessings();
+        
+        var unwatch = $scope.$watch('processings', updateMasterCheckbox, true);
+		$scope.$on('$destroy',function(){unwatch();});
     };
 })();

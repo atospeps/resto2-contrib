@@ -37,7 +37,7 @@
         			"groupName" : $scope.group.groupname.trim(),
         			"groupDescription" : $scope.group.description ? $scope.group.description.trim() : '',
         			"groupCanWps" : $scope.group.canwps,
-        			"groupProactiveId" : $scope.group.proactive ? $scope.group.proactive.id : ""
+        			"groupProactiveId" : $scope.group.canwps === 't' && $scope.group.proactive ? $scope.group.proactive.id : ""
 			};
     		administrationAPI.updateGroup($routeParams.groupid, $scope.groupData, function(data) {
     			$scope.errorMessage = "";
