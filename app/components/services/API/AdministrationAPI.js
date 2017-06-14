@@ -210,7 +210,7 @@
         function getCollectionsStats(startDate, endDate, callback, error) {
             // /administration/stats/collections.json
             var url = config.restoServerUrl + config.administrationEndpoint + '/stats/collections.json';
-
+            
             $http({
                 method: 'GET',
                 url: url,
@@ -284,20 +284,18 @@
         function getUsersStats(callback, error) {
             // administration/stats/users.json
             var url = config.restoServerUrl + config.administrationEndpoint + '/stats/users.json';
-            ;
 
             $http.get(url)
-                    .success(
-                            function(data) {
-                                if (data.ErrorMessage) {
-                                    error(data);
-                                } else {
-                                    callback(data);
-                                }
-                            })
-                    .error(function() {
-                        alert('error - get stats');
-                    });
+	            .success(function(data) {
+                    if (data.ErrorMessage) {
+                        error(data);
+                    } else {
+                        callback(data);
+                    }
+                })
+	            .error(function() {
+	                alert('error - get users stats');
+	            });
         }
         ;
 

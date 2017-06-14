@@ -42,7 +42,7 @@
         			processing.selected = ($scope.selectedGroup.wpsRights.indexOf(processing.identifier) !== -1);
             	});
             }, function() {
-                console.log("error: cannot get WPS rights for group " + groupid);
+            	showErrorMessage("error: cannot get WPS rights for group " + groupid);
             });
         };
         
@@ -53,15 +53,12 @@
         {
         	saveGroup($scope.selectedGroup.id, function(data){
         		saveWpsRights($scope.selectedGroup.id, function(data){
-        			$scope.successMessage = "WPS rights saved!";
-        			$scope.errorMessage = "";
+        			showSuccessMessage("WPS rights saved!");
         		}, function(data){
-        			$scope.successMessage = "";
-        			$scope.errorMessage = data.ErrorMessage ? data.ErrorMessage : "WPS rights update error! WPS rights not saved!";
+        			showErrorMessage(data.ErrorMessage ? data.ErrorMessage : "WPS rights update error! WPS rights not saved!");
         		});
         	}, function(data){
-    			$scope.successMessage = "";
-    			$scope.errorMessage = data.ErrorMessage ? data.ErrorMessage : "Group update error! Wps rights not saved!";
+        		showErrorMessage(data.ErrorMessage ? data.ErrorMessage : "Group update error! Wps rights not saved!");
         	});
         };
         
@@ -77,9 +74,15 @@
         function getWpsGroups()
         {
             administrationAPI.getWpsGroups(function(data) {
-            	$scope.groups = data;
-            }, function(){
-                console.log("error: cannot get groups");
+            	$scope.groups = [];
+            	angular.forEach(data, function(group) {
+            		// ignore admin group, no need to set wps rights
+            		if (group.groupname !== 'admin') {
+            			$scope.groups.push(group);
+            		}
+            	});
+            }, function() {
+            	showErrorMessage("error: cannot get groups");
             });
         }
         
@@ -91,24 +94,26 @@
             administrationAPI.getProactiveAccounts(function(data) {
                 $scope.proactiveAccounts = data;
             }, function() {
-                console.log("error: cannot get proactive accounts");
+            	showErrorMessage("error: cannot get proactive accounts");
             });
         }
         
         /**
-         * Get the processings available for the selected groups
+         * Get all WPS processings available for the selected groups
          */
         function getProcessings()
         {
-        	var processings = wpsAPI.GetCapabilities();
-        	
         	$scope.processings = [];
-        	for (var i in processings) {
-        		$scope.processings.push({
-        			'identifier': processings[i],
-        			'selected': false
-        		});
-        	}
+        	wpsAPI.getProcessings(function(processings){
+        		angular.forEach(processings, function(processing) {
+            		$scope.processings.push({
+            			'identifier': processing.identifier,
+            			'selected': false
+            		});
+            	});
+        	}, function(data){
+        		showErrorMessage("error: cannot get WPS processings");
+        	});
         }
         
         /**
@@ -160,7 +165,25 @@
          */
         function updateMasterCheckbox()
         {
-   			$scope.masterCheckbox = (getSelectedProcessings().length === $scope.processings.length);
+   			$scope.masterCheckbox = ($scope.processings.length && getSelectedProcessings().length === $scope.processings.length);
+        }
+        
+        /**
+         * Show a success message
+         */
+        function showSuccessMessage(msg)
+        {
+        	$scope.successMessage = msg;
+        	$scope.errorMessage = "";
+        }
+        
+        /**
+         * Show an error message
+         */
+        function showErrorMessage(msg)
+        {
+        	$scope.successMessage = "";
+        	$scope.errorMessage = msg;
         }
         
         

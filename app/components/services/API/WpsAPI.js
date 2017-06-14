@@ -3,19 +3,32 @@
 	'use strict';
 
 	angular.module('administration')
-		   .factory('wpsAPI', [wpsAPI]);
+		   .factory('wpsAPI', ['$http', 'CONFIG', wpsAPI]);
 
-	function wpsAPI()
+	function wpsAPI($http, config)
 	{
 		var api = {
-			GetCapabilities : GetCapabilities
+			getProcessings : getProcessings
 		};
 
 		return api;
 
-		function GetCapabilities(options)
+		/**
+		 * Get all WPS processings (admin only)
+		 */
+		function getProcessings(success, error)
 		{
-			return [
+            $http.get(config.restoServerUrl + '/wps/processings')
+            .success(function(data, status, headers, config) {
+            	success(data.items);
+            }).error(function(data) {
+        		error(data);
+            });
+            
+			/*
+			 * test
+			 */
+			/*return [
         	    "IMAGE_GEOMETRY_CORRECTION.S2ST|LEVEL1C|S2MSI1C|INS-NOBS",
         	    "IMAGE_GEOMETRY_CORRECTION.S1|LEVEL2|_|_",
         	    "IMAGE_GEOMETRY_CORRECTION.S1|_|_|_",
@@ -26,7 +39,8 @@
         	    "IMAGE_GEOMETRY_CORRECTION.S2|LEVEL1C|S2MSI1C_|INS-NOBS.S2ST|LEVEL1C|S2MSI1C|INS-NOBS",
         	    "OPTICAL_GRANULOMETRY.S3|LEVEL1|SL_1_RBT___|Earth Observation",
         	    "TEST_TRAITEMENT_TOUS_PRODUITS._|_|_|_"
-            ];
+            ];*/
+			
 		}
 	}
 })();
