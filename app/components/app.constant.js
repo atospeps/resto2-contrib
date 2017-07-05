@@ -24,16 +24,16 @@
 
     angular.module('administration')
             .constant('CONFIG', {
-                'restoServerUrl': 'http://192.168.56.103/resto/',
+                'restoServerUrl': 'http://192.168.56.101/resto',
                 'acquisitionStatsUrl': 'http://vmpeps01/acq-rest',
                 'acquisitionModuleUrl': 'http://vmpeps01:8080',
                 'administrationEndpoint': '/administration',
                 'offset': 20,
                 'version': 1.0,
                 'autoRefreshTimer' : '1', /*Minutes*/
-                'productType' : ["SLC", "GRD", "OCN", "S2MSI1C"],
-                'productPlatform' : ["S1A", "S1B", "S2A", "S2B"],
-                'productStatus' : ["DOWNLOAD_TODO", "DOWNLOAD_IN_PROGRESS", "DOWNLOAD_ERROR", "DOWNLOAD_DONE", "ARCHIVE_TODO", "ARCHIVE_ERROR", "CATALOG_TODO", "CATALOG_ERROR", "CATALOG_DONE", "DUPLICATED"],
+                'productType' : ["SLC", "GRD", "OCN", "S2MSI1C","OL_1_EFR___","OL_1_ERR___","SL_1_RBT___","SR_2_LAN___"],
+                'productPlatform' : ["S1A", "S1B", "S2A", "S2B","S3A"],
+                'productStatus' : ["DOWNLOAD_TODO", "DOWNLOAD_IN_PROGRESS", "DOWNLOAD_ERROR", "DOWNLOAD_DONE", "ARCHIVE_TODO", "ARCHIVE_ERROR", "CATALOG_TODO", "CATALOG_ERROR", "CATALOG_DONE", "DUPLICATED", "TO_BE_UPDATED", "CATALOG_UPDATE", "CATALOG_UPDATE_ERROR", "OBSOLETE"],
                 'theia': {
                     'name': 'theia',
                     'signUpUrl': 'https://sso.theia-land.fr/theia/app/register/register.xhtml',
