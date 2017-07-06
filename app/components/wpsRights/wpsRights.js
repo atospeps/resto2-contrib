@@ -122,7 +122,7 @@
         function saveGroup(groupid, success, error)
         {
     		administrationAPI.updateGroup(groupid, {
-    			"groupProactiveId": $scope.selectedGroup.proactive.id
+    			"groupProactiveId": "" //$scope.selectedGroup.proactive.id
     		}, function(data) {
     			success(data);
     		}, function(data) {

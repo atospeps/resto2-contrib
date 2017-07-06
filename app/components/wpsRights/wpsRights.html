@@ -19,11 +19,13 @@
 			ng-options="group.groupname for group in groups track by group.id">
 	</select>
 	
+	<span ng-if="false">
 	<label><b>Proactive account</b></label>
 	<select ng-model="selectedGroup.proactive"
 			ng-disabled="!selectedGroup"
 			ng-options="account.login for account in proactiveAccounts track by account.id">
 	</select>
+	</span>
 	
 	<table width="100%" role="grid" class="border-none">
 		<tr class="border-bottom">

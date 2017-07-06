@@ -17,7 +17,7 @@
 					<th>{{ 'name'| translate }}</th>
 					<th>{{ 'description'| translate }}</th>
 					<th>wps?</th>
-					<th>Proactive account</th>
+					<th ng-if="false">Proactive account</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,7 +27,7 @@
 					<td>{{x.groupname}}</td>
 					<td>{{x.description}}</td>
 					<td>{{x.canwps === 't' ? 'yes' : 'no'}}</td>
-					<td>{{x.proactive.login}}</td>
+					<td ng-if="false">{{x.proactive.login}}</td>
 				</tr>
 			</tbody>
 		</table>
