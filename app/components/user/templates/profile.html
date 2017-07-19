@@ -1,20 +1,5 @@
-<!--
- Copyright 2014 Jérôme Gasperi
-
- Licensed under the Apache License, version 2.0 (the "License");
- You may not use this file except in compliance with the License.
- You may obtain a copy of the License at:
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- License for the specific language governing permissions and limitations
- under the License.
--->
-
 <div ng-show="showProfile" class="profileWrapper">
+
 	<div class="profileProperty">
 		<span>{{'group'| translate}}</span>
 	    <select ng-model="selectedUser.group"
@@ -23,13 +8,13 @@
 	</div>
 	
 	<div class="profileProperty">
-		<span>{{'instant download limit size (Megabyte)'| translate}}</span>
-		<input type="number" name="instantLimitDownloadSize" ng-model="selectedUser.instantdownloadvolume" required>
+		<span>instant download limit (nb products)<br>(0 = no limit, empty = default limit)</span>
+		<input type="number" name="instantLimitDownload" ng-model="selectedUser.instantdownload" required>
 	</div>
 	
 	<div class="profileProperty">
-		<span>{{'weekly download limit size (Megabyte)'| translate}}</span>
-		<input type="number" name="weeklyLimitDownloadSize" ng-model="selectedUser.weeklydownloadvolume" required>
+		<span>weekly download limit (nb products)<br>(0 = no limit, empty = default limit)</span>
+		<input type="number" name="weeklyLimitDownload" ng-model="selectedUser.weeklydownload" required>
 	</div>
 	
 	<button ng-click="saveProfile()">
@@ -40,4 +25,5 @@
 		<span class="successLog">{{successMessage}}</span>
 		<span class="errorLog">{{errorMessage}}</span>
 	</div>
+	
 </div>

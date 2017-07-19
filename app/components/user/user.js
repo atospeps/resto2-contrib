@@ -466,12 +466,14 @@
             /**
              * Save User profile
              */
-            $scope.saveProfile = function() {
+            $scope.saveProfile = function()
+            {
             	var userData = { 
             			"groupname" : $scope.selectedUser.group.groupname,
-            			"instantdownloadvolume" : $scope.selectedUser.instantdownloadvolume,
-            			"weeklydownloadvolume" : $scope.selectedUser.weeklydownloadvolume
+            			"instantdownload" : $scope.selectedUser.instantdownload === undefined ? null : $scope.selectedUser.instantdownload,
+            			"weeklydownload" : $scope.selectedUser.weeklydownload === undefined ? null : $scope.selectedUser.weeklydownload 
     			};
+            	
         		administrationAPI.setUserProfile($routeParams.userid, userData, function(data) {
         			$scope.errorMessage = "";
         			$scope.successMessage = "Profile successfully saved !";
