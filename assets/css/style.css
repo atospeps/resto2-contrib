@@ -764,7 +764,7 @@ pre.wrapping {
 [type="checkbox"]:not(:checked) + label:after,
 [type="checkbox"]:checked + label:after {
   content: '✔';
-  position: absolute;
+  position: initial;
   top: -1px; left: -22px;
   font-size: 21px;
   line-height: 0.8;
