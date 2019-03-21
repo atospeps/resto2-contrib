@@ -746,7 +746,7 @@ pre.wrapping {
 }
 [type="checkbox"]:not(:checked) + label,
 [type="checkbox"]:checked + label {
-  position: relative;
+  position: initial;
   cursor: pointer;
   margin: 0 0 0 25px;
   vertical-align: text-top;
@@ -754,7 +754,7 @@ pre.wrapping {
 [type="checkbox"]:not(:checked) + label:before,
 [type="checkbox"]:checked + label:before {
   content: '';
-  position: absolute;
+  position: initial;
   top: 0; left: -25px;
   width: 18px; height: 18px;
   border: 1px solid #ccc;
