@@ -741,7 +741,7 @@ pre.wrapping {
  ************************************/
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
-  position: absolute;
+  position: initial;
   left: -9999px;
 }
 [type="checkbox"]:not(:checked) + label,
