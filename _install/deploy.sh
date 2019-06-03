@@ -33,12 +33,15 @@ fi
 if [ -d "$TARGETDIR" ]; then
     if [ "$(ls $TARGETDIR)" ]; then
         # backup
-    	if [ ! -d "$BACKUPDIR" ]; then
-    		mkdir $BACKUPDIR
-			if [[ $? != 0 ]]; then
-				exit $rc
-			fi	
-		fi
+        if [ ! -z "$BACKUPDIR" ]; then
+        	if [ ! -d "$BACKUPDIR" ]; then
+	    		mkdir $BACKUPDIR
+				if [[ $? != 0 ]]; then
+					exit $rc
+				fi	
+			fi
+        fi
+    	
 	    BASE=`basename $TARGETDIR`
 	    DIR=`dirname $TARGETDIR`
 	    echo "Creating a backup in $BACKUPDIR"
