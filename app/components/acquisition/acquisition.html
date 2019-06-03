@@ -130,7 +130,7 @@
 	   </thead>
 	   <tbody ng-show="showAcquisition">                                    
 			<tr ng-repeat="x in displayedData = (dataFiltered|orderBy:orderBy:sortOrder|start:startIndex|limitTo:offset)" ng-class="getStatusClass(x.status)">
-		        <td><input type="checkbox" ng-click="refreshRow()" ng-model="x.selected"></td>
+		        <td><input id="select{{$index}}" type="checkbox" ng-click="refreshRow()" ng-model="x.selected"><label for="select{{$index}}"></label></td>
                 <td>{{x.index}}</td>
                 <td>{{x.title}}</td>
 				<td>{{ x.priority}}</td>
