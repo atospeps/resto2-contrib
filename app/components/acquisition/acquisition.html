@@ -120,7 +120,7 @@
 	<table style="width:100%">
 	    <thead>
 			 <tr>
-			    <th style="width:10px;" class="clickable custom-th"><input type="checkbox" ng-click="rowSelect(allRowSelected)" ng-model="allRowSelected"></th>
+			    <th style="width:10px;" class="clickable custom-th"><input type="checkbox" id="checkboxAll" ng-click="rowSelect(allRowSelected)" ng-model="allRowSelected"><label for="checkboxAll"></label></th>
 			    <th style="width:100px;" class="clickable custom-th" ng-click="sortData('index')" >Position <i ng-show="orderBy === 'index'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></i></th>
 			    <th style="width:500px;" class="clickable custom-th" ng-click="sortData('title')" >Product title <i ng-show="orderBy === 'title'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></i></th>
 			    <th style="width:100px;" class="clickable custom-th" ng-click="sortData('priority')" >Priority <i ng-show="orderBy === 'priority'" ng-class="{true:'fi-arrow-up', false:'fi-arrow-down'}[sortOrder]"></th>
